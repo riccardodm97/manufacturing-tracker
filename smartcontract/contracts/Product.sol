@@ -29,6 +29,11 @@ contract Product {
         _ ; 
     }
 
+    modifier Finished(){
+        require(isFinished,"product should be completed");
+        _ ; 
+    }
+
     constructor(){
         name = "master";
         isInitialized = true;
@@ -43,7 +48,7 @@ contract Product {
         isInitialized = true; 
     }
 
-    function useThis() external notUsed {
+    function useThis() external notUsed Finished{
         isCostituent = true ; 
     }
 
