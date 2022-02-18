@@ -1,30 +1,30 @@
-import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-
 import 'package:dapp/service/config.dart';
+import 'dart:convert';
 
-class Service {
-  static late Web3Client web3Client;
-  static late Credentials credentials;
-  static late EthereumAddress ownAddress;
+abstract class BaseService {
+  static const String contractsPath = "smartcontract/build/contracts/";
 
-  Service() {
-    init();
-  }
+  late Web3Client web3Client;
+  late Credentials credentials;
+  late EthereumAddress userAddress;
 
-  void init() async {
-    web3Client = Web3Client(rpcURL, Client(), socketConnector: () {
-      return IOWebSocketChannel.connect(wsUrl).cast<String>();
+  BaseService(String privateKey) {
+    web3Client = Web3Client(Config.rpcURL, Client(), socketConnector: () {
+      return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
     });
-    credentials = EthPrivateKey.fromHex(privateKey);
-    ownAddress = await credentials.extractAddress();
+    setUserData(privateKey);
   }
 
-  static Future<DeployedContract> loadContract(
+  void setUserData(String privateKey) async {
+    credentials = EthPrivateKey.fromHex(privateKey);
+    userAddress = await credentials.extractAddress();
+  }
+
+  Future<DeployedContract> loadContract(
       String contractAddress, String contractName) async {
     String abiStringFile =
         await rootBundle.loadString(contractsPath + contractName + ".json");
@@ -38,12 +38,12 @@ class Service {
     return contract;
   }
 
-  DeployedContract contract = c;
-  Future<List<dynamic>> query(String functionName, List<dynamic> Args) async {
+  Future<List<dynamic>> queryContract(DeployedContract contract,
+      String functionName, List<dynamic> functionArgs) async {
     ContractFunction function = contract.function(functionName);
 
     return await web3Client.call(
-        contract: contract, function: function, params: Args);
+        contract: contract, function: function, params: functionArgs);
   }
 
   Future<String> submitTransaction(DeployedContract contract,
