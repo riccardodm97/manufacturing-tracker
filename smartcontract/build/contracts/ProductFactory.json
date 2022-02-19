@@ -6974,12 +6974,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xc2018e19A722De24d99B347f96eA5a2fF9C8E457",
-      "transactionHash": "0xb188342ee8a7a52ac2491a24fbef305edf93854e170117bb7dc38caecb307688"
+      "address": "0xC369A5F5e1ca3668b04a5edA5a23aEe9B42cdBf6",
+      "transactionHash": "0xde81c17b2ac3a22cc27033d6b3a2863e7ce41803c657fad44521908d6a7145e3"
     }
   },
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-19T17:52:40.589Z",
+  "updatedAt": "2022-02-19T18:11:11.103Z",
+  "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
     "methods": {},
