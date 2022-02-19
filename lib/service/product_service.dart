@@ -1,9 +1,11 @@
 import 'package:dapp/service/base_service.dart';
-import 'package:dapp/service/config.dart';
 import 'package:dapp/service/product_service_interface.dart';
 import 'package:web3dart/web3dart.dart';
 
 class ProductService extends BaseService implements IProductService {
+  static const String factoryContract = "ProductFactory";
+  static const String productContract = "Product";
+
   late DeployedContract factory;
   DeployedContract? currentProduct;
 
@@ -12,11 +14,11 @@ class ProductService extends BaseService implements IProductService {
   }
 
   void _setFactory(String factoryAddress) async {
-    factory = await loadContract(factoryAddress, Config.factoryContract);
+    factory = await loadContract(factoryAddress, factoryContract);
   }
 
   void loadCurrentProduct(String productAddress) async {
-    currentProduct = await loadContract(productAddress, Config.productContract);
+    currentProduct = await loadContract(productAddress, productContract);
   }
 
   @override
