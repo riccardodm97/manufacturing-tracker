@@ -43,7 +43,10 @@ abstract class BaseService {
     ContractFunction function = contract.function(functionName);
 
     return await web3Client.call(
-        contract: contract, function: function, params: functionArgs);
+        sender: userAddress,
+        contract: contract,
+        function: function,
+        params: functionArgs);
   }
 
   Future<String> submitTransaction(DeployedContract contract,
@@ -53,7 +56,14 @@ abstract class BaseService {
     return await web3Client.sendTransaction(
         credentials,
         Transaction.callContract(
-            contract: contract, function: function, parameters: functionArgs),
+            contract: contract,
+            function: function,
+            parameters: functionArgs,
+            from: userAddress),
         fetchChainIdFromNetworkId: true);
   }
+
+  // TODO listen to events
+
+  // TODO client dispose
 }
