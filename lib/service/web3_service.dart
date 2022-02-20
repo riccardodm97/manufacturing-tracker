@@ -2,27 +2,21 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:dapp/service/config.dart';
 import 'dart:convert';
 
-abstract class BaseService {
+import 'package:dapp/config.dart';
+import 'package:dapp/locator.dart';
+import 'package:dapp/service/auth_service.dart';
+
+class Web3Service {
   static const String contractsPath = "smartcontract/build/contracts/";
 
-  late Web3Client web3Client;
-  late Credentials credentials;
-  late EthereumAddress userAddress;
+  final AuthService _authService = serviceLocator<AuthService>();
 
-  BaseService(String privateKey) {
-    web3Client = Web3Client(Config.rpcURL, http.Client(), socketConnector: () {
-      return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
-    });
-    setUserData(privateKey);
-  }
-
-  void setUserData(String privateKey) async {
-    credentials = EthPrivateKey.fromHex(privateKey);
-    userAddress = await credentials.extractAddress();
-  }
+  final Web3Client web3Client =
+      Web3Client(Config.rpcURL, http.Client(), socketConnector: () {
+    return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
+  });
 
   Future<DeployedContract> loadContract(
       String contractAddress, String contractName) async {
@@ -43,7 +37,7 @@ abstract class BaseService {
     ContractFunction function = contract.function(functionName);
 
     return await web3Client.call(
-        sender: userAddress,
+        sender: _authService.userAddress,
         contract: contract,
         function: function,
         params: functionArgs);
@@ -54,12 +48,12 @@ abstract class BaseService {
     ContractFunction function = contract.function(functionName);
 
     return await web3Client.sendTransaction(
-        credentials,
+        _authService.credentials!, // TODO handle the null case
         Transaction.callContract(
             contract: contract,
             function: function,
             parameters: functionArgs,
-            from: userAddress),
+            from: _authService.userAddress),
         fetchChainIdFromNetworkId: true);
   }
 

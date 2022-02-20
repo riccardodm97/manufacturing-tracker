@@ -1,70 +1,62 @@
-import 'package:dapp/service/base_service.dart';
-import 'package:dapp/service/product_service_interface.dart';
 import 'package:web3dart/web3dart.dart';
 
-class ProductService extends BaseService implements IProductService {
+import 'package:dapp/service/web3_service.dart';
+import 'package:dapp/locator.dart';
+
+class ProductService {
   static const String factoryContract = "ProductFactory";
   static const String productContract = "Product";
 
-  late DeployedContract factory;
-  DeployedContract? currentProduct;
+  final Web3Service _web3service = serviceLocator<Web3Service>();
 
-  ProductService(String privateKey, String factoryAddress) : super(privateKey) {
-    _setFactory(factoryAddress);
+  DeployedContract? factoryP;
+  DeployedContract? currentP;
+
+  Future<void> loadFactoryProduct(String factoryAddress) async {
+    factoryP = await _web3service.loadContract(factoryAddress, factoryContract);
   }
 
-  void _setFactory(String factoryAddress) async {
-    factory = await loadContract(factoryAddress, factoryContract);
+  Future<void> loadCurrentProduct(String productAddress) async {
+    currentP = await _web3service.loadContract(productAddress, productContract);
   }
 
-  void loadCurrentProduct(String productAddress) async {
-    currentProduct = await loadContract(productAddress, productContract);
-  }
-
-  @override
   Future<String> addConstituent(String constituentAddress) async {
-    return await submitTransaction(currentProduct!, "addConstituent",
+    return await _web3service.submitTransaction(currentP!, "addConstituent",
         [EthereumAddress.fromHex(constituentAddress)]);
   }
 
-  @override
   Future<String> createProduct(String name, String manufacturerName,
       String productionLocation, BigInt productionDate) async {
-    return await submitTransaction(factory, "createProduct",
+    return await _web3service.submitTransaction(factoryP!, "createProduct",
         [name, manufacturerName, productionLocation, productionDate]);
   }
 
-  @override
   Future<String> markAsFinished() async {
-    return await submitTransaction(currentProduct!, "markAsFinished", []);
+    return await _web3service
+        .submitTransaction(currentP!, "markAsFinished", []);
   }
 
-  @override
   Future<String> markAsUsed() async {
-    return await submitTransaction(currentProduct!, "markAsUsed", []);
+    return await _web3service.submitTransaction(currentP!, "markAsUsed", []);
   }
 
-  @override
   Future<String> transfer(String newOwnerAddress) async {
-    return await submitTransaction(currentProduct!, "transfer",
-        [EthereumAddress.fromHex(newOwnerAddress)]);
+    return await _web3service.submitTransaction(
+        currentP!, "transfer", [EthereumAddress.fromHex(newOwnerAddress)]);
   }
 
-  @override
   Future<List<String>> getConstituents() async {
     List<dynamic> response =
-        await queryContract(currentProduct!, "getConstituents", []);
+        await _web3service.queryContract(currentP!, "getConstituents", []);
 
-    return [response[0], response[1]];
+    return [response[0], response[1]]; //TODO gestire la riposta
   }
 
-  @override
   Future<String> getName() {
     // TODO: implement getName
     throw UnimplementedError();
   }
 
-  @override
   Future<Map<String, String>> getProductDetails() {
     // TODO: implement getProductDetails
     throw UnimplementedError();
