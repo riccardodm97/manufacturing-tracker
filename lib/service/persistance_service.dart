@@ -1,21 +1,21 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PersistanceService {
-  SharedPreferences prefs;
+  final SharedPreferences _prefs;
 
-  PersistanceService._create(this.prefs);
+  PersistanceService._create(this._prefs);
 
-  Future<PersistanceService> init() async {
-    prefs = await SharedPreferences.getInstance();
+  static Future<PersistanceService> init() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     return PersistanceService._create(prefs);
   }
 
   Future<void> saveString(String name, String value) async {
-    await prefs.setString(name, value);
+    await _prefs.setString(name, value);
   }
 
-  Future<String?> getString(String name) async {
-    return prefs.getString(name);
+  String? getString(String name) {
+    return _prefs.getString(name);
   }
 }

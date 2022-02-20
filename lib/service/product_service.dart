@@ -9,45 +9,47 @@ class ProductService {
 
   final Web3Service _web3service = serviceLocator<Web3Service>();
 
-  DeployedContract? factoryP;
-  DeployedContract? currentP;
+  DeployedContract? _factoryP;
+  DeployedContract? _currentP;
 
-  Future<void> loadFactoryProduct(String factoryAddress) async {
-    factoryP = await _web3service.loadContract(factoryAddress, factoryContract);
+  Future<void> setFactoryProduct(String factoryAddress) async {
+    _factoryP =
+        await _web3service.loadContract(factoryAddress, factoryContract);
   }
 
-  Future<void> loadCurrentProduct(String productAddress) async {
-    currentP = await _web3service.loadContract(productAddress, productContract);
+  Future<void> setCurrentProduct(String productAddress) async {
+    _currentP =
+        await _web3service.loadContract(productAddress, productContract);
   }
 
   Future<String> addConstituent(String constituentAddress) async {
-    return await _web3service.submitTransaction(currentP!, "addConstituent",
+    return await _web3service.submitTransaction(_currentP!, "addConstituent",
         [EthereumAddress.fromHex(constituentAddress)]);
   }
 
   Future<String> createProduct(String name, String manufacturerName,
       String productionLocation, BigInt productionDate) async {
-    return await _web3service.submitTransaction(factoryP!, "createProduct",
+    return await _web3service.submitTransaction(_factoryP!, "createProduct",
         [name, manufacturerName, productionLocation, productionDate]);
   }
 
   Future<String> markAsFinished() async {
     return await _web3service
-        .submitTransaction(currentP!, "markAsFinished", []);
+        .submitTransaction(_currentP!, "markAsFinished", []);
   }
 
   Future<String> markAsUsed() async {
-    return await _web3service.submitTransaction(currentP!, "markAsUsed", []);
+    return await _web3service.submitTransaction(_currentP!, "markAsUsed", []);
   }
 
   Future<String> transfer(String newOwnerAddress) async {
     return await _web3service.submitTransaction(
-        currentP!, "transfer", [EthereumAddress.fromHex(newOwnerAddress)]);
+        _currentP!, "transfer", [EthereumAddress.fromHex(newOwnerAddress)]);
   }
 
   Future<List<String>> getConstituents() async {
     List<dynamic> response =
-        await _web3service.queryContract(currentP!, "getConstituents", []);
+        await _web3service.queryContract(_currentP!, "getConstituents", []);
 
     return [response[0], response[1]]; //TODO gestire la riposta
   }

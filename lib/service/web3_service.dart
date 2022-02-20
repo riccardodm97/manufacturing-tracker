@@ -53,8 +53,7 @@ class Web3Service {
             contract: contract,
             function: function,
             parameters: functionArgs,
-            from: _authService.userAddress),
-        fetchChainIdFromNetworkId: true);
+            from: _authService.userAddress));
   }
 
   // TODO listen to events
