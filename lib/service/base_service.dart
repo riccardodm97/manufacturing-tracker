@@ -1,4 +1,4 @@
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
@@ -13,7 +13,7 @@ abstract class BaseService {
   late EthereumAddress userAddress;
 
   BaseService(String privateKey) {
-    web3Client = Web3Client(Config.rpcURL, Client(), socketConnector: () {
+    web3Client = Web3Client(Config.rpcURL, http.Client(), socketConnector: () {
       return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
     });
     setUserData(privateKey);
