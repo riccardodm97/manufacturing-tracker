@@ -18,6 +18,7 @@ void setupLocator() {
   serviceLocator.registerSingletonWithDependencies<Web3Service>(
       () => Web3Service(),
       dependsOn: [AuthService]);
+
   serviceLocator.registerSingletonWithDependencies<ProductService>(
       () => ProductService(),
       dependsOn: [Web3Service]);
