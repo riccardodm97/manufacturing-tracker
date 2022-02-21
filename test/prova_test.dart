@@ -46,13 +46,6 @@ void main() {
     await a_service.tryLoadUserData();
     print(v);
     print(a_service.userAddress);
-
-    await p_service
-        .setFactoryProduct("0xC369A5F5e1ca3668b04a5edA5a23aEe9B42cdBf6");
-    BigInt b = BigInt.from(5);
-    var f = await p_service.createProduct('a', 'prova', 'prova', b);
-
-    print(f);
   });
 
   test('prova2', () async {
