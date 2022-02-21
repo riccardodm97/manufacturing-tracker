@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dapp/config.dart';
@@ -5,8 +6,12 @@ import 'package:dapp/locator.dart';
 import 'package:dapp/service/auth_service.dart';
 import 'package:dapp/service/persistance_service.dart';
 import 'package:dapp/service/product_service.dart';
+import 'package:dapp/service/web3_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'dart:math';
+import 'package:web3dart/web3dart.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 
 void main() {
   test('prova', () async {
@@ -48,5 +53,87 @@ void main() {
     var f = await p_service.createProduct('a', 'prova', 'prova', b);
 
     print(f);
+  });
+
+  test('prova2', () async {
+    setupLocator();
+    await serviceLocator.allReady();
+
+    final p_service = serviceLocator<ProductService>();
+    final per_service = serviceLocator<PersistanceService>();
+    final a_service = serviceLocator<AuthService>();
+    final web3_service = serviceLocator<Web3Service>();
+
+    late final Web3Client client;
+    client = Web3Client(Config.rpcURL, http.Client());
+
+    per_service.saveString(Config.privateKeyName,
+        "6585305091aaad4bc9af48bf2c55afe888733abc0125b869bc50b01d7223b2cd");
+
+    await a_service.tryLoadUserData();
+
+    EthPrivateKey? cred = a_service.credentials;
+    EthereumAddress? addr = a_service.userAddress;
+
+    File abiStringFile =
+        File("smartcontract/build/contracts/ProductFactory.json");
+    String abicode = await abiStringFile.readAsString();
+    String abi = jsonEncode(jsonDecode(abicode)['abi']);
+
+    DeployedContract contract = DeployedContract(
+        ContractAbi.fromJson(abi, 'ProductFactory'),
+        EthereumAddress.fromHex('0xa5bf0F275AC9cc0a062F5a0Ef3Ac67c21946eDEc'));
+    ContractFunction function = contract.function('createProduct');
+
+    BigInt b = BigInt.from(5);
+    Transaction trans = Transaction.callContract(
+        contract: contract,
+        function: function,
+        parameters: ['a', 'prova', 'prova', b],
+        from: addr);
+
+    await client.sendTransaction(cred!, trans);
+  });
+
+  test('prova3', () async {
+    setupLocator();
+    await serviceLocator.allReady();
+
+    final p_service = serviceLocator<ProductService>();
+    final per_service = serviceLocator<PersistanceService>();
+    final a_service = serviceLocator<AuthService>();
+    final web3_service = serviceLocator<Web3Service>();
+
+    late final Web3Client client;
+    client = Web3Client(Config.rpcURL, http.Client());
+
+    // per_service.saveString(Config.privateKeyName,
+    //     "6585305091aaad4bc9af48bf2c55afe888733abc0125b869bc50b01d7223b2cd");
+
+    await a_service.tryLoadUserData();
+
+    EthPrivateKey? cred = a_service.credentials;
+    EthereumAddress? addr = a_service.userAddress;
+
+    File abiStringFile = File("smartcontract/build/contracts/Product.json");
+    String abicode = await abiStringFile.readAsString();
+    String abi = jsonEncode(jsonDecode(abicode)['abi']);
+
+    DeployedContract contract = DeployedContract(
+        ContractAbi.fromJson(abi, 'Product'),
+        EthereumAddress.fromHex('0x57dbada2ed1b6797a41f291cffb75c7d52d76c8a'));
+    ContractFunction function = contract.function('getProductDetails');
+
+    // BigInt b = BigInt.from(5);
+    // Transaction trans = Transaction.callContract(
+    //     contract: contract,
+    //     function: function,
+    //     parameters: ['a', 'prova', 'prova', b],
+    //     from: addr);
+
+    List<dynamic> params = await client
+        .call(sender: addr, contract: contract, function: function, params: []);
+
+    print(params);
   });
 }
