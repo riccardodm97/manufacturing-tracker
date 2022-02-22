@@ -23,7 +23,7 @@ void main() {
     client = Web3Client(Config.rpcURL, http.Client());
     perService = serviceLocator<PersistanceService>();
     authService = serviceLocator<AuthService>();
-    perService.saveString(Config.privateKeyName, data.personalPrivateKey);
+    perService.savePrefString(Config.privateKeyName, data.personalPrivateKey);
   });
 
   tearDownAll(() async {
@@ -97,13 +97,30 @@ void main() {
             jsonDecode(abicode)["networks"]["5777"]["address"]));
     ContractFunction function = contract.function('createProduct');
 
-    BigInt b = BigInt.from(5);
+    BigInt b = BigInt.from(8);
     Transaction trans = Transaction.callContract(
         contract: contract,
         function: function,
-        parameters: ['a', 'prova', 'prova', b],
+        parameters: ['test_event', 'test', 'test', b],
         from: addr);
 
-    var v = await client.sendTransaction(cred!, trans);
+    BigInt cid = await client.getChainId();
+
+    String v = await client.sendTransaction(cred!, trans, chainId: cid.toInt());
+
+    debugPrint(v);
+
+    TransactionReceipt? r = await client.getTransactionReceipt(v);
+
+    FilterEvent f = r!.logs.first;
+
+    debugPrint(f.topics.toString());
+  });
+
+  test('client', () async {
+    int nid = await client.getNetworkId();
+    BigInt cid = await client.getChainId();
+
+    debugPrint("networkId: " + nid.toString() + "  chainId: " + cid.toString());
   });
 }

@@ -48,7 +48,7 @@ contract Product {
     }
 
 
-    function init(string calldata _name, string calldata _manufacturer_name, string calldata _prod_location, uint256 _prod_date, address _owner) external notInitd {
+    function init(address _owner, string calldata _name, string calldata _manufacturer_name, string calldata _prod_location, uint256 _prod_date) external notInitd {
         name = _name;
         manufacturer_name = _manufacturer_name;
         manufacturer_address = _owner;
@@ -62,8 +62,8 @@ contract Product {
         constitutens.push(product);
     }
 
-    function tranfer(address _new_owner) external finished {
-        owner = _new_owner;
+    function tranferOwnership() external finished notUsed{
+        owner = msg.sender;
     }
 
     function markAsUsed() external onlyOwner finished notUsed{

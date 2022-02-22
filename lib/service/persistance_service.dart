@@ -11,11 +11,11 @@ class PersistanceService {
     return PersistanceService._create(prefs);
   }
 
-  Future<void> saveString(String name, String value) async {
+  Future<void> savePrefString(String name, String value) async {
     await _prefs.setString(name, value);
   }
 
-  String? getString(String name) {
+  String? getPrefString(String name) {
     return _prefs.getString(name);
   }
 }

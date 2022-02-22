@@ -12,11 +12,13 @@ class Web3Service {
   static const String contractsPath = "smartcontract/build/contracts/";
 
   final AuthService _authService = serviceLocator<AuthService>();
+  final Web3Client web3Client;
 
-  final Web3Client web3Client =
-      Web3Client(Config.rpcURL, http.Client(), socketConnector: () {
-    return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
-  });
+  Web3Service()
+      : web3Client =
+            Web3Client(Config.rpcURL, http.Client(), socketConnector: () {
+          return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
+        });
 
   Future<DeployedContract> loadContract(
       String contractAddress, String contractName) async {
@@ -47,16 +49,21 @@ class Web3Service {
       String functionName, List<dynamic> functionArgs) async {
     ContractFunction function = contract.function(functionName);
 
+    BigInt chainId = await web3Client.getChainId();
+
     return await web3Client.sendTransaction(
         _authService.credentials!, // TODO handle the null case
         Transaction.callContract(
             contract: contract,
             function: function,
             parameters: functionArgs,
-            from: _authService.userAddress));
+            from: _authService.userAddress),
+        chainId: chainId.toInt());
   }
 
   // TODO listen to events
 
-  // TODO client dispose
+  Future<void> dispose() async {
+    return await web3Client.dispose();
+  }
 }

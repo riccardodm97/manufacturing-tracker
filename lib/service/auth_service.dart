@@ -11,7 +11,7 @@ class AuthService {
   EthereumAddress? _userAddress;
 
   Future<void> tryLoadUserData() async {
-    String? key = _persistance.getString(Config.privateKeyName);
+    String? key = _persistance.getPrefString(Config.privateKeyName);
 
     var cred = (key == null) ? null : EthPrivateKey.fromHex(key);
     var addr = await cred?.extractAddress();

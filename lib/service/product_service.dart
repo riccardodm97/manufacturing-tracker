@@ -42,9 +42,9 @@ class ProductService {
     return await _web3service.submitTransaction(_currentP!, "markAsUsed", []);
   }
 
-  Future<String> transfer(String newOwnerAddress) async {
-    return await _web3service.submitTransaction(
-        _currentP!, "transfer", [EthereumAddress.fromHex(newOwnerAddress)]);
+  Future<String> transferOwnership() async {
+    return await _web3service
+        .submitTransaction(_currentP!, "transferOwnership", []);
   }
 
   Future<List<String>> getConstituents() async {
