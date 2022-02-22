@@ -20,13 +20,8 @@ class ProductService {
     _currentP = _web3service.loadContract(productAddress, productContract);
   }
 
-  void cleanFactory() {
-    _currentP = null;
-  }
-
-  void clearCurrentProduct() {
-    _currentP = null;
-  }
+  void cleanFactory() => _currentP = null;
+  void clearCurrentProduct() => _currentP = null;
 
   Future<String> addConstituent(String constituentAddress) async {
     return await _web3service.submitTransaction(_currentP!, "addConstituent",
