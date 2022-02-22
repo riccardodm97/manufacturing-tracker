@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:developer' as dev;
-import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:test/test.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,18 +12,75 @@ import 'package:dapp/service/persistance_service.dart';
 import 'data.dart' as data;
 
 void main() {
-  test('send_transaction', () async {
+  late final PersistanceService perService;
+  late final AuthService authService;
+
+  late final Web3Client client;
+
+  setUpAll(() async {
     setupLocator();
     await serviceLocator.allReady();
-
-    final perService = serviceLocator<PersistanceService>();
-    final authService = serviceLocator<AuthService>();
-
-    late final Web3Client client;
     client = Web3Client(Config.rpcURL, http.Client());
-
+    perService = serviceLocator<PersistanceService>();
+    authService = serviceLocator<AuthService>();
     perService.saveString(Config.privateKeyName, data.personalPrivateKey);
+  });
 
+  tearDownAll(() async {
+    client.dispose();
+  });
+
+  setUp(() async {});
+
+  test('send_transaction', () async {
+    await authService.tryLoadUserData();
+
+    EthPrivateKey? cred = authService.credentials;
+    EthereumAddress? addr = authService.userAddress;
+
+    File abiStringFile =
+        File("smartcontract/build/contracts/ProductFactory.json");
+    String abicode = await abiStringFile.readAsString();
+    String abi = jsonEncode(jsonDecode(abicode)['abi']);
+
+    DeployedContract contract = DeployedContract(
+        ContractAbi.fromJson(abi, 'ProductFactory'),
+        EthereumAddress.fromHex(
+            jsonDecode(abicode)["networks"]["5777"]["address"]));
+    ContractFunction function = contract.function('createProduct');
+
+    BigInt b = BigInt.from(5);
+    Transaction trans = Transaction.callContract(
+        contract: contract,
+        function: function,
+        parameters: ['a', 'prova', 'prova', b],
+        from: addr);
+
+    String v = await client.sendTransaction(cred!, trans);
+    debugPrint(v);
+  });
+
+  test('call', () async {
+    await authService.tryLoadUserData();
+
+    EthereumAddress? addr = authService.userAddress;
+
+    File abiStringFile = File("smartcontract/build/contracts/Product.json");
+    String abicode = await abiStringFile.readAsString();
+    String abi = jsonEncode(jsonDecode(abicode)['abi']);
+
+    DeployedContract contract = DeployedContract(
+        ContractAbi.fromJson(abi, 'Product'),
+        EthereumAddress.fromHex(data.oneCreatedProduct));
+    ContractFunction function = contract.function('getProductDetails');
+
+    List<dynamic> params = await client
+        .call(sender: addr, contract: contract, function: function, params: []);
+
+    debugPrint(params.toString());
+  });
+
+  test('event', () async {
     await authService.tryLoadUserData();
 
     EthPrivateKey? cred = authService.credentials;
@@ -48,34 +105,5 @@ void main() {
         from: addr);
 
     var v = await client.sendTransaction(cred!, trans);
-    dev.log(v.toString());
-  });
-
-  test('call', () async {
-    setupLocator();
-    await serviceLocator.allReady();
-
-    final authService = serviceLocator<AuthService>();
-
-    late final Web3Client client;
-    client = Web3Client(Config.rpcURL, http.Client());
-
-    await authService.tryLoadUserData();
-
-    EthereumAddress? addr = authService.userAddress;
-
-    File abiStringFile = File("smartcontract/build/contracts/Product.json");
-    String abicode = await abiStringFile.readAsString();
-    String abi = jsonEncode(jsonDecode(abicode)['abi']);
-
-    DeployedContract contract = DeployedContract(
-        ContractAbi.fromJson(abi, 'Product'),
-        EthereumAddress.fromHex('0x57dbada2ed1b6797a41f291cffb75c7d52d76c8a'));
-    ContractFunction function = contract.function('getProductDetails');
-
-    List<dynamic> params = await client
-        .call(sender: addr, contract: contract, function: function, params: []);
-
-    dev.log(params.toString());
   });
 }
