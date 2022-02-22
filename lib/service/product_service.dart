@@ -17,9 +17,12 @@ class ProductService {
         await _web3service.loadContract(factoryAddress, factoryContract);
   }
 
-  Future<void> setCurrentProduct(String productAddress) async {
-    _currentP =
-        await _web3service.loadContract(productAddress, productContract);
+  void setCurrentProduct(String productAddress) {
+    _currentP = _web3service.loadContract(productAddress, productContract);
+  }
+
+  void clearCurrentProduct() {
+    _currentP = null;
   }
 
   Future<String> addConstituent(String constituentAddress) async {
@@ -29,8 +32,15 @@ class ProductService {
 
   Future<String> createProduct(String name, String manufacturerName,
       String productionLocation, BigInt productionDate) async {
-    return await _web3service.submitTransaction(_factoryP!, "createProduct",
+    return await _web3service.submitTransaction(_factoryP!, 'createProduct',
         [name, manufacturerName, productionLocation, productionDate]);
+  }
+
+  Future<String> getNewProductAddress(String transactionHash) async {
+    var address = await _web3service.extractEventDataFromReceipt(
+        _factoryP!, 'ProductCreated', transactionHash, 0);
+
+    return address[0].toString();
   }
 
   Future<String> markAsFinished() async {
@@ -51,16 +61,34 @@ class ProductService {
     List<dynamic> response =
         await _web3service.queryContract(_currentP!, "getConstituents", []);
 
-    return [response[0], response[1]]; //TODO gestire la riposta
+    var r = response[0];
+
+    var s = r.map((item) => item.toString());
+
+    List<String> items = s.toList();
+
+    return items;
   }
 
-  Future<String> getName() {
-    // TODO: implement getName
-    throw UnimplementedError();
+  Future<String> getName() async {
+    List<dynamic> response =
+        await _web3service.queryContract(_currentP!, "getName", []);
+
+    return response.first.toString();
   }
 
-  Future<Map<String, String>> getProductDetails() {
-    // TODO: implement getProductDetails
-    throw UnimplementedError();
+  Future<Map<String, String>> getProductDetails() async {
+    List<dynamic> response =
+        await _web3service.queryContract(_currentP!, "getProductDetails", []);
+
+    Map<String, String> map = {};
+
+    map['product_name'] = response[0];
+    map['manufacturer_address'] = response[1].toString();
+    map['manufacturer_name'] = response[2];
+    map['production_location'] = response[3];
+    map['production_date'] = response[4].toString();
+
+    return map;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
@@ -20,11 +22,12 @@ class Web3Service {
           return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
         });
 
-  Future<DeployedContract> loadContract(
-      String contractAddress, String contractName) async {
-    String abiStringFile =
-        await rootBundle.loadString(contractsPath + contractName + ".json");
+  DeployedContract loadContract(String contractAddress, String contractName) {
+    // String abiStringFile =
+    //     await rootBundle.loadString(contractsPath + contractName + ".json");
 
+    String abiStringFile =
+        File(contractsPath + contractName + ".json").readAsStringSync();
     String abi = jsonEncode(jsonDecode(abiStringFile)["abi"]);
 
     DeployedContract contract = DeployedContract(
@@ -52,7 +55,7 @@ class Web3Service {
     BigInt chainId = await web3Client.getChainId();
 
     return await web3Client.sendTransaction(
-        _authService.credentials!, // TODO handle the null case
+        _authService.credentials!,
         Transaction.callContract(
             contract: contract,
             function: function,
@@ -61,9 +64,28 @@ class Web3Service {
         chainId: chainId.toInt());
   }
 
-  // TODO listen to events
+  Future<List<dynamic>> extractEventDataFromReceipt(DeployedContract contract,
+      String eventName, String transactionHash, int eventIndex) async {
+    ContractEvent event = contract.event(eventName);
+
+    TransactionReceipt? receipt =
+        await web3Client.getTransactionReceipt(transactionHash);
+
+    FilterEvent eventLog = receipt!.logs[eventIndex];
+
+    return event.decodeResults(eventLog.topics!, eventLog.data!);
+  }
+
+  Future<bool> getTransactionStatus(String transactionHash) async {
+    TransactionReceipt? receipt =
+        await web3Client.getTransactionReceipt(transactionHash);
+
+    return receipt!.status!;
+  }
 
   Future<void> dispose() async {
     return await web3Client.dispose();
   }
+
+  // TODO handle all the null cases (!)
 }
