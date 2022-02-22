@@ -12,13 +12,16 @@ class ProductService {
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
 
-  Future<void> setFactoryProduct(String factoryAddress) async {
-    _factoryP =
-        await _web3service.loadContract(factoryAddress, factoryContract);
+  void setFactoryProduct(String factoryAddress) {
+    _factoryP = _web3service.loadContract(factoryAddress, factoryContract);
   }
 
   void setCurrentProduct(String productAddress) {
     _currentP = _web3service.loadContract(productAddress, productContract);
+  }
+
+  void cleanFactory() {
+    _currentP = null;
   }
 
   void clearCurrentProduct() {
@@ -61,13 +64,7 @@ class ProductService {
     List<dynamic> response =
         await _web3service.queryContract(_currentP!, "getConstituents", []);
 
-    var r = response[0];
-
-    var s = r.map((item) => item.toString());
-
-    List<String> items = s.toList();
-
-    return items;
+    return response.first.map<String>((item) => item.toString()).toList();
   }
 
   Future<String> getName() async {
