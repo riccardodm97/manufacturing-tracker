@@ -45,9 +45,9 @@ contract ProductFactory is CloneFactory {
         masterContract = _masterContract;
     }
 
-    function createProduct(string calldata _name, string calldata _producer, string calldata _prod_location, uint256 _prod_date) external{
+    function createProduct(string calldata _name, string calldata _manufacturer_name, string calldata _prod_location, uint256 _prod_date) external{
         Product p = Product(createClone(masterContract));
-        p.init(_name, _producer, _prod_location, _prod_date);
+        p.init(msg.sender, _name, _manufacturer_name, _prod_location, _prod_date);
         emit ProductCreated(address(p));
     }
 
