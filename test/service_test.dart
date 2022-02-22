@@ -42,10 +42,10 @@ void main() {
     await authService.tryLoadUserData();
 
     var factoryAddress = data.factoryAddress;
-    await prodService.setFactoryProduct(factoryAddress);
+    prodService.setFactoryProduct(factoryAddress);
 
     var hash = await prodService.createProduct(
-        'pera', 'contadino', 'brescia', BigInt.from(54));
+        'farina', 'conad', 'bologna', BigInt.from(15));
 
     String addr = await prodService.getNewProductAddress(hash);
 
