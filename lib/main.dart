@@ -3,7 +3,6 @@ import 'package:dapp/ui/homepage.dart';
 import 'package:dapp/ui/upload.dart';
 import 'package:dapp/ui/download.dart';
 import 'package:dapp/ui/saved.dart';
-import 'package:dapp/ui/component.dart';
 
 void main() => runApp(MaterialApp(
       routes: {
@@ -11,6 +10,5 @@ void main() => runApp(MaterialApp(
         '/upload': (context) => Upload(),
         '/download': (context) => Download(),
         '/saved': (context) => Saved(),
-        '/component': (context) => Component(),
       },
     ));
