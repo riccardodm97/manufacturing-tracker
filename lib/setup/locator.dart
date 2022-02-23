@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
 
-import 'package:dapp/service/persistence_service.dart';
-import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/product_service.dart';
-import 'package:dapp/service/web3_service.dart';
+import '../service/persistence_service.dart';
+import '../service/auth_service.dart';
+import '../service/product_service.dart';
+import '../service/web3_service.dart';
 
 final GetIt serviceLocator = GetIt.instance;
 

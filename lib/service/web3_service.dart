@@ -5,9 +5,9 @@ import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'dart:convert';
 
-import 'package:dapp/config.dart';
-import 'package:dapp/locator.dart';
-import 'package:dapp/service/auth_service.dart';
+import '../setup/config.dart';
+import '../setup/locator.dart';
+import '../service/auth_service.dart';
 
 class Web3Service {
   static const String contractsPath = "smartcontract/build/contracts/";

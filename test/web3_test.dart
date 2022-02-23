@@ -5,8 +5,8 @@ import 'package:test/test.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:dapp/config.dart';
-import 'package:dapp/locator.dart';
+import 'package:dapp/setup/config.dart';
+import 'package:dapp/setup/locator.dart';
 import 'package:dapp/service/auth_service.dart';
 import 'package:dapp/service/persistence_service.dart';
 import 'data.dart' as data;

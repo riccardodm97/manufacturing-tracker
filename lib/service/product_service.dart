@@ -1,7 +1,7 @@
 import 'package:web3dart/web3dart.dart';
 
-import 'package:dapp/service/web3_service.dart';
-import 'package:dapp/locator.dart';
+import 'web3_service.dart';
+import '../setup/locator.dart';
 
 class ProductService {
   static const String factoryContract = "ProductFactory";

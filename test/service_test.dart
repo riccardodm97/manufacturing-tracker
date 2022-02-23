@@ -2,8 +2,8 @@ import 'package:dapp/service/product_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:test/test.dart';
 
-import 'package:dapp/config.dart';
-import 'package:dapp/locator.dart';
+import 'package:dapp/setup/config.dart';
+import 'package:dapp/setup/locator.dart';
 import 'package:dapp/service/auth_service.dart';
 import 'package:dapp/service/persistence_service.dart';
 import 'package:dapp/service/web3_service.dart';
