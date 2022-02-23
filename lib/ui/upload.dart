@@ -109,7 +109,7 @@ class _UploadState extends State<Upload> {
 
   Widget listComponents(components) {
     return ListView.builder(
-      itemCount: components.length,
+      itemCount: components?.length ?? 0,
       itemBuilder: (context, index) {
         return Row(children: <Widget>[
           Expanded(
@@ -122,7 +122,8 @@ class _UploadState extends State<Upload> {
                         )),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('${index + 1}° Component: ${components[index]}',
+                  child: Text(
+                      '${index + 1}° Component: ${components[index].name}',
                       style: TextStyle(color: Colors.white)),
                 )),
           )),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:dapp/viewmodels/upload_view_model.dart';
 
 class Component extends StatefulWidget {
   const Component({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _ComponentState extends State<Component> {
                           onTap: () {
                             viewModel.getComponents(index);
                           },
-                          title: Text(viewModel.products[index],
+                          title: Text(viewModel.products[index].name,
                               style: TextStyle(fontSize: 24.0)),
                           leading: CircleAvatar(
                               child: Icon(Icons.bookmark_border_outlined))),
@@ -51,28 +52,5 @@ class _ComponentState extends State<Component> {
         ),
       ),
     );
-  }
-}
-
-// ViewModel
-class HomeViewModel extends ChangeNotifier {
-  List<String> products = [
-    'Farina',
-    'Acqua',
-    'Sale',
-    'Pomodoro',
-    'Uova',
-    'Latte',
-    'Tonno',
-    'Banana',
-    'Salame',
-    'Ananas',
-    'Mela'
-  ];
-  List<String> components = [];
-
-  void getComponents(index) {
-    components.add(products[index]);
-    notifyListeners();
   }
 }
