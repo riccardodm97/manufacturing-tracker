@@ -2,21 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dapp/ui/product.dart';
 
-class HomeViewModel extends ChangeNotifier {
-  // List<String> products = [
-  //   'Farina',
-  //   'Acqua',
-  //   'Sale',
-  //   'Pomodoro',
-  //   'Uova',
-  //   'Latte',
-  //   'Tonno',
-  //   'Banana',
-  //   'Salame',
-  //   'Ananas',
-  //   'Mela'
-  // ];
-
+class UploadViewModel extends ChangeNotifier {
   List<Product> products = [
     Product(name: 'Farina', date: '1/1/2001', id: 'abc'),
     Product(name: 'Acqua', date: '2/1/2001', id: 'def'),
@@ -24,10 +10,24 @@ class HomeViewModel extends ChangeNotifier {
     Product(name: 'Pomodoro', date: '4/1/2001', id: 'jkl'),
   ];
 
-  List<Product> components = [];
+  List<String> getComponentsName(x) {
+    List<String> output = [];
+    for (final comp in x) {
+      output.add(comp.name);
+    }
+    return output;
+  }
 
-  void getComponents(index) {
-    components.add(products[index]);
+  void addProduct(product) {
+    products.add(product);
     notifyListeners();
   }
+
+  // List<String> getProducts() {
+  //   List<String> output = [];
+  //   for (final prod in products) {
+  //     output.add(prod.name);
+  //   }
+  //   return output;
+  // }
 }

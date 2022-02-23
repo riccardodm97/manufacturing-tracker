@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:dapp/viewmodels/upload_view_model.dart';
+import 'package:dapp/viewmodels/components_view_model.dart';
 
 class Component extends StatefulWidget {
   const Component({Key? key}) : super(key: key);
@@ -12,8 +12,8 @@ class Component extends StatefulWidget {
 class _ComponentState extends State<Component> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
-      viewModelBuilder: () => HomeViewModel(),
+    return ViewModelBuilder<ComponentsViewModel>.reactive(
+      viewModelBuilder: () => ComponentsViewModel(),
       builder: (context, viewModel, child) => Scaffold(
         appBar: AppBar(
           title: Text('Food Traceability'),
