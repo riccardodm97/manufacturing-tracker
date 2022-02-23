@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 import 'package:dapp/config.dart';
 import 'package:dapp/locator.dart';
 import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/persistance_service.dart';
+import 'package:dapp/service/persistence_service.dart';
 import 'data.dart' as data;
 
 void main() {
-  late final PersistanceService perService;
+  late final PersistenceService perService;
   late final AuthService authService;
 
   late final Web3Client client;
@@ -21,7 +21,7 @@ void main() {
     setupLocator();
     await serviceLocator.allReady();
     client = Web3Client(Config.rpcURL, http.Client());
-    perService = serviceLocator<PersistanceService>();
+    perService = serviceLocator<PersistenceService>();
     authService = serviceLocator<AuthService>();
     perService.savePrefString(Config.privateKeyName, data.personalPrivateKey);
   });

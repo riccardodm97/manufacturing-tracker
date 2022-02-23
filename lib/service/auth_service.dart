@@ -1,11 +1,11 @@
 import 'package:web3dart/web3dart.dart';
 
 import 'package:dapp/locator.dart';
-import 'package:dapp/service/persistance_service.dart';
+import 'package:dapp/service/persistence_service.dart';
 import 'package:dapp/config.dart';
 
 class AuthService {
-  final PersistanceService _persistance = serviceLocator<PersistanceService>();
+  final PersistenceService _persistance = serviceLocator<PersistenceService>();
 
   EthPrivateKey? _credentials;
   EthereumAddress? _userAddress;

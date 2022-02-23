@@ -5,13 +5,13 @@ import 'package:test/test.dart';
 import 'package:dapp/config.dart';
 import 'package:dapp/locator.dart';
 import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/persistance_service.dart';
+import 'package:dapp/service/persistence_service.dart';
 import 'package:dapp/service/web3_service.dart';
 import 'package:web3dart/web3dart.dart';
 import 'data.dart' as data;
 
 void main() {
-  late final PersistanceService perService;
+  late final PersistenceService perService;
   late final AuthService authService;
   late final Web3Service web3service;
   late final ProductService prodService;
@@ -19,7 +19,7 @@ void main() {
   setUpAll(() async {
     setupLocator();
     await serviceLocator.allReady();
-    perService = serviceLocator<PersistanceService>();
+    perService = serviceLocator<PersistenceService>();
     authService = serviceLocator<AuthService>();
     web3service = serviceLocator<Web3Service>();
     prodService = serviceLocator<ProductService>();
