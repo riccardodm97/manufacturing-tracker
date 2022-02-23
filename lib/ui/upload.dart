@@ -9,16 +9,17 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-  List<TextEditingController> _controllers = [];
-  List<TextField> _fields = [];
+  // List<TextEditingController> _controllers = [];
+  // dynamic _fields = [];
+  dynamic components = [];
 
-  @override
-  void dispose() {
-    for (final controller in _controllers) {
-      controller.dispose();
-    }
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   for (final controller in _controllers) {
+  //     controller.dispose();
+  //   }
+  //   super.dispose();
+  // }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +44,7 @@ class _UploadState extends State<Upload> {
                           focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.white, width: 1.5)),
-                          labelText: 'Enter product name',
+                          labelText: 'Product name',
                           labelStyle: TextStyle(color: Colors.grey[400]),
                         ),
                         style: TextStyle(color: Colors.white)),
@@ -58,7 +59,7 @@ class _UploadState extends State<Upload> {
                           focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.white, width: 1.5)),
-                          labelText: 'Enter product date',
+                          labelText: 'Product date',
                           labelStyle: TextStyle(color: Colors.grey[400]),
                         ),
                         style: TextStyle(color: Colors.white)),
@@ -73,13 +74,27 @@ class _UploadState extends State<Upload> {
                           focusedBorder: OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.white, width: 1.5)),
-                          labelText: 'Enter product ID',
+                          labelText: 'Product ID',
                           labelStyle: TextStyle(color: Colors.grey[400]),
                         ),
                         style: TextStyle(color: Colors.white)),
                   ),
-                  _addTile(),
-                  Flexible(child: _listView()),
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: FloatingActionButton.extended(
+                        heroTag: "add_component_button",
+                        onPressed: () async {
+                          components =
+                              await Navigator.pushNamed(context, '/component');
+                          setState(() {
+                            listComponents(components);
+                          });
+                        },
+                        backgroundColor: Colors.blue[400],
+                        icon: Icon(Icons.add),
+                        label: Text('Add component')),
+                  ),
+                  Flexible(child: listComponents(components)),
                   Padding(
                     padding: const EdgeInsets.all(24.0),
                     child: FloatingActionButton.extended(
@@ -92,66 +107,78 @@ class _UploadState extends State<Upload> {
                 ]))));
   }
 
-  Widget _addTile() {
-    return ListTile(
-      title: Padding(
-        padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
-        child: FloatingActionButton.extended(
-            heroTag: "add_component_button",
-            onPressed: () {
-              final controller = TextEditingController();
-              final field = TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 1.5)),
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 1.5)),
-                  labelText:
-                      "Enter component ${_controllers.length + 1} address",
-                  labelStyle: TextStyle(color: Colors.grey[400]),
-                ),
-                style: TextStyle(color: Colors.white),
-              );
-
-              setState(() {
-                _controllers.add(controller);
-                _fields.add(field);
-              });
-            },
-            backgroundColor: Colors.blue[400],
-            icon: Icon(Icons.add),
-            label: Text('Add component')),
-      ),
-    );
-  }
-
-  Widget _listView() {
+  Widget listComponents(components) {
     return ListView.builder(
-      itemCount: _fields.length,
+      itemCount: components.length,
       itemBuilder: (context, index) {
         return Row(children: <Widget>[
           Expanded(
-              child: Container(
-            margin: EdgeInsets.fromLTRB(24.0, 12.0, 8.0, 12.0),
-            child: _fields[index],
+              child: Padding(
+            padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
+            child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white, width: 1.5),
+                    borderRadius: BorderRadius.all(Radius.circular(4.0) //
+                        )),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('${index + 1}° Component: ${components[index]}',
+                      style: TextStyle(color: Colors.white)),
+                )),
           )),
-          Container(
-            margin: EdgeInsets.fromLTRB(8.0, 12.0, 24.0, 12.0),
-            child: FloatingActionButton.extended(
-              heroTag: null,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const QRViewScanner(),
-                ));
-              },
-              backgroundColor: Colors.blue[400],
-              icon: Icon(Icons.qr_code),
-              label: Text('QR'),
-            ),
-          ),
         ]);
       },
     );
   }
 }
+
+// _addTile(),
+
+// Widget _addTile() {
+//   return ListTile(
+//     title: Padding(
+//       padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
+//       child: FloatingActionButton.extended(
+//           heroTag: "add_component_button",
+//           onPressed: () {
+//             final controller = TextEditingController();
+//             final field = TextField(
+//               controller: controller,
+//               decoration: InputDecoration(
+//                 enabledBorder: OutlineInputBorder(
+//                     borderSide: BorderSide(color: Colors.white, width: 1.5)),
+//                 focusedBorder: OutlineInputBorder(
+//                     borderSide: BorderSide(color: Colors.white, width: 1.5)),
+//                 labelText:
+//                     "Enter component ${_controllers.length + 1} address",
+//                 labelStyle: TextStyle(color: Colors.grey[400]),
+//               ),
+//               style: TextStyle(color: Colors.white),
+//             );
+
+//             setState(() {
+//               _controllers.add(controller);
+//               _fields.add(field);
+//             });
+//           },
+//           backgroundColor: Colors.blue[400],
+//           icon: Icon(Icons.add),
+//           label: Text('Add component')),
+//     ),
+//   );
+// }
+
+// Container(
+//   margin: EdgeInsets.fromLTRB(8.0, 12.0, 24.0, 12.0),
+//   child: FloatingActionButton.extended(
+//     heroTag: null,
+//     onPressed: () {
+//       Navigator.of(context).push(MaterialPageRoute(
+//         builder: (context) => const QRViewScanner(),
+//       ));
+//     },
+//     backgroundColor: Colors.blue[400],
+//     icon: Icon(Icons.qr_code),
+//     label: Text('QR'),
+//   ),
+// ),
