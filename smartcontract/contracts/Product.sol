@@ -17,6 +17,8 @@ contract Product {
 
     address private owner;
 
+    event OwnershipTransferred(address old_owner, address new_owner);
+
     modifier onlyOwner(){
         require(msg.sender == owner, "you are not the owner of this contract");
         _;
@@ -62,8 +64,11 @@ contract Product {
         constitutens.push(product);
     }
 
-    function tranferOwnership() external finished notUsed{
+    function transferOwnership() external finished notUsed{
+        address old_owner = owner;
         owner = msg.sender;
+
+        emit OwnershipTransferred(old_owner, owner);
     }
 
     function markAsUsed() external onlyOwner finished notUsed{

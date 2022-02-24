@@ -1,13 +1,16 @@
+import 'package:dapp/service/persistence_service.dart';
 import 'package:web3dart/web3dart.dart';
 
-import 'package:dapp/service/web3_service.dart';
-import 'package:dapp/locator.dart';
+import 'web3_service.dart';
+import '../setup/locator.dart';
 
 class ProductService {
   static const String factoryContract = "ProductFactory";
   static const String productContract = "Product";
 
   final Web3Service _web3service = serviceLocator<Web3Service>();
+  final PersistenceService _persistenceService =
+      serviceLocator<PersistenceService>();
 
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
@@ -20,7 +23,7 @@ class ProductService {
     _currentP = _web3service.loadContract(productAddress, productContract);
   }
 
-  void cleanFactory() => _currentP = null;
+  void clearFactory() => _currentP = null;
   void clearCurrentProduct() => _currentP = null;
 
   Future<String> addConstituent(String constituentAddress) async {
@@ -55,6 +58,17 @@ class ProductService {
         .submitTransaction(_currentP!, "transferOwnership", []);
   }
 
+  Future<Map<String, String>> getOldAndNewProductOwner(
+      String transactionHash) async {
+    var addressList = await _web3service.extractEventDataFromReceipt(
+        _currentP!, 'OwnershipTransferred', transactionHash, 0);
+
+    return {
+      'oldOwner': addressList[0].toString(),
+      'newOwner': addressList[1].toString()
+    };
+  }
+
   Future<List<String>> getConstituents() async {
     List<dynamic> response =
         await _web3service.queryContract(_currentP!, "getConstituents", []);
@@ -82,5 +96,21 @@ class ProductService {
     map['production_date'] = response[4].toString();
 
     return map;
+  }
+
+  Future<void> addProductToUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.addElementToDocumentList(
+        'users', userAddress, 'products', elementAddress);
+
+    //TODO CHECK
+  }
+
+  Future<void> removeProductFromUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.deleteElementFromDocumentList(
+        'users', userAddress, 'products', elementAddress);
+
+    //TODO CHECK
   }
 }

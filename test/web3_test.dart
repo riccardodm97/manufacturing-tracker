@@ -5,14 +5,14 @@ import 'package:test/test.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:dapp/config.dart';
-import 'package:dapp/locator.dart';
+import 'package:dapp/setup/config.dart';
+import 'package:dapp/setup/locator.dart';
 import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/persistance_service.dart';
+import 'package:dapp/service/persistence_service.dart';
 import 'data.dart' as data;
 
 void main() {
-  late final PersistanceService perService;
+  late final PersistenceService perService;
   late final AuthService authService;
 
   late final Web3Client client;
@@ -21,9 +21,9 @@ void main() {
     setupLocator();
     await serviceLocator.allReady();
     client = Web3Client(Config.rpcURL, http.Client());
-    perService = serviceLocator<PersistanceService>();
+    perService = serviceLocator<PersistenceService>();
     authService = serviceLocator<AuthService>();
-    perService.savePrefString(Config.privateKeyName, data.personalPrivateKey);
+    authService.logIn(data.PrivateKeyOne);
   });
 
   tearDownAll(() async {
@@ -33,8 +33,6 @@ void main() {
   setUp(() async {});
 
   test('send_transaction', () async {
-    await authService.tryLoadUserData();
-
     EthPrivateKey? cred = authService.credentials;
     EthereumAddress? addr = authService.userAddress;
 
@@ -61,8 +59,6 @@ void main() {
   });
 
   test('call', () async {
-    await authService.tryLoadUserData();
-
     EthereumAddress? addr = authService.userAddress;
 
     File abiStringFile = File("smartcontract/build/contracts/Product.json");
@@ -71,7 +67,7 @@ void main() {
 
     DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(abi, 'Product'),
-        EthereumAddress.fromHex(data.oneCreatedProduct));
+        EthereumAddress.fromHex(data.CreatedProductOne));
     ContractFunction function = contract.function('getName');
 
     List<dynamic> params = await client
@@ -81,8 +77,6 @@ void main() {
   });
 
   test('get costituents', () async {
-    await authService.tryLoadUserData();
-
     EthereumAddress? addr = authService.userAddress;
 
     File abiStringFile = File("smartcontract/build/contracts/Product.json");
@@ -91,7 +85,7 @@ void main() {
 
     DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(abi, 'Product'),
-        EthereumAddress.fromHex(data.oneCreatedProduct));
+        EthereumAddress.fromHex(data.CreatedProductOne));
     ContractFunction function = contract.function('getProductDetails');
 
     List<dynamic> params = await client
@@ -101,8 +95,6 @@ void main() {
   });
 
   test('listen event', () async {
-    await authService.tryLoadUserData();
-
     EthPrivateKey? cred = authService.credentials;
     EthereumAddress? addr = authService.userAddress;
 
