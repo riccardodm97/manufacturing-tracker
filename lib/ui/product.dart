@@ -5,8 +5,8 @@ class Product {
   List<String> components;
 
   Product(
-      {this.name = 'Name',
-      this.date = 'Date',
-      this.id = 'ID',
-      this.components = const ['Component1']});
+      {this.name = 'No name',
+      this.date = 'No date',
+      this.id = 'No ID',
+      this.components = const ['No components']});
 }

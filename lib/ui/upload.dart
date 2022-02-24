@@ -1,6 +1,5 @@
 import 'package:dapp/ui/product.dart';
 import 'package:flutter/material.dart';
-import 'package:dapp/ui/qr_scanner.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dapp/viewmodels/upload_view_model.dart';
 
@@ -34,7 +33,7 @@ class _UploadState extends State<Upload> {
         builder: (context, viewModel, child) => Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
-              title: Text('Food Traceability'),
+              title: Text('Upload'),
               backgroundColor: Colors.grey[900],
             ),
             body: Container(
@@ -191,18 +190,3 @@ class _UploadState extends State<Upload> {
 //     ),
 //   );
 // }
-
-// Container(
-//   margin: EdgeInsets.fromLTRB(8.0, 12.0, 24.0, 12.0),
-//   child: FloatingActionButton.extended(
-//     heroTag: null,
-//     onPressed: () {
-//       Navigator.of(context).push(MaterialPageRoute(
-//         builder: (context) => const QRViewScanner(),
-//       ));
-//     },
-//     backgroundColor: Colors.blue[400],
-//     icon: Icon(Icons.qr_code),
-//     label: Text('QR'),
-//   ),
-// ),

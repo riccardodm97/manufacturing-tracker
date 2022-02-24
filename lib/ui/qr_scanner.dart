@@ -34,7 +34,7 @@ class QRViewScanner extends StatefulWidget {
 }
 
 class _QRViewScannerState extends State<QRViewScanner> {
-  Barcode? result;
+  Barcode? barcode;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
@@ -81,8 +81,8 @@ class _QRViewScannerState extends State<QRViewScanner> {
             bottom: 20,
             child: Text(
               (() {
-                if (result != null) {
-                  return 'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}';
+                if (barcode != null) {
+                  return 'Barcode Type: ${describeEnum(barcode!.format)}   Data: ${barcode!.code}';
                 }
                 return 'Scan a code!';
               })(),
@@ -121,7 +121,8 @@ class _QRViewScannerState extends State<QRViewScanner> {
     });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
-        result = scanData;
+        barcode = scanData;
+        Navigator.pop(context, barcode);
       });
     });
   }
