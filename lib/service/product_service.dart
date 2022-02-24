@@ -67,7 +67,6 @@ class ProductService {
       'oldOwner': addressList[0].toString(),
       'newOwner': addressList[1].toString()
     };
-    // TODO CHECK
   }
 
   Future<List<String>> getConstituents() async {
@@ -97,23 +96,21 @@ class ProductService {
     map['production_date'] = response[4].toString();
 
     return map;
-
-    // TODO CHECK
   }
 
-  // Future<void> addProductToUser(
-  //     String userAddress, String elementAddress) async {
-  //   await _persistenceService.addElementToDocumentList(
-  //       'users', userAddress, 'products', elementAddress);
+  Future<void> addProductToUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.addElementToDocumentList(
+        'users', userAddress, 'products', elementAddress);
 
-  //   //TODO CHECK
-  // }
+    //TODO CHECK
+  }
 
-  // Future<void> removeProductFromUser(
-  //     String userAddress, String elementAddress) async {
-  //   await _persistenceService.deleteElementFromDocumentList(
-  //       'users', userAddress, 'products', elementAddress);
+  Future<void> removeProductFromUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.deleteElementFromDocumentList(
+        'users', userAddress, 'products', elementAddress);
 
-  //   //TODO CHECK
-  // }
+    //TODO CHECK
+  }
 }
