@@ -1,29 +1,38 @@
 import 'package:web3dart/web3dart.dart';
 
 import '../setup/locator.dart';
-import '../setup/config.dart';
 import 'persistence_service.dart';
 
 class AuthService {
+  static const String _privateKeyName = "user_private_key";
   final PersistenceService _persistance = serviceLocator<PersistenceService>();
 
   EthPrivateKey? _credentials;
   EthereumAddress? _userAddress;
 
-  Future<void> tryLoadUserData() async {
-    String? key = _persistance.getPrefString(Config.privateKeyName);
-
-    var cred = (key == null) ? null : EthPrivateKey.fromHex(key);
-    var addr = await cred?.extractAddress();
-
-    _credentials = cred;
-    _userAddress = addr;
-  }
-
   EthPrivateKey? get credentials => _credentials;
   EthereumAddress? get userAddress => _userAddress;
 
-  // TODO temporaneo, da cambiare con la logica di persitance
-  // TODO mettere un try catch o qualcosa per gestire una bad key dell'utente
-  // TODO gestire la cancellazione delle credenziali con logout
+  Future<bool> logIn(String privateKey) async {
+    await _persistance.savePrefString(_privateKeyName, privateKey);
+
+    String? key = _persistance.getPrefString(_privateKeyName);
+
+    try {
+      var cred = EthPrivateKey.fromHex(key!);
+      var addr = await cred.extractAddress();
+      _credentials = cred;
+      _userAddress = addr;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> logOut() async {
+    bool done = await _persistance.removePrefString(_privateKeyName);
+    _credentials = null;
+    _userAddress = null;
+    return done;
+  }
 }

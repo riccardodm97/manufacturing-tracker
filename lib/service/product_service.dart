@@ -23,7 +23,7 @@ class ProductService {
     _currentP = _web3service.loadContract(productAddress, productContract);
   }
 
-  void cleanFactory() => _currentP = null;
+  void clearFactory() => _currentP = null;
   void clearCurrentProduct() => _currentP = null;
 
   Future<String> addConstituent(String constituentAddress) async {
@@ -61,7 +61,7 @@ class ProductService {
   Future<Map<String, String>> getOldAndNewProductOwner(
       String transactionHash) async {
     var addressList = await _web3service.extractEventDataFromReceipt(
-        _currentP!, 'OwnershipTransfered', transactionHash, 0);
+        _currentP!, 'OwnershipTransferred', transactionHash, 0);
 
     return {'oldOwner': addressList[0], 'newOwner': addressList[1]};
     // TODO CHECK
@@ -98,19 +98,19 @@ class ProductService {
     // TODO CHECK
   }
 
-  Future<void> addProductToUser(
-      String userAddress, String elementAddress) async {
-    await _persistenceService.addElementToDocumentList(
-        'users', userAddress, 'products', elementAddress);
+  // Future<void> addProductToUser(
+  //     String userAddress, String elementAddress) async {
+  //   await _persistenceService.addElementToDocumentList(
+  //       'users', userAddress, 'products', elementAddress);
 
-    //TODO CHECK
-  }
+  //   //TODO CHECK
+  // }
 
-  Future<void> removeProductFromUser(
-      String userAddress, String elementAddress) async {
-    await _persistenceService.deleteElementFromDocumentList(
-        'users', userAddress, 'products', elementAddress);
+  // Future<void> removeProductFromUser(
+  //     String userAddress, String elementAddress) async {
+  //   await _persistenceService.deleteElementFromDocumentList(
+  //       'users', userAddress, 'products', elementAddress);
 
-    //TODO CHECK
-  }
+  //   //TODO CHECK
+  // }
 }

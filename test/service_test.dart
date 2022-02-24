@@ -23,7 +23,7 @@ void main() {
     authService = serviceLocator<AuthService>();
     web3service = serviceLocator<Web3Service>();
     prodService = serviceLocator<ProductService>();
-    perService.savePrefString(Config.privateKeyName, data.personalPrivateKey);
+    await authService.logIn(data.PrivateKeyOne);
   });
 
   tearDownAll(() async {
@@ -31,18 +31,16 @@ void main() {
   });
 
   test('credentials', () async {
-    var v = perService.getPrefString(Config.privateKeyName);
+    bool res1 = await authService.logOut();
+    bool res2 = await authService.logIn(data.PrivateKeyOne);
 
-    await authService.tryLoadUserData();
-    debugPrint(v.toString());
+    debugPrint('login:' + res1.toString() + ' logout:' + res2.toString());
     debugPrint(authService.userAddress.toString());
+    debugPrint(authService.credentials.toString());
   });
 
   test('create and retrive product', () async {
-    await authService.tryLoadUserData();
-
-    var factoryAddress = data.factoryAddress;
-    prodService.setFactoryProduct(factoryAddress);
+    prodService.setFactoryProduct(data.factoryAddress);
 
     var hash = await prodService.createProduct(
         'farina', 'conad', 'bologna', BigInt.from(15));
@@ -55,9 +53,7 @@ void main() {
   });
 
   test('mark as finished', () async {
-    await authService.tryLoadUserData();
-
-    prodService.setCurrentProduct(data.twoCreatedProduct);
+    prodService.setCurrentProduct(data.CreatedProductTwo);
     var hash = await prodService.markAsFinished();
 
     bool status = await web3service.getTransactionStatus(hash);
@@ -66,12 +62,10 @@ void main() {
   });
 
   test('add costituent', () async {
-    await authService.tryLoadUserData();
-
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.oneCreatedProduct);
+    prodService.setCurrentProduct(data.CreatedProductOne);
 
-    var hash = await prodService.addConstituent(data.twoCreatedProduct);
+    var hash = await prodService.addConstituent(data.CreatedProductTwo);
 
     bool status = await web3service.getTransactionStatus(hash);
 
@@ -79,10 +73,8 @@ void main() {
   });
 
   test('get costituents', () async {
-    await authService.tryLoadUserData();
-
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.oneCreatedProduct);
+    prodService.setCurrentProduct(data.CreatedProductOne);
 
     List<String> constituents = await prodService.getConstituents();
 
@@ -93,5 +85,58 @@ void main() {
       prodService.setCurrentProduct(element);
       debugPrint(await prodService.getName());
     }
+  });
+
+  test('get details', () async {
+    prodService.clearCurrentProduct();
+    prodService.setCurrentProduct(data.CreatedProductOne);
+
+    Map<String, String> details = await prodService.getProductDetails();
+
+    debugPrint(details.toString());
+  });
+
+  test('mark used', () async {
+    prodService.clearCurrentProduct();
+    prodService.setCurrentProduct(data.CreatedProductOne);
+
+    var hash1 = await prodService.markAsFinished();
+    bool status1 = await web3service.getTransactionStatus(hash1);
+
+    var hash2 = await prodService.markAsUsed();
+    bool status2 = await web3service.getTransactionStatus(hash2);
+
+    debugPrint(status1.toString());
+    debugPrint(status2.toString());
+  });
+
+  test('buy product', () async {
+    prodService.clearCurrentProduct();
+    prodService.clearFactory();
+
+    prodService.setFactoryProduct(data.factoryAddress);
+    var hash = await prodService.createProduct(
+        'abcde', 'abcde', 'abcde', BigInt.from(12345));
+
+    String addr = await prodService.getNewProductAddress(hash);
+
+    prodService.setCurrentProduct(addr);
+
+    var hash1 = await prodService.markAsFinished();
+    bool status1 = await web3service.getTransactionStatus(hash1);
+
+    await authService.logOut();
+    await authService.logIn(data.PrivateKeyTwo);
+
+    prodService.setCurrentProduct(addr);
+
+    var hash2 = await prodService.transferOwnership();
+    bool status2 = await web3service.getTransactionStatus(hash2);
+
+    Map<String, String> map = await prodService.getOldAndNewProductOwner(hash2);
+
+    debugPrint('finished:' + status1.toString());
+    debugPrint('transferred:' + status2.toString());
+    debugPrint(map.toString());
   });
 }
