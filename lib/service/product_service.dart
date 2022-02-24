@@ -63,7 +63,10 @@ class ProductService {
     var addressList = await _web3service.extractEventDataFromReceipt(
         _currentP!, 'OwnershipTransferred', transactionHash, 0);
 
-    return {'oldOwner': addressList[0], 'newOwner': addressList[1]};
+    return {
+      'oldOwner': addressList[0].toString(),
+      'newOwner': addressList[1].toString()
+    };
     // TODO CHECK
   }
 

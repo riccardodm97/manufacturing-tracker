@@ -2,7 +2,6 @@ import 'package:dapp/service/product_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:test/test.dart';
 
-import 'package:dapp/setup/config.dart';
 import 'package:dapp/setup/locator.dart';
 import 'package:dapp/service/auth_service.dart';
 import 'package:dapp/service/persistence_service.dart';
@@ -43,7 +42,7 @@ void main() {
     prodService.setFactoryProduct(data.factoryAddress);
 
     var hash = await prodService.createProduct(
-        'farina', 'conad', 'bologna', BigInt.from(15));
+        'mela', 'contadino', 'milano', BigInt.from(7));
 
     String addr = await prodService.getNewProductAddress(hash);
 
