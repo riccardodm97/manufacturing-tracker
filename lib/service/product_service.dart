@@ -1,3 +1,4 @@
+import 'package:dapp/service/persistence_service.dart';
 import 'package:web3dart/web3dart.dart';
 
 import 'web3_service.dart';
@@ -8,6 +9,8 @@ class ProductService {
   static const String productContract = "Product";
 
   final Web3Service _web3service = serviceLocator<Web3Service>();
+  final PersistenceService _persistenceService =
+      serviceLocator<PersistenceService>();
 
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
@@ -55,6 +58,15 @@ class ProductService {
         .submitTransaction(_currentP!, "transferOwnership", []);
   }
 
+  Future<Map<String, String>> getOldAndNewProductOwner(
+      String transactionHash) async {
+    var addressList = await _web3service.extractEventDataFromReceipt(
+        _currentP!, 'OwnershipTransfered', transactionHash, 0);
+
+    return {'oldOwner': addressList[0], 'newOwner': addressList[1]};
+    // TODO CHECK
+  }
+
   Future<List<String>> getConstituents() async {
     List<dynamic> response =
         await _web3service.queryContract(_currentP!, "getConstituents", []);
@@ -82,5 +94,23 @@ class ProductService {
     map['production_date'] = response[4].toString();
 
     return map;
+
+    // TODO CHECK
+  }
+
+  Future<void> addProductToUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.addElementToDocumentList(
+        'users', userAddress, 'products', elementAddress);
+
+    //TODO CHECK
+  }
+
+  Future<void> removeProductFromUser(
+      String userAddress, String elementAddress) async {
+    await _persistenceService.deleteElementFromDocumentList(
+        'users', userAddress, 'products', elementAddress);
+
+    //TODO CHECK
   }
 }
