@@ -8,11 +8,13 @@ class HomeViewModel extends BaseModel {
   final AuthService _authService = serviceLocator<AuthService>();
 
   void logOut() async {
-    _authService.logOut();
+    await _authService.logOut();
+    notifyListeners();
   }
 
   void navigateToLoginView(BuildContext context) async {
     await Navigator.pushNamed(context, '/logIn');
+    notifyListeners();
   }
 
   void navigateToCreateProductView(BuildContext context) async {

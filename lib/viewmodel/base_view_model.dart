@@ -9,10 +9,7 @@ class BaseModel extends ChangeNotifier {
   bool _busy = false;
   bool get busy => _busy;
 
-  bool get isUserLogged {
-    notifyListeners();
-    return _authService.isUserLoggedIn();
-  }
+  bool get isUserLogged => _authService.isUserLoggedIn();
 
   void setBusy(bool value) {
     _busy = value;

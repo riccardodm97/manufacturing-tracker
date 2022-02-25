@@ -8,7 +8,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<HomeViewModel>.reactive(
+    return ViewModelBuilder<HomeViewModel>.nonReactive(
         viewModelBuilder: () => HomeViewModel(),
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
@@ -21,7 +21,7 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    LoginButton(),
+                    const AuthButton(),
                     ElevatedButton(
                         onPressed: () {
                           model.navigateToCreateProductView(context);
@@ -65,15 +65,17 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class LoginButton extends ViewModelWidget<HomeViewModel> {
+class AuthButton extends ViewModelWidget<HomeViewModel> {
+  const AuthButton({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return viewModel.isUserLogged
         ? ElevatedButton(
             onPressed: () {
-              viewModel.navigateToLoginView(context);
+              viewModel.logOut();
             },
-            child: const Text('LogIn'),
+            child: const Text('LogOut'),
             style: ElevatedButton.styleFrom(
               primary: Colors.blue[400],
               onPrimary: Colors.white,
@@ -82,9 +84,9 @@ class LoginButton extends ViewModelWidget<HomeViewModel> {
             ))
         : ElevatedButton(
             onPressed: () {
-              viewModel.logOut();
+              viewModel.navigateToLoginView(context);
             },
-            child: const Text('LogOut'),
+            child: const Text('LogIn'),
             style: ElevatedButton.styleFrom(
               primary: Colors.blue[400],
               onPrimary: Colors.white,
