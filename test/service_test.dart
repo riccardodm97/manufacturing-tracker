@@ -39,7 +39,7 @@ void main() {
   });
 
   test('create and retrive product', () async {
-    prodService.setFactoryProduct(data.factoryAddress);
+    prodService.setProductFactory(data.factoryAddress);
 
     var hash = await prodService.createProduct(
         'mela', 'contadino', 'milano', BigInt.from(7));
@@ -113,7 +113,7 @@ void main() {
     prodService.clearCurrentProduct();
     prodService.clearFactory();
 
-    prodService.setFactoryProduct(data.factoryAddress);
+    prodService.setProductFactory(data.factoryAddress);
     var hash = await prodService.createProduct(
         'abcde', 'abcde', 'abcde', BigInt.from(12345));
 

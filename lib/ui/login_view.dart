@@ -14,6 +14,12 @@ class _LoginViewState extends State<LoginView> {
   final loginController = TextEditingController();
 
   @override
+  void dispose() {
+    loginController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
         viewModelBuilder: () => LoginViewModel(),

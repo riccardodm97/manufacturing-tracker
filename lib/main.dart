@@ -1,3 +1,4 @@
+import 'package:dapp/service/auth_service.dart';
 import 'package:dapp/ui/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ void main() async {
   );
   setupLocator();
   await serviceLocator.allReady();
+
+  await serviceLocator<AuthService>().tryLoadUserData();
 
   runApp(MyApp());
 }

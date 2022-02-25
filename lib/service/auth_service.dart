@@ -17,9 +17,7 @@ class AuthService {
     return _userAddress != null;
   }
 
-  Future<bool> logIn(String privateKey) async {
-    await _persistance.savePrefString(_privateKeyName, privateKey);
-
+  Future<bool> tryLoadUserData() async {
     String? key = _persistance.getPrefString(_privateKeyName);
 
     try {
@@ -31,6 +29,12 @@ class AuthService {
     } catch (e) {
       return false;
     }
+  }
+
+  Future<bool> logIn(String privateKey) async {
+    await _persistance.savePrefString(_privateKeyName, privateKey);
+
+    return tryLoadUserData();
   }
 
   Future<bool> logOut() async {

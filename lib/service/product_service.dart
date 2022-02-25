@@ -15,7 +15,7 @@ class ProductService {
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
 
-  void setFactoryProduct(String factoryAddress) {
+  void setProductFactory(String factoryAddress) {
     _factoryP = _web3service.loadContract(factoryAddress, factoryContract);
   }
 
