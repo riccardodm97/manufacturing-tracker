@@ -8,9 +8,7 @@ class LoginViewModel extends BaseModel {
 
   void login(BuildContext context, String privateKey) async {
     setBusy(true);
-
     bool success = await _authService.logIn(privateKey);
-
     setBusy(false);
 
     if (!success) {
