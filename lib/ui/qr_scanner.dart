@@ -67,7 +67,7 @@ class _QRViewScannerState extends State<QRViewScanner> {
                 setState(() {});
               },
               backgroundColor: Colors.blue[400],
-              icon: Icon(Icons.flash_on),
+              icon: const Icon(Icons.flash_on),
               label: FutureBuilder(
                 future: controller?.getFlashStatus(),
                 builder: (context, snapshot) {

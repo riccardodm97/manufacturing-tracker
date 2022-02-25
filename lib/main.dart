@@ -6,6 +6,7 @@ import 'ui/upload.dart';
 import 'ui/download.dart';
 import 'ui/saved.dart';
 import 'ui/component.dart';
+import 'ui/view_product.dart';
 
 import 'setup/locator.dart';
 import 'setup/firebase_options.dart';
