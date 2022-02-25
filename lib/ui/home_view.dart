@@ -21,18 +21,7 @@ class HomeView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    ElevatedButton(
-                        onPressed: () {
-                          model.navigateToLoginView(context);
-                        },
-                        child: const Text('LogIn'),
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.blue[400],
-                          onPrimary: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 15),
-                          textStyle: const TextStyle(fontSize: 20),
-                        )),
+                    LoginButton(),
                     ElevatedButton(
                         onPressed: () {
                           model.navigateToCreateProductView(context);
@@ -73,5 +62,34 @@ class HomeView extends StatelessWidget {
                 ),
               ),
             )));
+  }
+}
+
+class LoginButton extends ViewModelWidget<HomeViewModel> {
+  @override
+  Widget build(BuildContext context, HomeViewModel viewModel) {
+    return viewModel.isUserLogged
+        ? ElevatedButton(
+            onPressed: () {
+              viewModel.navigateToLoginView(context);
+            },
+            child: const Text('LogIn'),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue[400],
+              onPrimary: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              textStyle: const TextStyle(fontSize: 20),
+            ))
+        : ElevatedButton(
+            onPressed: () {
+              viewModel.logOut();
+            },
+            child: const Text('LogOut'),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.blue[400],
+              onPrimary: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              textStyle: const TextStyle(fontSize: 20),
+            ));
   }
 }

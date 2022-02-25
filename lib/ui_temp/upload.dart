@@ -25,6 +25,7 @@ class _UploadState extends State<Upload> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<UploadViewModel>.reactive(
         viewModelBuilder: () => UploadViewModel(),
