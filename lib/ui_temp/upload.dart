@@ -11,8 +11,6 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-  // List<TextEditingController> _controllers = [];
-  // dynamic _fields = [];
   dynamic components = [];
   final nameController = TextEditingController();
   final dateController = TextEditingController();

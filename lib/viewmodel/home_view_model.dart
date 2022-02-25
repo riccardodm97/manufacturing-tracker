@@ -1,7 +1,8 @@
-import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/setup/locator.dart';
-import 'package:dapp/viewmodel/base_view_model.dart';
 import 'package:flutter/material.dart';
+
+import '../service/auth_service.dart';
+import '../setup/locator.dart';
+import 'base_view_model.dart';
 
 class HomeViewModel extends BaseModel {
   final AuthService _authService = serviceLocator<AuthService>();
@@ -15,7 +16,7 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateToCreateProductView(BuildContext context) async {
-    if (_authService.isUserLoggedIn()) {
+    if (isUserLogged) {
       await Navigator.pushNamed(context, '/createProduct');
     } else {
       showTextDialog(context, 'You are not logged in',
@@ -28,7 +29,7 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateMyProductsView(BuildContext context) async {
-    if (_authService.isUserLoggedIn()) {
+    if (isUserLogged) {
       await Navigator.pushNamed(context, '/myProducts');
     } else {
       showTextDialog(context, 'You are not logged in',
