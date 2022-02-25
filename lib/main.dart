@@ -1,3 +1,4 @@
+import 'package:dapp/ui/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/': (context) => HomeView(),
+        '/logIn': (context) => LoginView(),
         // '/createProduct': (context) => Upload(),
         // '/download': (context) => Download(),
         // '/saved': (context) => Saved(),
