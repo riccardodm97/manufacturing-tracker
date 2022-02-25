@@ -13,6 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   setupLocator();
+  await serviceLocator.allReady();
 
   runApp(MyApp());
 }
