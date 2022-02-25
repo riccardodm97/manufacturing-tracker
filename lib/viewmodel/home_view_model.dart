@@ -11,12 +11,12 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateToLoginView(BuildContext context) async {
-    await Navigator.pushNamed(context, 'logIn');
+    await Navigator.pushNamed(context, '/logIn');
   }
 
   void navigateToCreateProductView(BuildContext context) async {
     if (_authService.isUserLoggedIn()) {
-      await Navigator.pushNamed(context, 'createProduct');
+      await Navigator.pushNamed(context, '/createProduct');
     } else {
       showTextDialog(context, 'You are not logged in',
           'To create a product you need to logIn first');
@@ -24,12 +24,12 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateFindProductView(BuildContext context) async {
-    await Navigator.pushNamed(context, 'findProduct');
+    await Navigator.pushNamed(context, '/findProduct');
   }
 
   void navigateMyProductsView(BuildContext context) async {
     if (_authService.isUserLoggedIn()) {
-      await Navigator.pushNamed(context, 'myProducts');
+      await Navigator.pushNamed(context, '/myProducts');
     } else {
       showTextDialog(context, 'You are not logged in',
           'To see your products you need to logIn first');

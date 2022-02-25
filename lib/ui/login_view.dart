@@ -3,7 +3,14 @@ import 'package:stacked/stacked.dart';
 
 import '../viewmodel/login_view_model.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
+  const LoginView({Key? key}) : super(key: key);
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final loginController = TextEditingController();
 
   @override
