@@ -23,6 +23,18 @@ class HomeView extends StatelessWidget {
                   children: <Widget>[
                     ElevatedButton(
                         onPressed: () {
+                          model.navigateToLoginView(context);
+                        },
+                        child: const Text('LogIn'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue[400],
+                          onPrimary: Colors.white,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 15),
+                          textStyle: const TextStyle(fontSize: 20),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
                           model.navigateToCreateProductView(context);
                         },
                         child: const Text('Create New Product'),

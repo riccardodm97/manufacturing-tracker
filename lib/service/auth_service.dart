@@ -13,6 +13,10 @@ class AuthService {
   EthPrivateKey? get credentials => _credentials;
   EthereumAddress? get userAddress => _userAddress;
 
+  bool isUserLoggedIn() {
+    return _userAddress != null;
+  }
+
   Future<bool> logIn(String privateKey) async {
     await _persistance.savePrefString(_privateKeyName, privateKey);
 

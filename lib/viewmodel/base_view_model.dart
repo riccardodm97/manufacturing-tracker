@@ -1,18 +1,22 @@
-import 'package:flutter/widgets.dart';
-
-import '../setup/locator.dart';
-import '../service/auth_service.dart';
+import 'package:flutter/material.dart';
 
 class BaseModel extends ChangeNotifier {
-  final AuthService _authService = serviceLocator<AuthService>();
-
-  bool get isLogged => _authService.userAddress != null;
-
   bool _busy = false;
   bool get busy => _busy;
 
   void setBusy(bool value) {
     _busy = value;
     notifyListeners();
+  }
+
+  void showTextDialog(BuildContext context, String title, String content) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(content),
+          );
+        });
   }
 }

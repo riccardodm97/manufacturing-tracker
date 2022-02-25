@@ -15,17 +15,11 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateToCreateProductView(BuildContext context) async {
-    if (!isLogged) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return const AlertDialog(
-              title: Text('Jack Berselli'),
-              content: Text('Jack'),
-            );
-          });
-    } else {
+    if (_authService.isUserLoggedIn()) {
       await Navigator.pushNamed(context, 'createProduct');
+    } else {
+      showTextDialog(context, 'You are not logged in',
+          'To create a product you need to logIn first');
     }
   }
 
@@ -34,6 +28,11 @@ class HomeViewModel extends BaseModel {
   }
 
   void navigateMyProductsView(BuildContext context) async {
-    await Navigator.pushNamed(context, 'myProducts');
+    if (_authService.isUserLoggedIn()) {
+      await Navigator.pushNamed(context, 'myProducts');
+    } else {
+      showTextDialog(context, 'You are not logged in',
+          'To see your products you need to logIn first');
+    }
   }
 }
