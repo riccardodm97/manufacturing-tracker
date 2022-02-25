@@ -1,12 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'ui/homepage.dart';
-import 'ui/upload.dart';
-import 'ui/download.dart';
-import 'ui/saved.dart';
-import 'ui/component.dart';
-import 'ui/view_product.dart';
+import 'ui/home_view.dart';
 
 import 'setup/locator.dart';
 import 'setup/firebase_options.dart';
@@ -27,12 +22,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => HomePage(),
-        '/upload': (context) => Upload(),
-        '/download': (context) => Download(),
-        '/saved': (context) => Saved(),
-        '/component': (context) => Component(),
-        '/view_product': (context) => ViewProduct(),
+        '/': (context) => HomeView(),
+        // '/createProduct': (context) => Upload(),
+        // '/download': (context) => Download(),
+        // '/saved': (context) => Saved(),
+        // '/component': (context) => Component(),
+        // '/view_product': (context) => ViewProduct(),
       },
     );
   }

@@ -1,7 +1,7 @@
-import 'package:dapp/ui/product.dart';
+import 'package:dapp/ui_temp/product.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:dapp/viewmodels/upload_view_model.dart';
+import 'package:dapp/viewmodels_temp/upload_view_model.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:dapp/viewmodels/components_view_model.dart';
+import 'package:dapp/viewmodels_temp/components_view_model.dart';
 
 class Component extends StatefulWidget {
   const Component({Key? key}) : super(key: key);
