@@ -30,94 +30,115 @@ class _CreateProductViewState extends State<CreateProductView> {
         viewModelBuilder: () => CreateProductViewModel(),
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
-            body: Container(
-                color: Colors.grey[800],
-                child: Center(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 12.0),
-                        child: TextField(
-                            controller: productNameController,
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              labelText: 'Product name',
-                              labelStyle: TextStyle(color: Colors.grey[400]),
-                            ),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
-                        child: TextField(
-                            controller: manufacturerNameController,
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              labelText: 'Manufacturer Name',
-                              labelStyle: TextStyle(color: Colors.grey[400]),
-                            ),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
-                        child: TextField(
-                            controller: productionLocationController,
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.white, width: 1.5)),
-                              labelText: 'Production Location',
-                              labelStyle: TextStyle(color: Colors.grey[400]),
-                            ),
-                            style: const TextStyle(color: Colors.white)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: FloatingActionButton.extended(
-                            heroTag: "add_component_button",
-                            onPressed: () {
-                              model.navigateToSelectComponentsView(context);
-                            },
-                            backgroundColor: Colors.blue[400],
-                            icon: const Icon(Icons.add),
-                            label: const Text('Add component')),
-                      ),
-                      Flexible(child: listComponents(model.selectedComponents)),
-                      Padding(
-                        padding: const EdgeInsets.all(24.0),
-                        child: model.busy
-                            ? const CircularProgressIndicator()
-                            : FloatingActionButton.extended(
-                                heroTag: "save_button",
+            body: SafeArea(
+                child: Container(
+                    color: Colors.grey[800],
+                    child: Center(
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                24.0, 24.0, 24.0, 12.0),
+                            child: TextField(
+                                controller: productNameController,
+                                decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  labelText: 'Product name',
+                                  labelStyle:
+                                      TextStyle(color: Colors.grey[400]),
+                                ),
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                24.0, 12.0, 24.0, 12.0),
+                            child: TextField(
+                                controller: manufacturerNameController,
+                                decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  labelText: 'Manufacturer Name',
+                                  labelStyle:
+                                      TextStyle(color: Colors.grey[400]),
+                                ),
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(
+                                24.0, 12.0, 24.0, 12.0),
+                            child: TextField(
+                                controller: productionLocationController,
+                                decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.white, width: 1.5)),
+                                  labelText: 'Production Location',
+                                  labelStyle:
+                                      TextStyle(color: Colors.grey[400]),
+                                ),
+                                style: const TextStyle(color: Colors.white)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: FloatingActionButton.extended(
+                                heroTag: "add_component_button",
                                 onPressed: () {
-                                  model.saveNewProduct(
-                                    productNameController.text,
-                                    manufacturerNameController.text,
-                                    productionLocationController.text,
-                                    context,
-                                  );
+                                  model.navigateToSelectComponentsView(context);
                                 },
-                                backgroundColor: Colors.red[400],
-                                icon: const Icon(Icons.save),
-                                label: const Text('Save')),
-                      ),
-                    ])))));
+                                backgroundColor: Colors.black,
+                                icon: const Icon(Icons.add),
+                                label: const Text('Add component')),
+                          ),
+                          Flexible(
+                              child: listComponents(model.selectedComponents)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: FloatingActionButton.extended(
+                                    heroTag: "cancel_button",
+                                    onPressed: () {
+                                      model.navigateBack(context);
+                                    },
+                                    backgroundColor: Colors.blue[400],
+                                    icon: const Icon(Icons.cancel),
+                                    label: const Text('Cancel')),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: model.busy
+                                    ? const CircularProgressIndicator()
+                                    : FloatingActionButton.extended(
+                                        heroTag: "save_button",
+                                        onPressed: () {
+                                          model.saveNewProduct(
+                                            productNameController.text,
+                                            manufacturerNameController.text,
+                                            productionLocationController.text,
+                                            context,
+                                          );
+                                        },
+                                        backgroundColor: Colors.red[400],
+                                        icon: const Icon(Icons.save),
+                                        label: const Text('Save')),
+                              ),
+                            ],
+                          ),
+                        ]))))));
   }
 
   Widget listComponents(List<String> components) {

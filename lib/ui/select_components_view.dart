@@ -20,6 +20,9 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
         appBar: AppBar(
           title: const Text('Food Traceability'),
           backgroundColor: Colors.grey[900],
+          leading: BackButton(
+            onPressed: () => model.navigateBack(context),
+          ),
         ),
         body: Container(
           color: Colors.grey[800],
@@ -33,30 +36,26 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 8.0, horizontal: 24.0),
                         child: Card(
-                          child: Container(
-                            color: model.selectedComponents
-                                    .contains(model.possibleComponents[index])
-                                ? Colors.blue.withOpacity(0.5)
-                                : Colors.transparent,
-                            child: ListTile(
-                                onTap: () {
-                                  if (model.selectedComponents.contains(
-                                      model.possibleComponents[index])) {
-                                    model.removeFromComponentsList(
-                                        model.possibleComponents[index]);
-                                  }
-                                },
-                                onLongPress: () {
-                                  model.addToComponentsList(
+                          child: ListTile(
+                              onTap: () {
+                                if (model.selectedComponents.contains(
+                                    model.possibleComponents[index])) {
+                                  model.removeFromComponentsList(
                                       model.possibleComponents[index]);
-                                },
-                                title: Text(model.possibleComponents[index],
-                                    style: const TextStyle(fontSize: 24.0)),
-                                leading: const CircleAvatar(
-                                    child:
-                                        Icon(Icons.bookmark_border_outlined))),
-                          ),
-                          color: Colors.grey[200],
+                                }
+                              },
+                              onLongPress: () {
+                                model.addToComponentsList(
+                                    model.possibleComponents[index]);
+                              },
+                              title: Text(model.possibleComponents[index],
+                                  style: const TextStyle(fontSize: 24.0)),
+                              leading: const CircleAvatar(
+                                  child: Icon(Icons.bookmark_border_outlined))),
+                          color: model.selectedComponents
+                                  .contains(model.possibleComponents[index])
+                              ? Colors.blue[200]
+                              : Colors.grey[200],
                         ),
                       );
                     }),
