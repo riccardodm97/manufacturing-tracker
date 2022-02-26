@@ -46,4 +46,11 @@ class PersistenceService {
         .doc(doc)
         .set(data, SetOptions(merge: true));
   }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getElementsFromDocument(
+      String collection, String doc) async {
+    var docData = await firestore.collection(collection).doc(doc).get();
+
+    return docData;
+  }
 }

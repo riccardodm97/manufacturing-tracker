@@ -5,8 +5,8 @@ import 'web3_service.dart';
 import '../setup/locator.dart';
 
 class ProductService {
-  static const String factoryContract = "ProductFactory";
-  static const String productContract = "Product";
+  static const String factoryContractName = "ProductFactory";
+  static const String productContractName = "Product";
 
   final Web3Service _web3service = serviceLocator<Web3Service>();
   final PersistenceService _persistenceService =
@@ -15,12 +15,12 @@ class ProductService {
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
 
-  void setProductFactory(String factoryAddress) {
-    _factoryP = _web3service.loadContract(factoryAddress, factoryContract);
+  void setProductFactory([String? factoryAddress]) {
+    _factoryP = _web3service.loadContract(factoryContractName, factoryAddress);
   }
 
   void setCurrentProduct(String productAddress) {
-    _currentP = _web3service.loadContract(productAddress, productContract);
+    _currentP = _web3service.loadContract(productContractName, productAddress);
   }
 
   void clearFactory() => _currentP = null;
@@ -110,6 +110,21 @@ class ProductService {
       String userAddress, String elementAddress) async {
     await _persistenceService.deleteElementFromDocumentList(
         'users', userAddress, 'products', elementAddress);
+
+    //TODO CHECK
+  }
+
+  Future<List<String>> getUserProducts(String userAddress) async {
+    var snapshot =
+        await _persistenceService.getElementsFromDocument('users', userAddress);
+
+    if (snapshot.exists) {
+      List<dynamic> products = snapshot.data()!['products'];
+
+      return products.map<String>((item) => item.toString()).toList();
+    } else {
+      throw ('No products to show');
+    }
 
     //TODO CHECK
   }

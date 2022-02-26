@@ -21,17 +21,16 @@ class Web3Service {
           return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
         });
 
-  DeployedContract loadContract(String contractAddress, String contractName) {
-    // String abiStringFile =
-    //     await rootBundle.loadString(contractsPath + contractName + ".json");
+  DeployedContract loadContract(String contractName, String? contractAddress) {
+    var stringFile = jsonDecode(
+        File(contractsPath + contractName + ".json").readAsStringSync());
+    String abi = jsonEncode(stringFile["abi"]);
 
-    String abiStringFile =
-        File(contractsPath + contractName + ".json").readAsStringSync();
-    String abi = jsonEncode(jsonDecode(abiStringFile)["abi"]);
+    contractAddress ??= stringFile["networks"]["5777"]["address"];
 
     DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(abi, contractName),
-        EthereumAddress.fromHex(contractAddress));
+        EthereumAddress.fromHex(contractAddress!));
 
     return contract;
   }
