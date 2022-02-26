@@ -9,16 +9,24 @@ class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  List<String> selectedComponents = [];
+  List<String> _selectedComponents = [];
+
+  List<String> get selectedComponents => _selectedComponents;
 
   Future<void> navigateToSelectComponentsView(BuildContext context) async {
-    selectedComponents = await Navigator.pushNamed(context, '/selectComponents')
-        .then((value) => value as List<String>);
+    _selectedComponents =
+        await Navigator.pushNamed(context, '/selectComponents')
+            .then((value) => value as List<String>);
     notifyListeners();
   }
 
-  Future<void> saveNewProduct(
-      String name, String manName, String location) async {
+  void navigateBack(BuildContext context) {
+    _selectedComponents.clear();
+    Navigator.pop(context);
+  }
+
+  Future<void> saveNewProduct(String name, String manName, String location,
+      BuildContext context) async {
     setBusy(true);
     _productService.clearCurrentProduct();
 
@@ -46,5 +54,7 @@ class CreateProductViewModel extends BaseModel {
     await _productService.markAsFinished();
     _productService.clearCurrentProduct();
     setBusy(false);
+
+    navigateBack(context);
   }
 }

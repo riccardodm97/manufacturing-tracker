@@ -30,10 +30,6 @@ class _CreateProductViewState extends State<CreateProductView> {
         viewModelBuilder: () => CreateProductViewModel(),
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              title: const Text('Create Product'),
-              backgroundColor: Colors.grey[900],
-            ),
             body: Container(
                 color: Colors.grey[800],
                 child: Center(
@@ -105,17 +101,21 @@ class _CreateProductViewState extends State<CreateProductView> {
                       Flexible(child: listComponents(model.selectedComponents)),
                       Padding(
                         padding: const EdgeInsets.all(24.0),
-                        child: FloatingActionButton.extended(
-                            heroTag: "save_button",
-                            onPressed: () {
-                              model.saveNewProduct(
-                                  productNameController.text,
-                                  manufacturerNameController.text,
-                                  productionLocationController.text);
-                            },
-                            backgroundColor: Colors.red[400],
-                            icon: const Icon(Icons.save),
-                            label: const Text('Save')),
+                        child: model.busy
+                            ? const CircularProgressIndicator()
+                            : FloatingActionButton.extended(
+                                heroTag: "save_button",
+                                onPressed: () {
+                                  model.saveNewProduct(
+                                    productNameController.text,
+                                    manufacturerNameController.text,
+                                    productionLocationController.text,
+                                    context,
+                                  );
+                                },
+                                backgroundColor: Colors.red[400],
+                                icon: const Icon(Icons.save),
+                                label: const Text('Save')),
                       ),
                     ])))));
   }
