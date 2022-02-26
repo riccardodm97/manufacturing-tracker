@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:web3dart/web3dart.dart';
 import 'package:web_socket_channel/io.dart';
@@ -21,9 +20,13 @@ class Web3Service {
           return IOWebSocketChannel.connect(Config.wsURL).cast<String>();
         });
 
-  DeployedContract loadContract(String contractName, String? contractAddress) {
+  Future<DeployedContract> loadContract(
+      String contractName, String? contractAddress) async {
+    // String stringFile = File(contractsPath + contractName + ".json").readAsStringSync());
+
     var stringFile = jsonDecode(
-        File(contractsPath + contractName + ".json").readAsStringSync());
+        await rootBundle.loadString(contractsPath + contractName + ".json"));
+
     String abi = jsonEncode(stringFile["abi"]);
 
     contractAddress ??= stringFile["networks"]["5777"]["address"];

@@ -38,6 +38,10 @@ void main() {
     debugPrint(authService.credentials.toString());
   });
 
+  test('set default factory', () async {
+    prodService.setProductFactory();
+  });
+
   test('create and retrive product', () async {
     prodService.setProductFactory(data.factoryAddress);
 

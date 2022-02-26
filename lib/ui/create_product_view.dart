@@ -81,31 +81,31 @@ class CreateProductView extends StatelessWidget {
                         padding: const EdgeInsets.all(24.0),
                         child: FloatingActionButton.extended(
                             heroTag: "add_component_button",
-                            onPressed: () async {
-                              components = await Navigator.pushNamed(
-                                  context, '/component');
-                              setState(() {
-                                listComponents(components);
-                              });
-                            },
+                            onPressed: () async {},
+                            // async {
+                            //   components = await Navigator.pushNamed(
+                            //       context, '/component');
+                            //   setState(() {
+                            //     listComponents(components);
+                            //   });
+                            //
                             backgroundColor: Colors.blue[400],
                             icon: Icon(Icons.add),
                             label: Text('Add component')),
                       ),
-                      Flexible(child: listComponents(components)),
                       Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: FloatingActionButton.extended(
                             heroTag: "save_button",
-                            onPressed: () {
-                              viewModel.addProduct(Product(
-                                  name: nameController.text,
-                                  date: dateController.text,
-                                  id: idController.text,
-                                  components:
-                                      viewModel.getComponentsName(components)));
-                              // print(viewModel.getProducts());
-                            },
+                            onPressed: () {},
+                            //   viewModel.addProduct(Product(
+                            //       name: nameController.text,
+                            //       date: dateController.text,
+                            //       id: idController.text,
+                            //       components:
+                            //           viewModel.getComponentsName(components)));
+                            //   // print(viewModel.getProducts());
+                            // },
                             backgroundColor: Colors.red[400],
                             icon: Icon(Icons.save),
                             label: Text('Save')),

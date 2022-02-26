@@ -15,16 +15,18 @@ class ProductService {
   DeployedContract? _factoryP;
   DeployedContract? _currentP;
 
-  void setProductFactory([String? factoryAddress]) {
-    _factoryP = _web3service.loadContract(factoryContractName, factoryAddress);
-  }
-
-  void setCurrentProduct(String productAddress) {
-    _currentP = _web3service.loadContract(productContractName, productAddress);
-  }
-
   void clearFactory() => _currentP = null;
   void clearCurrentProduct() => _currentP = null;
+
+  Future<void> setProductFactory([String? factoryAddress]) async {
+    _factoryP =
+        await _web3service.loadContract(factoryContractName, factoryAddress);
+  }
+
+  Future<void> setCurrentProduct(String productAddress) async {
+    _currentP =
+        await _web3service.loadContract(productContractName, productAddress);
+  }
 
   Future<String> addConstituent(String constituentAddress) async {
     return await _web3service.submitTransaction(_currentP!, "addConstituent",
