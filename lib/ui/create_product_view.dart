@@ -120,9 +120,9 @@ class _CreateProductViewState extends State<CreateProductView> {
                     ])))));
   }
 
-  Widget listComponents(components) {
+  Widget listComponents(List<String> components) {
     return ListView.builder(
-      itemCount: components?.length ?? 0,
+      itemCount: components.length,
       itemBuilder: (context, index) {
         return Row(children: <Widget>[
           Expanded(
@@ -135,8 +135,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                         )),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                      '${index + 1}° Component: ${components[index].name}',
+                  child: Text('${index + 1}° Component: ${components[index]}',
                       style: const TextStyle(color: Colors.white)),
                 )),
           )),
@@ -145,39 +144,3 @@ class _CreateProductViewState extends State<CreateProductView> {
     );
   }
 }
-
-// _addTile(),
-
-// Widget _addTile() {
-//   return ListTile(
-//     title: Padding(
-//       padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
-//       child: FloatingActionButton.extended(
-//           heroTag: "add_component_button",
-//           onPressed: () {
-//             final controller = TextEditingController();
-//             final field = TextField(
-//               controller: controller,
-//               decoration: InputDecoration(
-//                 enabledBorder: OutlineInputBorder(
-//                     borderSide: BorderSide(color: Colors.white, width: 1.5)),
-//                 focusedBorder: OutlineInputBorder(
-//                     borderSide: BorderSide(color: Colors.white, width: 1.5)),
-//                 labelText:
-//                     "Enter component ${_controllers.length + 1} address",
-//                 labelStyle: TextStyle(color: Colors.grey[400]),
-//               ),
-//               style: TextStyle(color: Colors.white),
-//             );
-
-//             setState(() {
-//               _controllers.add(controller);
-//               _fields.add(field);
-//             });
-//           },
-//           backgroundColor: Colors.blue[400],
-//           icon: Icon(Icons.add),
-//           label: Text('Add component')),
-//     ),
-//   );
-// }
