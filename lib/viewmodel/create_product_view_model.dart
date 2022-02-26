@@ -19,6 +19,7 @@ class CreateProductViewModel extends BaseModel {
 
   Future<void> saveNewProduct(
       String name, String manName, String location) async {
+    setBusy(true);
     _productService.clearCurrentProduct();
 
     //create the product with given fields
@@ -44,5 +45,6 @@ class CreateProductViewModel extends BaseModel {
 
     await _productService.markAsFinished();
     _productService.clearCurrentProduct();
+    setBusy(false);
   }
 }

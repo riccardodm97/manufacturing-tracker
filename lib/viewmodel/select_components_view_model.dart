@@ -17,10 +17,12 @@ class SelectComponentsViewModel extends BaseModel {
 
   void addToComponentsList(String productAddress) {
     _selectedComponents.add(productAddress);
+    notifyListeners();
   }
 
   void removeFromComponentsList(String productAddress) {
     _selectedComponents.remove(productAddress);
+    notifyListeners();
   }
 
   Future<String> getProductName(String productAddress) async {
