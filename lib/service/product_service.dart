@@ -109,9 +109,9 @@ class ProductService {
   }
 
   Future<void> removeProductFromUser(
-      String userAddress, String elementAddress) async {
+      String userAddress, List<String> elementsAddress) async {
     await _persistenceService.deleteElementFromDocumentList(
-        'users', userAddress, 'products', elementAddress);
+        'users', userAddress, 'products', elementsAddress);
 
     //TODO CHECK
   }

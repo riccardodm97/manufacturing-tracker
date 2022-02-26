@@ -39,6 +39,9 @@ class CreateProductViewModel extends BaseModel {
     await _productService.addProductToUser(
         _authService.userAddress.toString(), addr);
 
+    await _productService.removeProductFromUser(
+        _authService.userAddress.toString(), selectedComponents);
+
     for (String c in selectedComponents) {
       await _productService.setCurrentProduct(c);
       await _productService.markAsUsed();
