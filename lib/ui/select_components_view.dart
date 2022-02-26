@@ -62,13 +62,15 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
                     }),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            model.navigateBack(context);
-          },
-          backgroundColor: Colors.red,
-          child: const Icon(Icons.save_alt),
-        ),
+        floatingActionButton: model.selectedComponents.isEmpty
+            ? null
+            : FloatingActionButton(
+                onPressed: () {
+                  model.navigateBack(context);
+                },
+                backgroundColor: Colors.red,
+                child: const Icon(Icons.save_alt),
+              ),
       ),
     );
   }

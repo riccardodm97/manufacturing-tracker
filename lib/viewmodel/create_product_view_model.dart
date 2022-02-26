@@ -9,11 +9,11 @@ class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  dynamic selectedComponents;
+  List<String> selectedComponents = [];
 
   Future<void> navigateToSelectComponentsView(BuildContext context) async {
-    selectedComponents =
-        await Navigator.pushNamed(context, '/selectComponents');
+    selectedComponents = await Navigator.pushNamed(context, '/selectComponents')
+        .then((value) => value as List<String>);
     notifyListeners();
   }
 
