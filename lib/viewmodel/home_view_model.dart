@@ -7,17 +7,17 @@ import 'base_view_model.dart';
 class HomeViewModel extends BaseModel {
   final AuthService _authService = serviceLocator<AuthService>();
 
-  void logOut() async {
+  Future<void> logOut() async {
     await _authService.logOut();
     notifyListeners();
   }
 
-  void navigateToLoginView(BuildContext context) async {
+  Future<void> navigateToLoginView(BuildContext context) async {
     await Navigator.pushNamed(context, '/logIn');
     notifyListeners();
   }
 
-  void navigateToCreateProductView(BuildContext context) async {
+  Future<void> navigateToCreateProductView(BuildContext context) async {
     if (isUserLogged) {
       await Navigator.pushNamed(context, '/createProduct');
     } else {
@@ -26,11 +26,11 @@ class HomeViewModel extends BaseModel {
     }
   }
 
-  void navigateFindProductView(BuildContext context) async {
+  Future<void> navigateFindProductView(BuildContext context) async {
     await Navigator.pushNamed(context, '/findProduct');
   }
 
-  void navigateMyProductsView(BuildContext context) async {
+  Future<void> navigateMyProductsView(BuildContext context) async {
     if (isUserLogged) {
       await Navigator.pushNamed(context, '/myProducts');
     } else {

@@ -104,16 +104,12 @@ class ProductService {
       String userAddress, String elementAddress) async {
     await _persistenceService.addElementToDocumentList(
         'users', userAddress, 'products', elementAddress);
-
-    //TODO CHECK
   }
 
   Future<void> removeProductFromUser(
       String userAddress, List<String> elementsAddress) async {
     await _persistenceService.deleteElementFromDocumentList(
         'users', userAddress, 'products', elementsAddress);
-
-    //TODO CHECK
   }
 
   Future<List<String>> getUserProducts(String userAddress) async {
@@ -127,7 +123,5 @@ class ProductService {
     } else {
       throw ('No products to show');
     }
-
-    //TODO CHECK
   }
 }

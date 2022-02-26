@@ -5,23 +5,23 @@ import '../service/product_service.dart';
 import '../setup/locator.dart';
 import '../viewmodel/base_view_model.dart';
 
-class SelectComponentsViewModel extends BaseModel {
+class SelectConstituentsViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final List<String> _selectedComponents = [];
-  final List<String> _possibleComponents = [];
+  final List<String> _selectedConstituents = [];
+  final List<String> _possibleConstituents = [];
 
-  List<String> get selectedComponents => _selectedComponents;
-  List<String> get possibleComponents => _possibleComponents;
+  List<String> get selectedConstituents => _selectedConstituents;
+  List<String> get possibleConstituents => _possibleConstituents;
 
-  void addToComponentsList(String productAddress) {
-    _selectedComponents.add(productAddress);
+  void addToConstituentsList(String productAddress) {
+    _selectedConstituents.add(productAddress);
     notifyListeners();
   }
 
-  void removeFromComponentsList(String productAddress) {
-    _selectedComponents.remove(productAddress);
+  void removeFromConstituentsList(String productAddress) {
+    _selectedConstituents.remove(productAddress);
     notifyListeners();
   }
 
@@ -31,21 +31,21 @@ class SelectComponentsViewModel extends BaseModel {
   }
 
   Future<void> onStartup(context) async {
-    _selectedComponents.clear();
-    _possibleComponents.clear();
+    _selectedConstituents.clear();
+    _possibleConstituents.clear();
 
     setBusy(true);
     try {
-      List<String> components = await _productService
+      List<String> constituents = await _productService
           .getUserProducts(_authService.userAddress.toString());
-      _possibleComponents.addAll(components);
+      _possibleConstituents.addAll(constituents);
     } catch (e) {
       showTextDialog(context, 'Warning', e.toString());
     }
     setBusy(false);
   }
 
-  void navigateBack(BuildContext context) async {
-    Navigator.pop(context, _selectedComponents);
+  Future<void> navigateBack(BuildContext context) async {
+    Navigator.pop(context, _selectedConstituents);
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:dapp/ui_temp/qr_scanner.dart';
+import 'qr_scanner.dart';
 
 class Download extends StatefulWidget {
   const Download({Key? key}) : super(key: key);

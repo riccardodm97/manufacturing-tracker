@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import '../viewmodel/select_components_view_model.dart';
+import '../viewmodel/select_constituents_view_model.dart';
 
-class SelectComponentsView extends StatefulWidget {
-  const SelectComponentsView({Key? key}) : super(key: key);
+class SelectConstituentsView extends StatefulWidget {
+  const SelectConstituentsView({Key? key}) : super(key: key);
 
   @override
-  _SelectComponentsViewState createState() => _SelectComponentsViewState();
+  _SelectConstituentsViewState createState() => _SelectConstituentsViewState();
 }
 
-class _SelectComponentsViewState extends State<SelectComponentsView> {
+class _SelectConstituentsViewState extends State<SelectConstituentsView> {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<SelectComponentsViewModel>.reactive(
-      viewModelBuilder: () => SelectComponentsViewModel(),
+    return ViewModelBuilder<SelectConstituentsViewModel>.reactive(
+      viewModelBuilder: () => SelectConstituentsViewModel(),
       onModelReady: (model) => model.onStartup(context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
@@ -30,7 +30,7 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
             child: model.busy
                 ? const CircularProgressIndicator()
                 : ListView.builder(
-                    itemCount: model.possibleComponents.length,
+                    itemCount: model.possibleConstituents.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
@@ -38,22 +38,22 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
                         child: Card(
                           child: ListTile(
                               onTap: () {
-                                if (model.selectedComponents.contains(
-                                    model.possibleComponents[index])) {
-                                  model.removeFromComponentsList(
-                                      model.possibleComponents[index]);
+                                if (model.selectedConstituents.contains(
+                                    model.possibleConstituents[index])) {
+                                  model.removeFromConstituentsList(
+                                      model.possibleConstituents[index]);
                                 }
                               },
                               onLongPress: () {
-                                model.addToComponentsList(
-                                    model.possibleComponents[index]);
+                                model.addToConstituentsList(
+                                    model.possibleConstituents[index]);
                               },
-                              title: Text(model.possibleComponents[index],
+                              title: Text(model.possibleConstituents[index],
                                   style: const TextStyle(fontSize: 24.0)),
                               leading: const CircleAvatar(
                                   child: Icon(Icons.bookmark_border_outlined))),
-                          color: model.selectedComponents
-                                  .contains(model.possibleComponents[index])
+                          color: model.selectedConstituents
+                                  .contains(model.possibleConstituents[index])
                               ? Colors.blue[200]
                               : Colors.grey[200],
                         ),
@@ -61,7 +61,7 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
                     }),
           ),
         ),
-        floatingActionButton: model.selectedComponents.isEmpty
+        floatingActionButton: model.selectedConstituents.isEmpty
             ? null
             : FloatingActionButton(
                 onPressed: () {

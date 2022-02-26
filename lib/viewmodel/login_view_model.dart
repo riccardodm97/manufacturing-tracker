@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class LoginViewModel extends BaseModel {
   final AuthService _authService = serviceLocator<AuthService>();
 
-  void login(BuildContext context, String privateKey) async {
+  Future<void> login(BuildContext context, String privateKey) async {
     setBusy(true);
     bool success = await _authService.logIn(privateKey);
     setBusy(false);

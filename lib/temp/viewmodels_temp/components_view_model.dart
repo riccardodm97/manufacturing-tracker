@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stacked/stacked.dart';
-import 'package:dapp/ui_temp/product.dart';
+
+import '../ui_temp/product.dart';
 
 class ComponentsViewModel extends ChangeNotifier {
   List<Product> products = [
