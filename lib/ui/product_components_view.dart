@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:dapp/viewmodels_temp/components_view_model.dart';
 
-class Component extends StatefulWidget {
-  const Component({Key? key}) : super(key: key);
+class ProductComponentsView extends StatefulWidget {
+  const ProductComponentsView({Key? key}) : super(key: key);
 
   @override
-  _ComponentState createState() => _ComponentState();
+  _ProductComponentsViewState createState() => _ProductComponentsViewState();
 }
 
-class _ComponentState extends State<Component> {
+class _ProductComponentsViewState extends State<ProductComponentsView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ComponentsViewModel>.reactive(
       viewModelBuilder: () => ComponentsViewModel(),
       builder: (context, viewModel, child) => Scaffold(
         appBar: AppBar(
-          title: Text('Food Traceability'),
+          title: const Text('Food Traceability'),
           backgroundColor: Colors.grey[900],
         ),
         body: Container(
@@ -34,8 +34,8 @@ class _ComponentState extends State<Component> {
                             viewModel.getComponents(index);
                           },
                           title: Text(viewModel.products[index].name,
-                              style: TextStyle(fontSize: 24.0)),
-                          leading: CircleAvatar(
+                              style: const TextStyle(fontSize: 24.0)),
+                          leading: const CircleAvatar(
                               child: Icon(Icons.bookmark_border_outlined))),
                       color: Colors.grey[200],
                     ),
