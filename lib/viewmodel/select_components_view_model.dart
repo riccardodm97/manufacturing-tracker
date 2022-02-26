@@ -28,14 +28,18 @@ class SelectComponentsViewModel extends BaseModel {
     return await _productService.getName();
   }
 
-  Future<void> onStartup() async {
+  Future<void> onStartup(context) async {
     _selectedComponents.clear();
     _possibleComponents.clear();
 
     setBusy(true);
-    List<String> components = await _productService
-        .getUserProducts(_authService.userAddress.toString());
-    _possibleComponents.addAll(components);
+    try {
+      List<String> components = await _productService
+          .getUserProducts(_authService.userAddress.toString());
+      _possibleComponents.addAll(components);
+    } catch (e) {
+      showTextDialog(context, 'Warning', e.toString());
+    }
     setBusy(false);
   }
 
