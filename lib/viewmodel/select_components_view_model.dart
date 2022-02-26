@@ -9,8 +9,8 @@ class SelectComponentsViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final List<String> _selectedComponents = [];
-  final List<String> _possibleComponents = [];
+  final List<String> _selectedComponents = List<String>.empty();
+  final List<String> _possibleComponents = List<String>.empty();
 
   List<String> get selectedComponents => _selectedComponents;
   List<String> get possibleComponents => _possibleComponents;
