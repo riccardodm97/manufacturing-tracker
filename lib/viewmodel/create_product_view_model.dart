@@ -9,28 +9,16 @@ class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final List<String> _selectedComponents = [];
-  final List<String> _allUserComponents = [];
+  dynamic selectedComponents;
 
-  List<String> get selectedComponents => _selectedComponents;
-  List<String> get allUserComponents => _allUserComponents;
-
-  void addToComponentsList(String productAddress) {
-    _selectedComponents.add(productAddress);
+  Future<void> navigateToSelectComponentsView(BuildContext context) async {
+    selectedComponents =
+        await Navigator.pushNamed(context, '/selectComponents');
+    notifyListeners();
   }
 
-  Future<String> getProductName(String productAddress) async {
-    await _productService.setCurrentProduct(productAddress);
-    return await _productService.getName();
-  }
-
-  Future<void> getPossibleComponents() async {
-    List<String> productList = await _productService
-        .getUserProducts(_authService.userAddress.toString());
-    allUserComponents.addAll(productList);
-  }
-
-  void saveNewProduct(String name, String manName, String location) async {
+  Future<void> saveNewProduct(
+      String name, String manName, String location) async {
     _productService.clearCurrentProduct();
 
     //create the product with given fields
@@ -42,7 +30,7 @@ class CreateProductViewModel extends BaseModel {
     await _productService.addProductToUser(
         _authService.userAddress.toString(), addr);
 
-    for (String c in _selectedComponents) {
+    for (String c in selectedComponents) {
       await _productService.setCurrentProduct(c);
       await _productService.markAsUsed();
       _productService.clearCurrentProduct();
@@ -50,7 +38,7 @@ class CreateProductViewModel extends BaseModel {
 
     await _productService.setCurrentProduct(addr);
 
-    for (String c in _selectedComponents) {
+    for (String c in selectedComponents) {
       await _productService.addConstituent(c);
     }
 

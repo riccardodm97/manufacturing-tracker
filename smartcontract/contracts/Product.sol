@@ -9,7 +9,7 @@ contract Product {
     string private manufacturer_name; 
     string private production_location;
     uint256 private production_date;
-    address[] private constitutens;
+    address[] private constituens;
 
     bool private isCostituent = false;
     bool private isInitialized = false; 
@@ -61,7 +61,7 @@ contract Product {
     }
 
     function addConstituent(address product) external onlyOwner notFinished { 
-        constitutens.push(product);
+        constituens.push(product);
     }
 
     function transferOwnership() external finished notUsed{
@@ -103,7 +103,7 @@ contract Product {
     }
 
     function getConstituents() external view returns(address[] memory){
-        return constitutens;
+        return constituens;
     }
     
 }

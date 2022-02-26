@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:dapp/viewmodels_temp/upload_view_model.dart';
+
+import '../viewmodel/create_product_view_model.dart';
 
 class CreateProductView extends StatefulWidget {
   const CreateProductView({Key? key}) : super(key: key);
@@ -10,8 +11,6 @@ class CreateProductView extends StatefulWidget {
 }
 
 class _CreateProductViewState extends State<CreateProductView> {
-  dynamic components = [];
-
   final productNameController = TextEditingController();
   final manufacturerNameController = TextEditingController();
   final productionLocationController = TextEditingController();
@@ -27,8 +26,8 @@ class _CreateProductViewState extends State<CreateProductView> {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<UploadViewModel>.reactive(
-        viewModelBuilder: () => UploadViewModel(),
+    return ViewModelBuilder<CreateProductViewModel>.reactive(
+        viewModelBuilder: () => CreateProductViewModel(),
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
@@ -96,27 +95,23 @@ class _CreateProductViewState extends State<CreateProductView> {
                         padding: const EdgeInsets.all(24.0),
                         child: FloatingActionButton.extended(
                             heroTag: "add_component_button",
-                            onPressed: () async {
-                              components = await Navigator.pushNamed(
-                                  context, '/productComponents');
-                              setState(() {
-                                listComponents(components);
-                              });
+                            onPressed: () {
+                              model.navigateToSelectComponentsView(context);
                             },
                             backgroundColor: Colors.blue[400],
                             icon: const Icon(Icons.add),
                             label: const Text('Add component')),
                       ),
-                      Flexible(child: listComponents(components)),
+                      Flexible(child: listComponents(model.selectedComponents)),
                       Padding(
                         padding: const EdgeInsets.all(24.0),
                         child: FloatingActionButton.extended(
                             heroTag: "save_button",
                             onPressed: () {
-                              // model.saveNewProduct(
-                              //     productNameController.text,
-                              //     manufacturerNameController.text,
-                              //     productionLocationController.text);
+                              model.saveNewProduct(
+                                  productNameController.text,
+                                  manufacturerNameController.text,
+                                  productionLocationController.text);
                             },
                             backgroundColor: Colors.red[400],
                             icon: const Icon(Icons.save),
