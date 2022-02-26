@@ -15,7 +15,7 @@ class _SelectComponentsViewState extends State<SelectComponentsView> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<SelectComponentsViewModel>.reactive(
       viewModelBuilder: () => SelectComponentsViewModel(),
-      onModelReady: (model) => model.onStartup(),
+      onModelReady: (model) => model.onStartup(context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: const Text('Food Traceability'),
