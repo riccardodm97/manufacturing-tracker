@@ -165,18 +165,21 @@ class ProductView extends StatelessWidget {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(24.0),
-                                        child: model.busy
-                                            ? const CircularProgressIndicator()
-                                            : FloatingActionButton.extended(
-                                                heroTag: "buy_button",
-                                                onPressed: () {
-                                                  model.buyProduct();
-                                                },
-                                                backgroundColor:
-                                                    Colors.red[400],
-                                                icon: const Icon(Icons
-                                                    .add_shopping_cart_rounded),
-                                                label: const Text('Buy')),
+                                        child: Visibility(
+                                          visible: arguments[1],
+                                          child: model.busy
+                                              ? const CircularProgressIndicator()
+                                              : FloatingActionButton.extended(
+                                                  heroTag: "buy_button",
+                                                  onPressed: () {
+                                                    model.buyProduct();
+                                                  },
+                                                  backgroundColor:
+                                                      Colors.red[400],
+                                                  icon: const Icon(Icons
+                                                      .add_shopping_cart_rounded),
+                                                  label: const Text('Buy')),
+                                        ),
                                       ),
                                     ]));
                               }
@@ -191,8 +194,8 @@ Widget _buildPopupDialog(BuildContext context, ProductViewModel model) {
   return AlertDialog(
     title: const Text('Constituents'),
     content: SizedBox(
-        width: 200.0,
-        height: 300.0,
+        width: 300.0,
+        height: 400.0,
         child: FutureBuilder(
             future: model.getProductConstituents(),
             builder: (context, snapshot) {
@@ -207,27 +210,30 @@ Widget _buildPopupDialog(BuildContext context, ProductViewModel model) {
                 case ConnectionState.done:
                   if (snapshot.data != null) {
                     dynamic constituents = snapshot.data;
-                    return ListView.builder(
-                        itemCount: constituents.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 24.0),
-                            child: Card(
-                              child: ListTile(
-                                  onTap: () {
-                                    model.navigateToProductView(
-                                        context, constituents[index]);
-                                  },
-                                  title: Text(constituents[index],
-                                      style: const TextStyle(fontSize: 24.0)),
-                                  leading: const CircleAvatar(
-                                      child: Icon(
-                                          Icons.bookmark_border_outlined))),
-                              color: Colors.grey[200],
-                            ),
-                          );
-                        });
+                    if (constituents.length != 0) {
+                      return ListView.builder(
+                          itemCount: constituents.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 8.0),
+                              child: Card(
+                                child: ListTile(
+                                    onTap: () {
+                                      model.navigateToProductView(
+                                          context, constituents[index]);
+                                    },
+                                    title: Text(constituents[index],
+                                        style: const TextStyle(fontSize: 16.0)),
+                                    leading: const CircleAvatar(
+                                        child: Icon(
+                                            Icons.bookmark_border_outlined))),
+                                color: Colors.blue[50],
+                              ),
+                            );
+                          });
+                    }
+                    return const Text("This product has no constituents");
                   }
                   // here your snapshot data is null so SharedPreferences has no data...
                   return const Text("This product has no constituents");
