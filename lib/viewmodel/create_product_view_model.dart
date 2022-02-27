@@ -15,7 +15,7 @@ class CreateProductViewModel extends BaseModel {
 
   Future<void> navigateToSelectComponentsView(BuildContext context) async {
     _selectedComponents =
-        await Navigator.pushNamed(context, '/selectComponents')
+        await Navigator.pushNamed(context, '/selectConstituents')
             .then((value) => value as List<String>);
     notifyListeners();
   }

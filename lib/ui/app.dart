@@ -9,6 +9,7 @@ import 'login_view.dart';
 import 'create_product_view.dart';
 import 'my_products_view.dart';
 import 'select_constituents_view.dart';
+import 'find_product_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/logIn': (context) => LoginView(),
         '/createProduct': (context) => CreateProductView(),
         '/selectConstituents': (context) => SelectConstituentsView(),
+        '/findProduct': (context) => FindProductView(),
         '/product': (context) => ProductView(),
         '/myProducts': (context) => MyProductsView(),
       },
