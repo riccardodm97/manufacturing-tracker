@@ -149,7 +149,13 @@ class ProductView extends StatelessWidget {
                                         child: FloatingActionButton.extended(
                                             heroTag: "see_constituents_button",
                                             onPressed: () {
-                                              //##############################
+                                              showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        _buildPopupDialog(
+                                                            context, model),
+                                              );
                                             },
                                             backgroundColor: Colors.blue[400],
                                             icon: const Icon(
@@ -164,7 +170,7 @@ class ProductView extends StatelessWidget {
                                             : FloatingActionButton.extended(
                                                 heroTag: "buy_button",
                                                 onPressed: () {
-                                                  //################################
+                                                  model.buyProduct();
                                                 },
                                                 backgroundColor:
                                                     Colors.red[400],
@@ -175,8 +181,66 @@ class ProductView extends StatelessWidget {
                                     ]));
                               }
                               // here your snapshot data is null so SharedPreferences has no data...
-                              return const Text("Data could not be loaded");
+                              return const Text("There are no saved products");
                           }
                         })))));
   }
+}
+
+Widget _buildPopupDialog(BuildContext context, ProductViewModel model) {
+  return AlertDialog(
+    title: const Text('Constituents'),
+    content: SizedBox(
+        width: 200.0,
+        height: 300.0,
+        child: FutureBuilder(
+            future: model.getProductConstituents(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Text("There is no connection");
+
+                case ConnectionState.active:
+                case ConnectionState.waiting:
+                  return const Center(child: CircularProgressIndicator());
+
+                case ConnectionState.done:
+                  if (snapshot.data != null) {
+                    dynamic constituents = snapshot.data;
+                    return ListView.builder(
+                        itemCount: constituents.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8.0, horizontal: 24.0),
+                            child: Card(
+                              child: ListTile(
+                                  onTap: () {
+                                    model.navigateToProductView(
+                                        context, constituents[index]);
+                                  },
+                                  title: Text(constituents[index],
+                                      style: const TextStyle(fontSize: 24.0)),
+                                  leading: const CircleAvatar(
+                                      child: Icon(
+                                          Icons.bookmark_border_outlined))),
+                              color: Colors.grey[200],
+                            ),
+                          );
+                        });
+                  }
+                  // here your snapshot data is null so SharedPreferences has no data...
+                  return const Text("This product has no constituents");
+              }
+            })),
+    actions: <Widget>[
+      FloatingActionButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        backgroundColor: Colors.blue,
+        child: const Icon(Icons.cancel),
+      ),
+    ],
+  );
 }
