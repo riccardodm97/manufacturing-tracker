@@ -29,5 +29,6 @@ class MyProductsViewModel extends BaseModel {
       showTextDialog(context, 'Warning', e.toString());
     }
     setBusy(false);
+    notifyListeners();
   }
 }

@@ -228,7 +228,7 @@ Widget _buildPopupDialog(BuildContext context, ProductViewModel model) {
                                     leading: const CircleAvatar(
                                         child: Icon(
                                             Icons.bookmark_border_outlined))),
-                                color: Colors.blue[50],
+                                color: Colors.grey[200],
                               ),
                             );
                           });
