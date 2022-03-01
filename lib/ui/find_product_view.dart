@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:dapp/ui/colors.dart';
 
 class FindProductView extends StatefulWidget {
   const FindProductView({Key? key}) : super(key: key);
@@ -18,70 +19,150 @@ class _FindProductViewState extends State<FindProductView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Find product'),
-          backgroundColor: Colors.grey[900],
+          elevation: 0,
+          backgroundColor: color1,
         ),
-        body: Container(
-            color: Colors.grey[800],
-            child: Center(
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 12.0),
-                    child: TextField(
-                        controller: productAddressController,
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1.5)),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.white, width: 1.5)),
-                          labelText: 'Product address',
-                          labelStyle: TextStyle(color: Colors.grey[400]),
-                        ),
-                        style: const TextStyle(color: Colors.white)),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('OR', style: TextStyle(color: Colors.white)),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: FloatingActionButton.extended(
-                      heroTag: null,
-                      onPressed: () async {
-                        // barcode variable contains the QR scanned ('null' if nothing was scanned)
-                        barcode = await Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => const QRViewScanner(),
-                          ),
-                        );
-                        setState(() {
-                          productAddressController.text =
-                              barcode ?? 'No QR score scanned';
-                        });
-                      },
-                      backgroundColor: Colors.blue[400],
-                      icon: const Icon(Icons.qr_code),
-                      label: const Text('Scan QR code'),
+        body: Column(children: <Widget>[
+          Container(
+            padding: const EdgeInsets.only(
+              left: defaultPadding,
+              right: defaultPadding,
+              bottom: defaultPadding,
+            ),
+            height: MediaQuery.of(context).size.height * 0.2,
+            decoration: const BoxDecoration(
+              color: color1,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  children: const [
+                    Image(
+                        image: AssetImage('assets/images/qrcodescan.png'),
+                        width: 80.0,
+                        height: 80.0,
+                        color: color7),
+                    SizedBox(height: 10.0),
+                    Text(
+                        'Enter product address or scan QR code\nto obtain product information',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: color7,
+                          fontSize: 16.0,
+                        ))
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.width * 0.6,
+                    decoration: const BoxDecoration(
+                      color: color7,
+                      borderRadius: BorderRadius.all(Radius.circular(36)),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: FloatingActionButton.extended(
-                        heroTag: "save_button",
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/product',
-                              arguments: [productAddressController.text, true]);
-                        },
-                        backgroundColor: Colors.red[400],
-                        icon: const Icon(Icons.cloud_download_rounded),
-                        label: const Text('View')),
-                  ),
-                ]))));
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: TextField(
+                                controller: productAddressController,
+                                decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(36.0),
+                                      borderSide: const BorderSide(
+                                          color: color1, width: 1.5)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(36.0),
+                                      borderSide: const BorderSide(
+                                          color: color1, width: 1.5)),
+                                  labelText: 'Product address',
+                                  labelStyle: const TextStyle(
+                                      color: Color.fromARGB(127, 49, 99, 0)),
+                                ),
+                                style: const TextStyle(color: color1)),
+                          ),
+                          Container(
+                            decoration: const BoxDecoration(
+                              color: color1,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(36)),
+                            ),
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: 1.5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: ElevatedButton.icon(
+                                onPressed: () async {
+                                  // barcode variable contains the QR scanned ('null' if nothing was scanned)
+                                  barcode = await Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const QRViewScanner(),
+                                    ),
+                                  );
+                                  setState(() {
+                                    productAddressController.text =
+                                        barcode ?? 'No QR score scanned';
+                                  });
+                                },
+                                icon: const Icon(Icons.qr_code),
+                                label: const Text('Scan QR code'),
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: color1,
+                                  onPrimary: color7,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(36.0),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30, vertical: 15),
+                                  textStyle: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
+                        ])),
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/product',
+                            arguments: [productAddressController.text, true]);
+                      },
+                      icon: const Icon(Icons.cloud_download_rounded),
+                      label: const Text('View'),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        primary: color7,
+                        onPrimary: color1,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(36.0),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 15),
+                        textStyle: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      )),
+                ),
+              ],
+            ),
+          ),
+        ]));
   }
 }
 

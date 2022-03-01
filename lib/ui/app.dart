@@ -10,6 +10,7 @@ import 'create_product_view.dart';
 import 'my_products_view.dart';
 import 'select_constituents_view.dart';
 import 'find_product_view.dart';
+import 'colors.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,6 +26,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Product Checker App',
+      theme: ThemeData(
+        scaffoldBackgroundColor: color6,
+        primaryColor: color7,
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: color1),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
       routes: {
         '/': (context) => HomeView(),
         '/logIn': (context) => LoginView(),
