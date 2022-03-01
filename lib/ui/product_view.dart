@@ -166,7 +166,8 @@ class ProductView extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsets.all(24.0),
                                         child: Visibility(
-                                          visible: arguments[1],
+                                          visible: arguments[1] &&
+                                              model.isUserLogged,
                                           child: model.busy
                                               ? const CircularProgressIndicator()
                                               : FloatingActionButton.extended(
