@@ -129,7 +129,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return viewModel.isUserLogged
         ? IconButton(
-            icon: const Icon(Icons.login_rounded),
+            icon: const Icon(Icons.logout_rounded),
             onPressed: () {
               viewModel.logOut();
             },
@@ -137,7 +137,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
             iconSize: 36.0,
           )
         : IconButton(
-            icon: const Icon(Icons.logout_rounded),
+            icon: const Icon(Icons.login_rounded),
             onPressed: () {
               viewModel.navigateToLoginView(context);
             },

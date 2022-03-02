@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/product_view_model.dart';
+import 'package:dapp/ui/colors.dart';
 
 class ProductView extends StatelessWidget {
   const ProductView({Key? key}) : super(key: key);
@@ -13,241 +14,266 @@ class ProductView extends StatelessWidget {
         viewModelBuilder: () => ProductViewModel(arguments[0], arguments[1]),
         builder: (context, model, child) => Scaffold(
             appBar: AppBar(
-              title: const Text('Product'),
-              backgroundColor: Colors.grey[900],
+              elevation: 0,
+              backgroundColor: color1,
             ),
-            body: SafeArea(
-                child: Container(
-                    color: Colors.grey[800],
-                    child: FutureBuilder(
-                        future: model.getProductDetails(),
-                        builder: (context, snapshot) {
-                          switch (snapshot.connectionState) {
-                            case ConnectionState.none:
-                              return const Text("There is no connection");
+            body: FutureBuilder(
+                future: model.getProductDetails(),
+                builder: (context, snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.none:
+                      return const Text("There is no connection");
 
-                            case ConnectionState.active:
-                            case ConnectionState.waiting:
-                              return const Center(
-                                  child: CircularProgressIndicator());
+                    case ConnectionState.active:
+                    case ConnectionState.waiting:
+                      return const Center(child: CircularProgressIndicator());
 
-                            case ConnectionState.done:
-                              if (snapshot.data != null) {
-                                dynamic myMap = snapshot.data;
-                                return Center(
-                                    child: Column(
+                    case ConnectionState.done:
+                      if (snapshot.data != null) {
+                        dynamic myMap = snapshot.data;
+                        return Column(children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.only(
+                              left: defaultPadding,
+                              right: defaultPadding,
+                              bottom: defaultPadding,
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            decoration: const BoxDecoration(
+                              color: color1,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(36),
+                                bottomRight: Radius.circular(36),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    Text('${myMap['product_name']}',
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                            color: color7,
+                                            fontSize: 36.0,
+                                            fontWeight: FontWeight.bold)),
+                                    Expanded(
+                                      child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            24.0, 12.0, 24.0, 12.0),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(4.0) //
-                                                        )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Product name: ${myMap['product_name']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white)),
-                                            )),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.account_circle_rounded,
+                                                color: color7,
+                                                size: 48.0,
+                                              ),
+                                              SizedBox(width: 20.0),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      '${myMap['manufacturer_name']}',
+                                                      style: const TextStyle(
+                                                          color: color7,
+                                                          fontSize: 24.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  Text(
+                                                      '${myMap['manufacturer_address']}',
+                                                      style: const TextStyle(
+                                                        color: color7,
+                                                        fontSize: 12.0,
+                                                      )),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.room_rounded,
+                                                color: color7,
+                                                size: 48.0,
+                                              ),
+                                              SizedBox(width: 20.0),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      '${myMap['production_location']}',
+                                                      style: const TextStyle(
+                                                          color: color7,
+                                                          fontSize: 24.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.calendar_today_rounded,
+                                                color: color7,
+                                                size: 48.0,
+                                              ),
+                                              SizedBox(width: 20.0),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      '${myMap['production_date']}',
+                                                      style: const TextStyle(
+                                                          color: color7,
+                                                          fontSize: 24.0,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            24.0, 12.0, 24.0, 12.0),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(4.0) //
-                                                        )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Manufacturer address: ${myMap['manufacturer_address']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white)),
-                                            )),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            24.0, 12.0, 24.0, 12.0),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(4.0) //
-                                                        )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Manufacturer name: ${myMap['manufacturer_name']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white)),
-                                            )),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            24.0, 12.0, 24.0, 12.0),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(4.0) //
-                                                        )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Production location: ${myMap['production_location']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white)),
-                                            )),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            24.0, 12.0, 24.0, 12.0),
-                                        child: Container(
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.white,
-                                                    width: 1.5),
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(4.0) //
-                                                        )),
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Production date: ${myMap['production_date']}',
-                                                  style: const TextStyle(
-                                                      color: Colors.white)),
-                                            )),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(24.0),
-                                        child: FloatingActionButton.extended(
-                                            heroTag: "see_constituents_button",
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        _buildPopupDialog(
-                                                            context, model),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height:
+                                        MediaQuery.of(context).size.width * 0.5,
+                                    decoration: const BoxDecoration(
+                                      color: color7,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(36)),
+                                    ),
+                                    child: FutureBuilder(
+                                        future: model.getProductConstituents(),
+                                        builder: (context, snapshot) {
+                                          switch (snapshot.connectionState) {
+                                            case ConnectionState.none:
+                                              return const Text(
+                                                  "There is no connection");
+
+                                            case ConnectionState.active:
+                                            case ConnectionState.waiting:
+                                              return const Center(
+                                                  child:
+                                                      CircularProgressIndicator());
+
+                                            case ConnectionState.done:
+                                              if (snapshot.data != null) {
+                                                dynamic constituents =
+                                                    snapshot.data;
+                                                if (constituents.length != 0) {
+                                                  return ListView.builder(
+                                                      scrollDirection:
+                                                          Axis.horizontal,
+                                                      itemCount:
+                                                          constituents.length,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical:
+                                                                      32.0,
+                                                                  horizontal:
+                                                                      8.0),
+                                                          child: Container(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.3,
+                                                              child: Card(
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              36.0),
+                                                                ),
+                                                                child: ListTile(
+                                                                  onTap: () {
+                                                                    model.navigateToProductView(
+                                                                        context,
+                                                                        constituents[
+                                                                            index]);
+                                                                  },
+                                                                  title: Text(
+                                                                      constituents[
+                                                                          index],
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              16.0,
+                                                                          color:
+                                                                              color7)),
+                                                                ),
+                                                                color: color1,
+                                                              )),
+                                                        );
+                                                      });
+                                                }
+                                                return const Center(
+                                                  child: Text(
+                                                      "This product has no constituents"),
+                                                );
+                                              }
+                                              // here your snapshot data is null so SharedPreferences has no data...
+                                              return const Center(
+                                                child: Text(
+                                                    "This product has no constituents"),
                                               );
-                                            },
-                                            backgroundColor: Colors.blue[400],
-                                            icon: const Icon(
-                                                Icons.manage_search_rounded),
-                                            label:
-                                                const Text('See constituents')),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(24.0),
-                                        child: Visibility(
-                                          visible: arguments[1] &&
-                                              model.isUserLogged,
-                                          child: model.busy
-                                              ? const CircularProgressIndicator()
-                                              : FloatingActionButton.extended(
-                                                  heroTag: "buy_button",
-                                                  onPressed: () {
-                                                    model.buyProduct();
-                                                  },
-                                                  backgroundColor:
-                                                      Colors.red[400],
-                                                  icon: const Icon(Icons
-                                                      .add_shopping_cart_rounded),
-                                                  label: const Text('Buy')),
+                                          }
+                                        })),
+                                Visibility(
+                                  visible: arguments[1] && model.isUserLogged,
+                                  maintainSize: false,
+                                  child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        model.buyProduct();
+                                      },
+                                      icon: const Icon(
+                                          Icons.add_shopping_cart_rounded),
+                                      label: const Text('Buy'),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        primary: color7,
+                                        onPrimary: color1,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(36.0),
                                         ),
-                                      ),
-                                    ]));
-                              }
-                              // here your snapshot data is null so SharedPreferences has no data...
-                              return const Text("There are no saved products");
-                          }
-                        })))));
-  }
-}
-
-Widget _buildPopupDialog(BuildContext context, ProductViewModel model) {
-  return AlertDialog(
-    title: const Text('Constituents'),
-    content: SizedBox(
-        width: 300.0,
-        height: 400.0,
-        child: FutureBuilder(
-            future: model.getProductConstituents(),
-            builder: (context, snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                  return const Text("There is no connection");
-
-                case ConnectionState.active:
-                case ConnectionState.waiting:
-                  return const Center(child: CircularProgressIndicator());
-
-                case ConnectionState.done:
-                  if (snapshot.data != null) {
-                    dynamic constituents = snapshot.data;
-                    if (constituents.length != 0) {
-                      return ListView.builder(
-                          itemCount: constituents.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 8.0),
-                              child: Card(
-                                child: ListTile(
-                                    onTap: () {
-                                      model.navigateToProductView(
-                                          context, constituents[index]);
-                                    },
-                                    title: Text(constituents[index],
-                                        style: const TextStyle(fontSize: 16.0)),
-                                    leading: const CircleAvatar(
-                                        child: Icon(
-                                            Icons.bookmark_border_outlined))),
-                                color: Colors.grey[200],
-                              ),
-                            );
-                          });
-                    }
-                    return const Text("This product has no constituents");
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 30, vertical: 15),
+                                        textStyle: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      )),
+                                )
+                              ])),
+                        ]);
+                      }
+                      // here your snapshot data is null so SharedPreferences has no data...
+                      return const Text("There are no saved products");
                   }
-                  // here your snapshot data is null so SharedPreferences has no data...
-                  return const Text("This product has no constituents");
-              }
-            })),
-    actions: <Widget>[
-      FloatingActionButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        backgroundColor: Colors.blue,
-        child: const Icon(Icons.cancel),
-      ),
-    ],
-  );
+                })));
+  }
 }
