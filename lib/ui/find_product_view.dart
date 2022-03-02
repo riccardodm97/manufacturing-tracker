@@ -32,12 +32,20 @@ class _FindProductViewState extends State<FindProductView> {
               bottom: defaultPadding,
             ),
             height: MediaQuery.of(context).size.height * 0.2,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: color1,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(36),
-                bottomRight: Radius.circular(36),
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(24),
+                bottomRight: Radius.circular(24),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 1), // changes position of shadow
+                ),
+              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -69,9 +77,17 @@ class _FindProductViewState extends State<FindProductView> {
                 Container(
                     width: MediaQuery.of(context).size.width * 0.8,
                     height: MediaQuery.of(context).size.width * 0.6,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: color7,
-                      borderRadius: BorderRadius.all(Radius.circular(36)),
+                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 5), // changes position of shadow
+                        ),
+                      ],
                     ),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,11 +98,11 @@ class _FindProductViewState extends State<FindProductView> {
                                 controller: productAddressController,
                                 decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(36.0),
+                                      borderRadius: BorderRadius.circular(24.0),
                                       borderSide: const BorderSide(
                                           color: color1, width: 1.5)),
                                   focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(36.0),
+                                      borderRadius: BorderRadius.circular(24.0),
                                       borderSide: const BorderSide(
                                           color: color1, width: 1.5)),
                                   labelText: 'Product address',
@@ -99,7 +115,7 @@ class _FindProductViewState extends State<FindProductView> {
                             decoration: const BoxDecoration(
                               color: color1,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(36)),
+                                  BorderRadius.all(Radius.circular(24)),
                             ),
                             width: MediaQuery.of(context).size.width * 0.7,
                             height: 1.5,
@@ -127,7 +143,7 @@ class _FindProductViewState extends State<FindProductView> {
                                   primary: color1,
                                   onPrimary: color7,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(36.0),
+                                    borderRadius: BorderRadius.circular(24.0),
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 30, vertical: 15),
@@ -147,11 +163,11 @@ class _FindProductViewState extends State<FindProductView> {
                       icon: const Icon(Icons.cloud_download_rounded),
                       label: const Text('View'),
                       style: ElevatedButton.styleFrom(
-                        elevation: 0,
+                        elevation: 10,
                         primary: color7,
                         onPrimary: color1,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(36.0),
+                          borderRadius: BorderRadius.circular(24.0),
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 15),

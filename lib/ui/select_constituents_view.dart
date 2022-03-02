@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/select_constituents_view_model.dart';
+import 'package:dapp/ui/colors.dart';
 
 class SelectConstituentsView extends StatefulWidget {
   const SelectConstituentsView({Key? key}) : super(key: key);
@@ -18,48 +19,47 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
       onModelReady: (model) => model.onStartup(context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title: const Text('Food Traceability'),
-          backgroundColor: Colors.grey[900],
-          leading: BackButton(
-            onPressed: () => model.navigateBack(context),
-          ),
+          elevation: 10,
+          backgroundColor: color1,
         ),
-        body: Container(
-          color: Colors.grey[800],
-          child: Center(
-            child: model.busy
-                ? const CircularProgressIndicator()
-                : ListView.builder(
-                    itemCount: model.possibleConstituents.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 24.0),
-                        child: Card(
-                          child: ListTile(
-                              onTap: () {
-                                if (model.selectedConstituents.contains(
-                                    model.possibleConstituents[index])) {
-                                  model.removeFromConstituentsList(
-                                      model.possibleConstituents[index]);
-                                }
-                              },
-                              onLongPress: () {
-                                model.addToConstituentsList(
-                                    model.possibleConstituents[index]);
-                              },
-                              title: Text(model.possibleConstituents[index],
-                                  style: const TextStyle(fontSize: 24.0)),
-                              leading: const CircleAvatar(
-                                  child: Icon(Icons.bookmark_border_outlined))),
-                          color: model.selectedConstituents
-                                  .contains(model.possibleConstituents[index])
-                              ? Colors.blue[200]
-                              : Colors.grey[200],
+        body: Center(
+          child: model.busy
+              ? const CircularProgressIndicator()
+              : ListView.builder(
+                  itemCount: model.possibleConstituents.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 24.0),
+                      child: Card(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24.0),
                         ),
-                      );
-                    }),
-          ),
+                        child: ListTile(
+                            onTap: () {
+                              model.addToConstituentsList(
+                                  model.possibleConstituents[index]);
+                            },
+                            onLongPress: () {
+                              if (model.selectedConstituents.contains(
+                                  model.possibleConstituents[index])) {
+                                model.removeFromConstituentsList(
+                                    model.possibleConstituents[index]);
+                              }
+                            },
+                            title: Text(model.possibleConstituents[index],
+                                style: const TextStyle(fontSize: 24.0)),
+                            leading: const CircleAvatar(
+                                backgroundColor: color1,
+                                child: Icon(Icons.bookmark_border_outlined))),
+                        color: model.selectedConstituents
+                                .contains(model.possibleConstituents[index])
+                            ? color4
+                            : color7,
+                      ),
+                    );
+                  }),
         ),
         floatingActionButton: model.selectedConstituents.isEmpty
             ? null
@@ -67,7 +67,7 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
                 onPressed: () {
                   model.navigateBack(context);
                 },
-                backgroundColor: Colors.red,
+                backgroundColor: color1,
                 child: const Icon(Icons.save_alt),
               ),
       ),

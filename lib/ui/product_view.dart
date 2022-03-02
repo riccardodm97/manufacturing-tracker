@@ -39,12 +39,21 @@ class ProductView extends StatelessWidget {
                               bottom: defaultPadding,
                             ),
                             height: MediaQuery.of(context).size.height * 0.4,
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: color1,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(36),
-                                bottomRight: Radius.circular(36),
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(24),
+                                bottomRight: Radius.circular(24),
                               ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 1), // changes position of shadow
+                                ),
+                              ],
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,12 +75,12 @@ class ProductView extends StatelessWidget {
                                         children: [
                                           Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.account_circle_rounded,
                                                 color: color7,
                                                 size: 48.0,
                                               ),
-                                              SizedBox(width: 20.0),
+                                              const SizedBox(width: 20.0),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -95,12 +104,12 @@ class ProductView extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.room_rounded,
                                                 color: color7,
                                                 size: 48.0,
                                               ),
-                                              SizedBox(width: 20.0),
+                                              const SizedBox(width: 20.0),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -118,12 +127,12 @@ class ProductView extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
-                                              Icon(
+                                              const Icon(
                                                 Icons.calendar_today_rounded,
                                                 color: color7,
                                                 size: 48.0,
                                               ),
-                                              SizedBox(width: 20.0),
+                                              const SizedBox(width: 20.0),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
@@ -157,10 +166,19 @@ class ProductView extends StatelessWidget {
                                         MediaQuery.of(context).size.width * 0.8,
                                     height:
                                         MediaQuery.of(context).size.width * 0.5,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                       color: color7,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(36)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(24)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0,
+                                              5), // changes position of shadow
+                                        ),
+                                      ],
                                     ),
                                     child: FutureBuilder(
                                         future: model.getProductConstituents(),
@@ -181,65 +199,91 @@ class ProductView extends StatelessWidget {
                                                 dynamic constituents =
                                                     snapshot.data;
                                                 if (constituents.length != 0) {
-                                                  return ListView.builder(
-                                                      scrollDirection:
-                                                          Axis.horizontal,
-                                                      itemCount:
-                                                          constituents.length,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical:
-                                                                      32.0,
-                                                                  horizontal:
-                                                                      8.0),
-                                                          child: Container(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.3,
-                                                              child: Card(
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              36.0),
-                                                                ),
-                                                                child: ListTile(
-                                                                  onTap: () {
-                                                                    model.navigateToProductView(
-                                                                        context,
-                                                                        constituents[
-                                                                            index]);
-                                                                  },
-                                                                  title: Text(
-                                                                      constituents[
-                                                                          index],
-                                                                      style: const TextStyle(
-                                                                          fontSize:
+                                                  return Column(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                32.0,
+                                                                8.0,
+                                                                32.0,
+                                                                0.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            const Text(
+                                                                'Ingredients',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    color:
+                                                                        color1)),
+                                                            Text(
+                                                                '${constituents.length} items',
+                                                                style: const TextStyle(
+                                                                    fontSize:
+                                                                        12.0,
+                                                                    color:
+                                                                        color1))
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                          child:
+                                                              ListView.builder(
+                                                                  scrollDirection:
+                                                                      Axis
+                                                                          .horizontal,
+                                                                  itemCount:
+                                                                      constituents
+                                                                          .length,
+                                                                  itemBuilder:
+                                                                      (context,
+                                                                          index) {
+                                                                    return Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .symmetric(
+                                                                          vertical:
                                                                               16.0,
-                                                                          color:
-                                                                              color7)),
-                                                                ),
-                                                                color: color1,
-                                                              )),
-                                                        );
-                                                      });
+                                                                          horizontal:
+                                                                              8.0),
+                                                                      child: SizedBox(
+                                                                          width: MediaQuery.of(context).size.width * 0.3,
+                                                                          child: Card(
+                                                                            shape:
+                                                                                RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(24.0),
+                                                                            ),
+                                                                            child:
+                                                                                ListTile(
+                                                                              onTap: () {
+                                                                                model.navigateToProductView(context, constituents[index]);
+                                                                              },
+                                                                              title: Text(constituents[index], style: const TextStyle(fontSize: 16.0, color: color7)),
+                                                                            ),
+                                                                            color:
+                                                                                color1,
+                                                                          )),
+                                                                    );
+                                                                  })),
+                                                    ],
+                                                  );
                                                 }
                                                 return const Center(
                                                   child: Text(
-                                                      "This product has no constituents"),
+                                                      "This product has no ingredients"),
                                                 );
                                               }
                                               // here your snapshot data is null so SharedPreferences has no data...
                                               return const Center(
                                                 child: Text(
-                                                    "This product has no constituents"),
+                                                    "This product has no ingredients"),
                                               );
                                           }
                                         })),
@@ -254,12 +298,12 @@ class ProductView extends StatelessWidget {
                                           Icons.add_shopping_cart_rounded),
                                       label: const Text('Buy'),
                                       style: ElevatedButton.styleFrom(
-                                        elevation: 0,
+                                        elevation: 10,
                                         primary: color7,
                                         onPrimary: color1,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
-                                              BorderRadius.circular(36.0),
+                                              BorderRadius.circular(24.0),
                                         ),
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 30, vertical: 15),

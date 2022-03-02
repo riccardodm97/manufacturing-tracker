@@ -26,12 +26,20 @@ class HomeView extends StatelessWidget {
                     bottom: 36 + defaultPadding,
                   ),
                   height: MediaQuery.of(context).size.height * 0.2,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: color1,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(36),
-                      bottomRight: Radius.circular(36),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(24),
+                      bottomRight: Radius.circular(24),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 1), // changes position of shadow
+                      ),
+                    ],
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -68,11 +76,11 @@ class HomeView extends StatelessWidget {
                         icon: Icon(Icons.add_rounded),
                         label: Text('Create New Product'),
                         style: ElevatedButton.styleFrom(
-                          elevation: 0,
+                          elevation: 10,
                           primary: color7,
                           onPrimary: color1,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(36.0),
+                            borderRadius: BorderRadius.circular(24.0),
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
@@ -86,11 +94,11 @@ class HomeView extends StatelessWidget {
                         icon: Icon(Icons.search_rounded),
                         label: Text('Find Product'),
                         style: ElevatedButton.styleFrom(
-                          elevation: 0,
+                          elevation: 10,
                           primary: color7,
                           onPrimary: color1,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(36.0),
+                            borderRadius: BorderRadius.circular(24.0),
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
@@ -104,11 +112,11 @@ class HomeView extends StatelessWidget {
                         icon: Icon(Icons.shopping_cart_rounded),
                         label: Text('My Products'),
                         style: ElevatedButton.styleFrom(
-                          elevation: 0,
+                          elevation: 10,
                           primary: color7,
                           onPrimary: color1,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(36.0),
+                            borderRadius: BorderRadius.circular(24.0),
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),

@@ -1,5 +1,6 @@
 import 'package:dapp/ui/product_view.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../service/auth_service.dart';
 import '../service/product_service.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         primaryColor: color7,
         textTheme: Theme.of(context).textTheme.apply(bodyColor: color1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        // fontFamily: GoogleFonts.openSans().fontFamily,
       ),
       routes: {
         '/': (context) => HomeView(),
