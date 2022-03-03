@@ -4,18 +4,18 @@ import 'package:dapp/viewmodel/base_view_model.dart';
 import 'package:flutter/material.dart';
 
 class LoginViewModel extends BaseModel {
-  final AuthService _authService = serviceLocator<AuthService>();
+  // final AuthService _authService = serviceLocator<AuthService>();
 
-  Future<void> login(BuildContext context, String privateKey) async {
-    setBusy(true);
-    bool success = await _authService.logIn(privateKey);
-    setBusy(false);
+  // Future<void> login(BuildContext context, String privateKey) async {
+  //   setBusy(true);
+  //   bool success = await _authService.logIn(privateKey);
+  //   setBusy(false);
 
-    if (!success) {
-      showTextDialog(
-          context, 'Error', 'Something went wrong with your key. Try again');
-    } else {
-      Navigator.pop(context);
-    }
-  }
+  //   if (!success) {
+  //     showTextDialog(
+  //         context, 'Error', 'Something went wrong with your key. Try again');
+  //   } else {
+  //     Navigator.pop(context);
+  //   }
+  // }
 }

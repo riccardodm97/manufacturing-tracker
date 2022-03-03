@@ -7,6 +7,19 @@ import 'base_view_model.dart';
 class HomeViewModel extends BaseModel {
   final AuthService _authService = serviceLocator<AuthService>();
 
+  Future<void> login(BuildContext context, String privateKey) async {
+    setBusy(true);
+    bool success = await _authService.logIn(privateKey);
+    setBusy(false);
+
+    if (!success) {
+      showTextDialog(
+          context, 'Error', 'Something went wrong with your key. Try again');
+    } else {
+      Navigator.pop(context);
+    }
+  }
+
   Future<void> logOut() async {
     await _authService.logOut();
     notifyListeners();

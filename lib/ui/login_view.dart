@@ -63,7 +63,7 @@ class _LoginViewState extends State<LoginView> {
                             : FloatingActionButton.extended(
                                 heroTag: "login_button",
                                 onPressed: () {
-                                  model.login(context, loginController.text);
+                                  // model.login(context, loginController.text);
                                 },
                                 backgroundColor: Colors.red[400],
                                 icon: const Icon(Icons.login),
