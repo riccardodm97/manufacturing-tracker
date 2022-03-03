@@ -13,6 +13,7 @@ class HomeView extends StatelessWidget {
     return ViewModelBuilder<HomeViewModel>.nonReactive(
         viewModelBuilder: () => HomeViewModel(),
         builder: (context, model, child) => Scaffold(
+            resizeToAvoidBottomInset: false,
             appBar: AppBar(
               elevation: 0,
               leading: AuthButton(),
@@ -175,13 +176,10 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          padding: const EdgeInsets.only(
-                            top: defaultPadding,
-                            left: defaultPadding,
-                            right: defaultPadding,
-                            bottom: defaultPadding,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: defaultPadding,
                           ),
-                          height: MediaQuery.of(context).size.height * 0.28,
+                          height: MediaQuery.of(context).size.height * 0.275,
                           decoration: const BoxDecoration(
                             color: color1,
                             borderRadius: BorderRadius.only(
@@ -193,12 +191,13 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                const Text(
-                                  'Enter your private key to login',
+                                const DefaultTextStyle(
                                   style: TextStyle(
                                     color: color7,
-                                    fontSize: 16.0,
+                                    fontSize: 20.0,
                                   ),
+                                  child:
+                                      Text('Enter your private key to login'),
                                 ),
                                 Material(
                                   color: color7.withOpacity(0),
@@ -219,7 +218,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                                         labelStyle: TextStyle(
                                             color: color7.withOpacity(0.5)),
                                       ),
-                                      style: const TextStyle(color: color1)),
+                                      style: const TextStyle(color: color7)),
                                 ),
                                 ElevatedButton.icon(
                                     onPressed: () {
@@ -230,7 +229,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                                     label: const Text(
                                       'Login',
                                       style: TextStyle(
-                                          fontSize: 20,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     style: ElevatedButton.styleFrom(
@@ -267,105 +266,3 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
             });
   }
 }
-//             onPressed: () {
-//               showModalBottomSheet(
-//                   shape: const RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.only(
-//                         topLeft: Radius.circular(24.0),
-//                         topRight: Radius.circular(24.0)),
-//                   ),
-//                   context: context,
-//                   builder: (context) {
-//                     return Container(
-//                         padding: const EdgeInsets.only(
-//                           top: defaultPadding,
-//                           left: defaultPadding,
-//                           right: defaultPadding,
-//                           bottom: defaultPadding,
-//                         ),
-//                         height: MediaQuery.of(context).size.height * 0.3,
-//                         decoration: BoxDecoration(
-//                           color: color7,
-//                           borderRadius: const BorderRadius.only(
-//                             topLeft: Radius.circular(24),
-//                             topRight: Radius.circular(24),
-//                           ),
-//                           boxShadow: [
-//                             BoxShadow(
-//                               color: Colors.black.withOpacity(0.5),
-//                               spreadRadius: 5,
-//                               blurRadius: 7,
-//                               offset: const Offset(
-//                                   0, -1), // changes position of shadow
-//                             ),
-//                           ],
-//                         ),
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.center,
-//                           children: <Widget>[
-//                             Column(
-//                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                               children: <Widget>[
-//                                 const Text(
-//                                   'Enter your private key to login',
-//                                   style: TextStyle(
-//                                       color: color1,
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 24.0),
-//                                 ),
-//                                 SizedBox(
-//                                   width:
-//                                       MediaQuery.of(context).size.width * 0.8,
-//                                   child: TextField(
-//                                       controller: loginController,
-//                                       decoration: InputDecoration(
-//                                         enabledBorder: OutlineInputBorder(
-//                                             borderRadius:
-//                                                 BorderRadius.circular(24.0),
-//                                             borderSide: const BorderSide(
-//                                                 color: color1, width: 1.5)),
-//                                         focusedBorder: OutlineInputBorder(
-//                                             borderRadius:
-//                                                 BorderRadius.circular(24.0),
-//                                             borderSide: const BorderSide(
-//                                                 color: color1, width: 1.5)),
-//                                         labelText: 'Private key',
-//                                         labelStyle: TextStyle(
-//                                             color: color1.withOpacity(0.5)),
-//                                       ),
-//                                       style: const TextStyle(color: color1)),
-//                                 ),
-//                                 ElevatedButton.icon(
-//                                     onPressed: () {
-//                                       viewModel.login(
-//                                           context, loginController.text);
-//                                     },
-//                                     icon: const Icon(Icons.login_rounded),
-//                                     label: const Text(
-//                                       'Login',
-//                                       style: TextStyle(
-//                                           fontSize: 20,
-//                                           fontWeight: FontWeight.bold),
-//                                     ),
-//                                     style: ElevatedButton.styleFrom(
-//                                       elevation: 10,
-//                                       primary: color1,
-//                                       onPrimary: color7,
-//                                       shape: RoundedRectangleBorder(
-//                                         borderRadius:
-//                                             BorderRadius.circular(24.0),
-//                                       ),
-//                                       padding: const EdgeInsets.symmetric(
-//                                           horizontal: 30, vertical: 15),
-//                                     )),
-//                               ],
-//                             ),
-//                           ],
-//                         ));
-//                   });
-//             },
-//             color: color7,
-//             iconSize: 36.0,
-//           );
-//   }
-// }

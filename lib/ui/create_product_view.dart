@@ -274,31 +274,33 @@ class _CreateProductViewState extends State<CreateProductView> {
                                         })),
                           ],
                         )),
-                    ElevatedButton.icon(
-                        onPressed: () {
-                          model.saveNewProduct(
-                            productNameController.text,
-                            manufacturerNameController.text,
-                            productionLocationController.text,
-                            context,
-                          );
-                        },
-                        icon: const Icon(Icons.save),
-                        label: const Text(
-                          'Save',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          primary: color7,
-                          onPrimary: color1,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(24.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 15),
-                        )),
+                    model.busy
+                        ? const CircularProgressIndicator()
+                        : ElevatedButton.icon(
+                            onPressed: () {
+                              model.saveNewProduct(
+                                productNameController.text,
+                                manufacturerNameController.text,
+                                productionLocationController.text,
+                                context,
+                              );
+                            },
+                            icon: const Icon(Icons.save),
+                            label: const Text(
+                              'Save',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 10,
+                              primary: color7,
+                              onPrimary: color1,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 15),
+                            )),
                   ]))
             ])));
   }
