@@ -1,5 +1,4 @@
 import 'package:dapp/ui/colors.dart';
-import 'package:dapp/viewmodel/login_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -44,27 +43,33 @@ class HomeView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: const [
                           Text(
                             'Product Checker',
                             style: TextStyle(
                                 color: color7,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 36.0),
+                                fontSize: 32.0),
                           ),
-                          SizedBox(height: 20.0),
-                          Text('Breve descrizione',
-                              style: TextStyle(
-                                color: color7,
-                                fontSize: 16.0,
-                              ))
+                          Image(
+                            image: AssetImage('assets/images/logo.png'),
+                            width: 60.0,
+                            height: 60.0,
+                          )
                         ],
                       ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.02),
+                      const Text("Discover what's really inside your products!",
+                          style: TextStyle(
+                            color: color7,
+                            fontSize: 16.0,
+                          ))
                     ],
                   ),
                 ),
