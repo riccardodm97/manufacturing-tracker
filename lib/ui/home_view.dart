@@ -76,7 +76,7 @@ class HomeView extends StatelessWidget {
                         },
                         icon: const Icon(Icons.add_rounded),
                         label: const Text(
-                          'Create New Product',
+                          'Add Product',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
                         ),

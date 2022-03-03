@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/create_product_view_model.dart';
+import 'package:dapp/ui/colors.dart';
 
 class CreateProductView extends StatefulWidget {
   const CreateProductView({Key? key}) : super(key: key);
@@ -30,138 +31,275 @@ class _CreateProductViewState extends State<CreateProductView> {
         viewModelBuilder: () => CreateProductViewModel(),
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
-            body: SafeArea(
-                child: Container(
-                    color: Colors.grey[800],
-                    child: Center(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                24.0, 24.0, 24.0, 12.0),
-                            child: TextField(
-                                controller: productNameController,
-                                decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  labelText: 'Product name',
-                                  labelStyle:
-                                      TextStyle(color: Colors.grey[400]),
-                                ),
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                24.0, 12.0, 24.0, 12.0),
-                            child: TextField(
-                                controller: manufacturerNameController,
-                                decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  labelText: 'Manufacturer Name',
-                                  labelStyle:
-                                      TextStyle(color: Colors.grey[400]),
-                                ),
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                24.0, 12.0, 24.0, 12.0),
-                            child: TextField(
-                                controller: productionLocationController,
-                                decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.white, width: 1.5)),
-                                  labelText: 'Production Location',
-                                  labelStyle:
-                                      TextStyle(color: Colors.grey[400]),
-                                ),
-                                style: const TextStyle(color: Colors.white)),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: FloatingActionButton.extended(
-                                heroTag: "add_component_button",
-                                onPressed: () {
-                                  model.navigateToSelectComponentsView(context);
-                                },
-                                backgroundColor: Colors.black,
-                                icon: const Icon(Icons.add),
-                                label: const Text('Add component')),
-                          ),
-                          Flexible(
-                              child: listComponents(model.selectedComponents)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: FloatingActionButton.extended(
-                                    heroTag: "cancel_button",
-                                    onPressed: () {
-                                      model.navigateBack(context);
-                                    },
-                                    backgroundColor: Colors.blue[400],
-                                    icon: const Icon(Icons.cancel),
-                                    label: const Text('Cancel')),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(24.0),
-                                child: model.busy
-                                    ? const CircularProgressIndicator()
-                                    : FloatingActionButton.extended(
-                                        heroTag: "save_button",
-                                        onPressed: () {
-                                          model.saveNewProduct(
-                                            productNameController.text,
-                                            manufacturerNameController.text,
-                                            productionLocationController.text,
-                                            context,
-                                          );
-                                        },
-                                        backgroundColor: Colors.red[400],
-                                        icon: const Icon(Icons.save),
-                                        label: const Text('Save')),
-                              ),
-                            ],
-                          ),
-                        ]))))));
-  }
-
-  Widget listComponents(List<String> components) {
-    return ListView.builder(
-      itemCount: components.length,
-      itemBuilder: (context, index) {
-        return Row(children: <Widget>[
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.fromLTRB(24.0, 12.0, 24.0, 12.0),
-            child: Container(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: color1,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () => model.navigateBack(context),
+              ),
+            ),
+            body: Column(children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  left: defaultPadding,
+                  right: defaultPadding,
+                  bottom: defaultPadding,
+                ),
+                height: MediaQuery.of(context).size.height * 0.4,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 1.5),
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0) //
+                  color: color1,
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(24),
+                    bottomRight: Radius.circular(24),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.5),
+                      spreadRadius: 5,
+                      blurRadius: 7,
+                      offset: Offset(0, 1), // changes position of shadow
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      child: TextField(
+                          controller: productNameController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            labelText: 'Product name',
+                            labelStyle:
+                                TextStyle(color: color7.withOpacity(0.5)),
+                          ),
+                          style: const TextStyle(color: color7)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      child: TextField(
+                          controller: manufacturerNameController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            labelText: 'Manufacturer name',
+                            labelStyle:
+                                TextStyle(color: color7.withOpacity(0.5)),
+                          ),
+                          style: const TextStyle(color: color7)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      child: TextField(
+                          controller: productionLocationController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(24.0),
+                                borderSide: const BorderSide(
+                                    color: color7, width: 1.5)),
+                            labelText: 'Production location',
+                            labelStyle:
+                                TextStyle(color: color7.withOpacity(0.5)),
+                          ),
+                          style: const TextStyle(color: color7)),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                    Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.width * 0.5,
+                        decoration: BoxDecoration(
+                          color: color7,
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(24)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: const Offset(
+                                  0, 5), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  32.0, 8.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text('Ingredients',
+                                      style: TextStyle(
+                                          fontSize: 16.0, color: color1)),
+                                  Text(
+                                      '${model.selectedComponents.length} items',
+                                      style: const TextStyle(
+                                          fontSize: 12.0, color: color1))
+                                ],
+                              ),
+                            ),
+                            model.selectedComponents.isEmpty
+                                ? Expanded(
+                                    child: Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 16.0, horizontal: 8.0),
+                                      child: SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: Card(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(24.0),
+                                            ),
+                                            child: ListTile(
+                                              onTap: () {
+                                                model
+                                                    .navigateToSelectComponentsView(
+                                                        context);
+                                              },
+                                              title: const Center(
+                                                child: Icon(Icons.add_rounded,
+                                                    color: color7, size: 36.0),
+                                              ),
+                                            ),
+                                            color: color1,
+                                          )),
+                                    ),
+                                  ))
+                                : Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            model.selectedComponents.length + 1,
+                                        itemBuilder: (context, index) {
+                                          if (index ==
+                                              model.selectedComponents.length) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 8.0),
+                                              child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.3,
+                                                  child: Card(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
+                                                    child: ListTile(
+                                                      onTap: () {
+                                                        model
+                                                            .navigateToSelectComponentsView(
+                                                                context);
+                                                      },
+                                                      title: const Center(
+                                                        child: Icon(
+                                                            Icons.add_rounded,
+                                                            color: color7,
+                                                            size: 36.0),
+                                                      ),
+                                                    ),
+                                                    color: color1,
+                                                  )),
+                                            );
+                                          } else {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 16.0,
+                                                      horizontal: 8.0),
+                                              child: SizedBox(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.3,
+                                                  child: Card(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              24.0),
+                                                    ),
+                                                    child: ListTile(
+                                                      onTap: () {},
+                                                      title: Text(
+                                                          model.selectedComponents[
+                                                              index],
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  color:
+                                                                      color7)),
+                                                    ),
+                                                    color: color1,
+                                                  )),
+                                            );
+                                          }
+                                        })),
+                          ],
                         )),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('${index + 1}° Component: ${components[index]}',
-                      style: const TextStyle(color: Colors.white)),
-                )),
-          )),
-        ]);
-      },
-    );
+                    ElevatedButton.icon(
+                        onPressed: () {
+                          model.saveNewProduct(
+                            productNameController.text,
+                            manufacturerNameController.text,
+                            productionLocationController.text,
+                            context,
+                          );
+                        },
+                        icon: const Icon(Icons.save),
+                        label: const Text(
+                          'Save',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          primary: color7,
+                          onPrimary: color1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 15),
+                        )),
+                  ]))
+            ])));
   }
 }
