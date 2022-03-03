@@ -32,9 +32,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: color6,
         primaryColor: color7,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: color1),
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        // fontFamily: GoogleFonts.openSans().fontFamily,
+        fontFamily: GoogleFonts.nunito().fontFamily,
       ),
       routes: {
         '/': (context) => HomeView(),

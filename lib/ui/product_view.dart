@@ -22,7 +22,11 @@ class ProductView extends StatelessWidget {
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.none:
-                      return const Text("There is no connection");
+                      return const Text(
+                        "There is no connection",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      );
 
                     case ConnectionState.active:
                     case ConnectionState.waiting:
@@ -96,7 +100,7 @@ class ProductView extends StatelessWidget {
                                                       '${myMap['manufacturer_address']}',
                                                       style: const TextStyle(
                                                         color: color7,
-                                                        fontSize: 12.0,
+                                                        fontSize: 10.0,
                                                       )),
                                                 ],
                                               ),
@@ -186,7 +190,12 @@ class ProductView extends StatelessWidget {
                                           switch (snapshot.connectionState) {
                                             case ConnectionState.none:
                                               return const Text(
-                                                  "There is no connection");
+                                                "There is no connection",
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              );
 
                                             case ConnectionState.active:
                                             case ConnectionState.waiting:
@@ -277,13 +286,23 @@ class ProductView extends StatelessWidget {
                                                 }
                                                 return const Center(
                                                   child: Text(
-                                                      "This product has no ingredients"),
+                                                    "This product has no ingredients",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
                                                 );
                                               }
                                               // here your snapshot data is null so SharedPreferences has no data...
                                               return const Center(
                                                 child: Text(
-                                                    "This product has no ingredients"),
+                                                  "This product has no ingredients",
+                                                  style: TextStyle(
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
                                               );
                                           }
                                         })),
@@ -296,7 +315,12 @@ class ProductView extends StatelessWidget {
                                       },
                                       icon: const Icon(
                                           Icons.add_shopping_cart_rounded),
-                                      label: const Text('Buy'),
+                                      label: const Text(
+                                        'Buy',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                       style: ElevatedButton.styleFrom(
                                         elevation: 10,
                                         primary: color7,
@@ -307,16 +331,17 @@ class ProductView extends StatelessWidget {
                                         ),
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 30, vertical: 15),
-                                        textStyle: const TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
                                       )),
                                 )
                               ])),
                         ]);
                       }
                       // here your snapshot data is null so SharedPreferences has no data...
-                      return const Text("There are no saved products");
+                      return const Text(
+                        "There are no saved products",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      );
                   }
                 })));
   }

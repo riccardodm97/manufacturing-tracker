@@ -37,7 +37,8 @@ class HomeView extends StatelessWidget {
                         color: Colors.black.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 1), // changes position of shadow
+                        offset:
+                            const Offset(0, 1), // changes position of shadow
                       ),
                     ],
                   ),
@@ -54,7 +55,7 @@ class HomeView extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 36.0),
                           ),
-                          SizedBox(height: 30.0),
+                          SizedBox(height: 20.0),
                           Text('Breve descrizione',
                               style: TextStyle(
                                 color: color7,
@@ -73,8 +74,12 @@ class HomeView extends StatelessWidget {
                         onPressed: () {
                           model.navigateToCreateProductView(context);
                         },
-                        icon: Icon(Icons.add_rounded),
-                        label: Text('Create New Product'),
+                        icon: const Icon(Icons.add_rounded),
+                        label: const Text(
+                          'Create New Product',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
                           primary: color7,
@@ -84,15 +89,17 @@ class HomeView extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
-                          textStyle: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                     ElevatedButton.icon(
                         onPressed: () {
                           model.navigateFindProductView(context);
                         },
-                        icon: Icon(Icons.search_rounded),
-                        label: Text('Find Product'),
+                        icon: const Icon(Icons.search_rounded),
+                        label: const Text(
+                          'Find Product',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
                           primary: color7,
@@ -102,15 +109,17 @@ class HomeView extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
-                          textStyle: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                     ElevatedButton.icon(
                         onPressed: () {
                           model.navigateMyProductsView(context);
                         },
-                        icon: Icon(Icons.shopping_cart_rounded),
-                        label: Text('My Products'),
+                        icon: const Icon(Icons.shopping_cart_rounded),
+                        label: const Text(
+                          'My Products',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                         style: ElevatedButton.styleFrom(
                           elevation: 10,
                           primary: color7,
@@ -120,8 +129,6 @@ class HomeView extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(
                               horizontal: 30, vertical: 15),
-                          textStyle: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
                         )),
                   ],
                 ))

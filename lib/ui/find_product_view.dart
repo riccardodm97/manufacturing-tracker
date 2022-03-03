@@ -137,7 +137,12 @@ class _FindProductViewState extends State<FindProductView> {
                                   });
                                 },
                                 icon: const Icon(Icons.qr_code),
-                                label: const Text('Scan QR code'),
+                                label: const Text(
+                                  'Scan QR code',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
                                 style: ElevatedButton.styleFrom(
                                   elevation: 0,
                                   primary: color1,
@@ -147,9 +152,6 @@ class _FindProductViewState extends State<FindProductView> {
                                   ),
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 30, vertical: 15),
-                                  textStyle: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
                                 )),
                           ),
                         ])),
@@ -161,7 +163,11 @@ class _FindProductViewState extends State<FindProductView> {
                             arguments: [productAddressController.text, true]);
                       },
                       icon: const Icon(Icons.cloud_download_rounded),
-                      label: const Text('View'),
+                      label: const Text(
+                        'View',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
                       style: ElevatedButton.styleFrom(
                         elevation: 10,
                         primary: color7,
@@ -171,8 +177,6 @@ class _FindProductViewState extends State<FindProductView> {
                         ),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 15),
-                        textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
                       )),
                 ),
               ],
