@@ -20,7 +20,7 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Select ingredients',
+            'Select constituents',
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           ),
           centerTitle: true,

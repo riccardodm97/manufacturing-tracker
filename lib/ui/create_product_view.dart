@@ -159,7 +159,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  const Text('Ingredients',
+                                  const Text('Constituents',
                                       style: TextStyle(
                                           fontSize: 16.0, color: color1)),
                                   Text(
@@ -201,6 +201,8 @@ class _CreateProductViewState extends State<CreateProductView> {
                                     ),
                                   ))
                                 : Expanded(
+                                    child: ScrollConfiguration(
+                                    behavior: NoGlowBehaviour(),
                                     child: ListView.builder(
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
@@ -294,7 +296,8 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                   )),
                                             );
                                           }
-                                        })),
+                                        }),
+                                  )),
                           ],
                         )),
                     model.busy
@@ -326,5 +329,13 @@ class _CreateProductViewState extends State<CreateProductView> {
                             )),
                   ]))
             ])));
+  }
+}
+
+class NoGlowBehaviour extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

@@ -239,7 +239,7 @@ class ProductView extends StatelessWidget {
                                                                   .end,
                                                           children: [
                                                             const Text(
-                                                                'Ingredients',
+                                                                'Constituents',
                                                                 style: TextStyle(
                                                                     fontSize:
                                                                         16.0,
@@ -257,62 +257,76 @@ class ProductView extends StatelessWidget {
                                                       ),
                                                       Expanded(
                                                           child:
-                                                              ListView.builder(
-                                                                  scrollDirection:
-                                                                      Axis
-                                                                          .horizontal,
-                                                                  itemCount:
-                                                                      constituents
-                                                                          .length,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    return Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .symmetric(
-                                                                          vertical:
-                                                                              16.0,
-                                                                          horizontal:
-                                                                              8.0),
-                                                                      child: SizedBox(
-                                                                          width: MediaQuery.of(context).size.width * 0.3,
-                                                                          child: Card(
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(24.0),
-                                                                            ),
-                                                                            child:
-                                                                                ListTile(
-                                                                              onTap: () {
-                                                                                model.navigateToProductView(context, constituents[index]);
-                                                                              },
-                                                                              title: Column(
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                                children: [
-                                                                                  const CircleAvatar(
-                                                                                    radius: 16.0,
-                                                                                    backgroundColor: color7,
-                                                                                    child: Icon(
-                                                                                      Icons.bookmark_border_rounded,
-                                                                                      color: color1,
-                                                                                      size: 20.0,
-                                                                                    ),
-                                                                                  ),
-                                                                                  Text(constituents[index], maxLines: 3, style: const TextStyle(fontSize: 16.0, color: color7)),
-                                                                                ],
+                                                              ScrollConfiguration(
+                                                        behavior:
+                                                            NoGlowBehaviour(),
+                                                        child: ListView.builder(
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            itemCount:
+                                                                constituents
+                                                                    .length,
+                                                            itemBuilder:
+                                                                (context,
+                                                                    index) {
+                                                              return Padding(
+                                                                padding: const EdgeInsets
+                                                                        .symmetric(
+                                                                    vertical:
+                                                                        16.0,
+                                                                    horizontal:
+                                                                        8.0),
+                                                                child: SizedBox(
+                                                                    width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width *
+                                                                        0.3,
+                                                                    child: Card(
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(24.0),
+                                                                      ),
+                                                                      child:
+                                                                          ListTile(
+                                                                        onTap:
+                                                                            () {
+                                                                          model.navigateToProductView(
+                                                                              context,
+                                                                              constituents[index]);
+                                                                        },
+                                                                        title:
+                                                                            Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceEvenly,
+                                                                          children: [
+                                                                            const CircleAvatar(
+                                                                              radius: 16.0,
+                                                                              backgroundColor: color7,
+                                                                              child: Icon(
+                                                                                Icons.bookmark_border_rounded,
+                                                                                color: color1,
+                                                                                size: 20.0,
                                                                               ),
                                                                             ),
-                                                                            color:
-                                                                                color1,
-                                                                          )),
-                                                                    );
-                                                                  })),
+                                                                            Text(constituents[index],
+                                                                                maxLines: 3,
+                                                                                style: const TextStyle(fontSize: 16.0, color: color7)),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      color:
+                                                                          color1,
+                                                                    )),
+                                                              );
+                                                            }),
+                                                      )),
                                                     ],
                                                   );
                                                 }
                                                 return const Center(
                                                   child: Text(
-                                                    "This product has no ingredients",
+                                                    "This product has no constituents",
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
@@ -324,7 +338,7 @@ class ProductView extends StatelessWidget {
                                               // here your snapshot data is null so SharedPreferences has no data...
                                               return const Center(
                                                 child: Text(
-                                                  "This product has no ingredients",
+                                                  "This product has no constituents",
                                                   style: TextStyle(
                                                       fontSize: 18,
                                                       fontWeight:
@@ -372,5 +386,13 @@ class ProductView extends StatelessWidget {
                       );
                   }
                 })));
+  }
+}
+
+class NoGlowBehaviour extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
