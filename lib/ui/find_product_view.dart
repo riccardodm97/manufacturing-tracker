@@ -21,6 +21,11 @@ class _FindProductViewState extends State<FindProductView> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
+          title: const Text(
+            'Find product',
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
           elevation: 0,
           backgroundColor: color1,
         ),

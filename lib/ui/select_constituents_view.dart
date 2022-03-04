@@ -19,6 +19,11 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
       onModelReady: (model) => model.onStartup(context),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
+          title: const Text(
+            'Select ingredients',
+            style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+          ),
+          centerTitle: true,
           elevation: 10,
           backgroundColor: color1,
         ),
@@ -64,6 +69,7 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
         floatingActionButton: model.selectedConstituents.isEmpty
             ? null
             : FloatingActionButton(
+                elevation: 10,
                 onPressed: () {
                   model.navigateBack(context);
                 },

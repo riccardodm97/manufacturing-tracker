@@ -14,6 +14,11 @@ class MyProductsView extends StatelessWidget {
         onModelReady: (model) async => await model.getAllUserProducts(context),
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
+                title: const Text(
+                  'My products',
+                  style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                ),
+                centerTitle: true,
                 elevation: 10,
                 backgroundColor: color1,
               ),

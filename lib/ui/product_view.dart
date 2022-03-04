@@ -54,7 +54,7 @@ class ProductView extends StatelessWidget {
                                   color: Colors.black.withOpacity(0.5),
                                   spreadRadius: 5,
                                   blurRadius: 7,
-                                  offset: Offset(
+                                  offset: const Offset(
                                       0, 1), // changes position of shadow
                                 ),
                               ],
@@ -68,7 +68,7 @@ class ProductView extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             color: color7,
-                                            fontSize: 36.0,
+                                            fontSize: 42.0,
                                             fontWeight: FontWeight.bold)),
                                     Expanded(
                                       child: Column(
@@ -79,10 +79,14 @@ class ProductView extends StatelessWidget {
                                         children: [
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.account_circle_rounded,
-                                                color: color7,
-                                                size: 48.0,
+                                              const CircleAvatar(
+                                                radius: 24.0,
+                                                backgroundColor: color7,
+                                                child: Icon(
+                                                  Icons.account_circle_rounded,
+                                                  color: color1,
+                                                  size: 32.0,
+                                                ),
                                               ),
                                               const SizedBox(width: 20.0),
                                               Column(
@@ -108,10 +112,14 @@ class ProductView extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.room_rounded,
-                                                color: color7,
-                                                size: 48.0,
+                                              const CircleAvatar(
+                                                radius: 24.0,
+                                                backgroundColor: color7,
+                                                child: Icon(
+                                                  Icons.room_rounded,
+                                                  color: color1,
+                                                  size: 32.0,
+                                                ),
                                               ),
                                               const SizedBox(width: 20.0),
                                               Column(
@@ -131,10 +139,14 @@ class ProductView extends StatelessWidget {
                                           ),
                                           Row(
                                             children: [
-                                              const Icon(
-                                                Icons.calendar_today_rounded,
-                                                color: color7,
-                                                size: 48.0,
+                                              const CircleAvatar(
+                                                radius: 24.0,
+                                                backgroundColor: color7,
+                                                child: Icon(
+                                                  Icons.calendar_today_rounded,
+                                                  color: color1,
+                                                  size: 28.0,
+                                                ),
                                               ),
                                               const SizedBox(width: 20.0),
                                               Column(
@@ -179,7 +191,7 @@ class ProductView extends StatelessWidget {
                                           color: Colors.black.withOpacity(0.3),
                                           spreadRadius: 5,
                                           blurRadius: 7,
-                                          offset: Offset(0,
+                                          offset: const Offset(0,
                                               5), // changes position of shadow
                                         ),
                                       ],
@@ -274,7 +286,21 @@ class ProductView extends StatelessWidget {
                                                                               onTap: () {
                                                                                 model.navigateToProductView(context, constituents[index]);
                                                                               },
-                                                                              title: Text(constituents[index], style: const TextStyle(fontSize: 16.0, color: color7)),
+                                                                              title: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                children: [
+                                                                                  const CircleAvatar(
+                                                                                    radius: 16.0,
+                                                                                    backgroundColor: color7,
+                                                                                    child: Icon(
+                                                                                      Icons.bookmark_border_rounded,
+                                                                                      color: color1,
+                                                                                      size: 20.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(constituents[index], maxLines: 3, style: const TextStyle(fontSize: 16.0, color: color7)),
+                                                                                ],
+                                                                              ),
                                                                             ),
                                                                             color:
                                                                                 color1,
@@ -288,9 +314,10 @@ class ProductView extends StatelessWidget {
                                                   child: Text(
                                                     "This product has no ingredients",
                                                     style: TextStyle(
-                                                        fontSize: 20,
+                                                        fontSize: 18,
                                                         fontWeight:
-                                                            FontWeight.bold),
+                                                            FontWeight.bold,
+                                                        color: color1),
                                                   ),
                                                 );
                                               }
@@ -299,9 +326,10 @@ class ProductView extends StatelessWidget {
                                                 child: Text(
                                                   "This product has no ingredients",
                                                   style: TextStyle(
-                                                      fontSize: 20,
+                                                      fontSize: 18,
                                                       fontWeight:
-                                                          FontWeight.bold),
+                                                          FontWeight.bold,
+                                                      color: color1),
                                                 ),
                                               );
                                           }

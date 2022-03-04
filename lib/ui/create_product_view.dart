@@ -32,6 +32,11 @@ class _CreateProductViewState extends State<CreateProductView> {
         builder: (context, model, child) => Scaffold(
             resizeToAvoidBottomInset: false,
             appBar: AppBar(
+              title: const Text(
+                'Add product',
+                style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+              ),
+              centerTitle: true,
               elevation: 0,
               backgroundColor: color1,
               leading: IconButton(
@@ -44,7 +49,6 @@ class _CreateProductViewState extends State<CreateProductView> {
                 padding: const EdgeInsets.only(
                   left: defaultPadding,
                   right: defaultPadding,
-                  bottom: defaultPadding,
                 ),
                 height: MediaQuery.of(context).size.height * 0.4,
                 decoration: BoxDecoration(
@@ -58,14 +62,14 @@ class _CreateProductViewState extends State<CreateProductView> {
                       color: Colors.black.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(0, 1), // changes position of shadow
+                      offset: const Offset(0, 1), // changes position of shadow
                     ),
                   ],
                 ),
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 4.0),
                       child: TextField(
                           controller: productNameController,
                           decoration: InputDecoration(
@@ -84,7 +88,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                           style: const TextStyle(color: color7)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 4.0),
                       child: TextField(
                           controller: manufacturerNameController,
                           decoration: InputDecoration(
@@ -103,7 +107,8 @@ class _CreateProductViewState extends State<CreateProductView> {
                           style: const TextStyle(color: color7)),
                     ),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(24.0, 24.0, 4.0, 4.0),
+                      padding:
+                          const EdgeInsets.fromLTRB(24.0, 24.0, 24.0, 24.0),
                       child: TextField(
                           controller: productionLocationController,
                           decoration: InputDecoration(
@@ -257,15 +262,33 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                     ),
                                                     child: ListTile(
                                                       onTap: () {},
-                                                      title: Text(
-                                                          model.selectedComponents[
-                                                              index],
-                                                          style:
-                                                              const TextStyle(
+                                                      title: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          const CircleAvatar(
+                                                            radius: 16.0,
+                                                            backgroundColor:
+                                                                color7,
+                                                            child: Icon(
+                                                              Icons
+                                                                  .bookmark_border_rounded,
+                                                              color: color1,
+                                                              size: 20.0,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                              model.selectedComponents[
+                                                                  index],
+                                                              maxLines: 3,
+                                                              style: const TextStyle(
                                                                   fontSize:
                                                                       16.0,
                                                                   color:
                                                                       color7)),
+                                                        ],
+                                                      ),
                                                     ),
                                                     color: color1,
                                                   )),
