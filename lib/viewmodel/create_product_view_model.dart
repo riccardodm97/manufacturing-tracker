@@ -73,6 +73,5 @@ class CreateProductViewModel extends BaseModel {
           },
           child: const Text('OK'))
     ]);
-    navigateBack(context);
   }
 }
