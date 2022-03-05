@@ -15,6 +15,18 @@ class SelectConstituentsViewModel extends BaseModel {
   Map<String, String> get selectedConstituents => _selectedConstituents;
   Map<String, String> get possibleConstituents => _possibleConstituents;
 
+  List<String> get selectedConstituentsAddress =>
+      _selectedConstituents.keys.toList();
+
+  List<String> get possibleConstituentsAddress =>
+      _possibleConstituents.keys.toList();
+
+  List<String> get selectedConstituentsNames =>
+      _selectedConstituents.values.toList();
+
+  List<String> get possibleConstituentsNames =>
+      _possibleConstituents.values.toList();
+
   void addToConstituentsMap(String productAddress) {
     _selectedConstituents[productAddress] =
         _possibleConstituents[productAddress]!;
