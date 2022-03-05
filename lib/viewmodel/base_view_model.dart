@@ -23,8 +23,13 @@ class BaseModel extends ChangeNotifier {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(title),
-            content: Text(content),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18.0),
+            ),
+            title: Text(title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 26.0)),
+            content: Text(content, style: const TextStyle(fontSize: 20.0)),
             actions: buttonList,
           );
         });

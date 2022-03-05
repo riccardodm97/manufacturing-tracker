@@ -14,7 +14,7 @@ class HomeViewModel extends BaseModel {
 
     if (!success) {
       showTextDialog(context, true, 'Error',
-          'Something went wrong with your key. Try again', null);
+          'Something went wrong with your key. Try again!', null);
     } else {
       Navigator.pop(context);
     }
