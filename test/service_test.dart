@@ -1,5 +1,6 @@
 import 'package:dapp/service/product_service.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:test/test.dart';
 
 import 'package:dapp/setup/locator.dart';
@@ -45,8 +46,8 @@ void main() {
   test('create and retrive product', () async {
     prodService.setProductFactory(data.factoryAddress);
 
-    var hash = await prodService.createProduct(
-        'mela', 'contadino', 'milano', BigInt.from(7));
+    var hash = await prodService.createProduct('mela', 'contadino', 'milano',
+        DateFormat.yMMMd().format(DateTime.now()));
 
     String addr = await prodService.getNewProductAddress(hash);
 
@@ -119,7 +120,7 @@ void main() {
 
     prodService.setProductFactory(data.factoryAddress);
     var hash = await prodService.createProduct(
-        'abcde', 'abcde', 'abcde', BigInt.from(12345));
+        'abcde', 'abcde', 'abcde', DateFormat.yMMMd().format(DateTime.now()));
 
     String addr = await prodService.getNewProductAddress(hash);
 
