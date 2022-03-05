@@ -9,25 +9,28 @@ class SelectConstituentsViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final List<String> _selectedConstituents = [];
-  final List<String> _possibleConstituents = [];
+  final Map<String, String> _selectedConstituents = {};
+  final Map<String, String> _possibleConstituents = {};
 
-  List<String> get selectedConstituents => _selectedConstituents;
-  List<String> get possibleConstituents => _possibleConstituents;
+  Map<String, String> get selectedConstituents => _selectedConstituents;
+  Map<String, String> get possibleConstituents => _possibleConstituents;
 
-  void addToConstituentsList(String productAddress) {
-    _selectedConstituents.add(productAddress);
+  void addToConstituentsMap(String productAddress) {
+    _selectedConstituents[productAddress] =
+        _possibleConstituents[productAddress]!;
     notifyListeners();
   }
 
-  void removeFromConstituentsList(String productAddress) {
+  void removeFromConstituentsMap(String productAddress) {
     _selectedConstituents.remove(productAddress);
     notifyListeners();
   }
 
   Future<String> getProductName(String productAddress) async {
     await _productService.setCurrentProduct(productAddress);
-    return await _productService.getName();
+    var name = await _productService.getName();
+    _productService.clearCurrentProduct();
+    return name;
   }
 
   Future<void> onStartup(context) async {
@@ -37,7 +40,10 @@ class SelectConstituentsViewModel extends BaseModel {
     setBusy(true);
     List<String> constituents = await _productService
         .getUserProducts(_authService.userAddress.toString());
-    _possibleConstituents.addAll(constituents);
+
+    for (String constituent in constituents) {
+      _possibleConstituents[constituent] = await getProductName(constituent);
+    }
     setBusy(false);
   }
 

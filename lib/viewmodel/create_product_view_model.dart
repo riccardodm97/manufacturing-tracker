@@ -11,14 +11,14 @@ class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  List<String> _selectedConstituents = [];
+  Map<String, String> _selectedConstituents = {};
 
-  List<String> get selectedConstituents => _selectedConstituents;
+  Map<String, String> get selectedConstituents => _selectedConstituents;
 
   Future<void> navigateToSelectConstituentsView(BuildContext context) async {
     _selectedConstituents =
         await Navigator.pushNamed(context, '/selectConstituents')
-            .then((value) => value as List<String>);
+            .then((value) => value as Map<String, String>);
     notifyListeners();
   }
 
@@ -45,10 +45,11 @@ class CreateProductViewModel extends BaseModel {
 
     //remove all its constituents from the current user
     await _productService.removeProductFromUser(
-        _authService.userAddress.toString(), selectedConstituents);
+        _authService.userAddress.toString(),
+        selectedConstituents.keys.toList());
 
     //for each constituent, mark it as used
-    for (String c in selectedConstituents) {
+    for (String c in selectedConstituents.keys) {
       await _productService.setCurrentProduct(c);
       await _productService.markAsUsed();
       _productService.clearCurrentProduct();
@@ -57,7 +58,7 @@ class CreateProductViewModel extends BaseModel {
     await _productService.setCurrentProduct(addr);
 
     // add every constitutent to the product
-    for (String c in selectedConstituents) {
+    for (String c in selectedConstituents.keys) {
       await _productService.addConstituent(c);
     }
 
