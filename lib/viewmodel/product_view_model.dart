@@ -11,10 +11,10 @@ class ProductViewModel extends BaseModel {
   final Web3Service _web3Service = serviceLocator<Web3Service>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final String _product;
+  final String _productAddress;
   final bool _canShowBuyButton;
 
-  ProductViewModel(this._product, this._canShowBuyButton);
+  ProductViewModel(this._productAddress, this._canShowBuyButton);
 
   bool get canShowBuyButton => _canShowBuyButton;
 
@@ -27,7 +27,7 @@ class ProductViewModel extends BaseModel {
     setBusy(true);
 
     _productService.clearCurrentProduct();
-    await _productService.setCurrentProduct(_product);
+    await _productService.setCurrentProduct(_productAddress);
 
     var transactionHash = await _productService.transferOwnership();
     bool status = await _web3Service.getTransactionStatus(transactionHash);
@@ -36,9 +36,10 @@ class ProductViewModel extends BaseModel {
       Map<String, String> map =
           await _productService.getOldAndNewProductOwner(transactionHash);
 
-      await _productService.removeProductFromUser(map["oldOwner"]!, [_product]);
+      await _productService
+          .removeProductFromUser(map["oldOwner"]!, [_productAddress]);
       await _productService.addProductToUser(
-          _authService.userAddress.toString(), _product);
+          _authService.userAddress.toString(), _productAddress);
     }
     _productService.clearCurrentProduct();
 
@@ -48,11 +49,15 @@ class ProductViewModel extends BaseModel {
   }
 
   Future<Map<String, String>> getProductDetails() async {
+    Map<String, String> detailsMap;
     setBusy(true);
-    await _productService.setCurrentProduct(_product);
-    var detailsMap = await _productService.getProductDetails();
+    try {
+      await _productService.setCurrentProduct(_productAddress);
+      detailsMap = await _productService.getProductDetails();
+    } catch (e) {
+      detailsMap = {};
+    }
     setBusy(false);
-
     return detailsMap;
   }
 
@@ -60,7 +65,8 @@ class ProductViewModel extends BaseModel {
     Map<String, String> productMap = {};
 
     setBusy(true);
-    await _productService.setCurrentProduct(_product);
+
+    await _productService.setCurrentProduct(_productAddress);
     var constituents = await _productService.getConstituents();
 
     for (String constituent in constituents) {
@@ -68,8 +74,8 @@ class ProductViewModel extends BaseModel {
       productMap[constituent] = await _productService.getName();
       _productService.clearCurrentProduct();
     }
-    setBusy(false);
 
+    setBusy(false);
     return productMap;
   }
 }
