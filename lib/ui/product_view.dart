@@ -340,7 +340,8 @@ class ProductView extends StatelessWidget {
                                           }
                                         })),
                                 Visibility(
-                                  visible: arguments[1] && model.isUserLogged,
+                                  visible: model.canShowBuyButton &&
+                                      model.isUserLogged,
                                   maintainSize: false,
                                   child: ElevatedButton.icon(
                                       onPressed: () {

@@ -6,7 +6,6 @@ import '../service/auth_service.dart';
 import '../service/product_service.dart';
 import '../setup/locator.dart';
 import 'home_view.dart';
-import 'login_view.dart';
 import 'create_product_view.dart';
 import 'my_products_view.dart';
 import 'select_constituents_view.dart';
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => HomeView(),
-        '/logIn': (context) => LoginView(),
         '/createProduct': (context) => CreateProductView(),
         '/selectConstituents': (context) => SelectConstituentsView(),
         '/findProduct': (context) => FindProductView(),

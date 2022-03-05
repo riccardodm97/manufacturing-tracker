@@ -11,10 +11,12 @@ class ProductViewModel extends BaseModel {
   final Web3Service _web3Service = serviceLocator<Web3Service>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  String product;
-  bool showBuyButton;
+  final String _product;
+  final bool _canShowBuyButton;
 
-  ProductViewModel(this.product, this.showBuyButton);
+  ProductViewModel(this._product, this._canShowBuyButton);
+
+  bool get canShowBuyButton => _canShowBuyButton;
 
   Future<void> navigateToProductView(
           BuildContext context, String product) async =>
@@ -25,7 +27,7 @@ class ProductViewModel extends BaseModel {
     setBusy(true);
 
     _productService.clearCurrentProduct();
-    await _productService.setCurrentProduct(product);
+    await _productService.setCurrentProduct(_product);
 
     var transactionHash = await _productService.transferOwnership();
     bool status = await _web3Service.getTransactionStatus(transactionHash);
@@ -34,9 +36,9 @@ class ProductViewModel extends BaseModel {
       Map<String, String> map =
           await _productService.getOldAndNewProductOwner(transactionHash);
 
-      await _productService.removeProductFromUser(map["oldOwner"]!, [product]);
+      await _productService.removeProductFromUser(map["oldOwner"]!, [_product]);
       await _productService.addProductToUser(
-          _authService.userAddress.toString(), product);
+          _authService.userAddress.toString(), _product);
     }
     _productService.clearCurrentProduct();
 
@@ -47,7 +49,7 @@ class ProductViewModel extends BaseModel {
 
   Future<Map<String, String>> getProductDetails() async {
     setBusy(true);
-    await _productService.setCurrentProduct(product);
+    await _productService.setCurrentProduct(_product);
     var detailsMap = await _productService.getProductDetails();
     setBusy(false);
 
@@ -56,7 +58,7 @@ class ProductViewModel extends BaseModel {
 
   Future<List<String>> getProductConstituents() async {
     setBusy(true);
-    await _productService.setCurrentProduct(product);
+    await _productService.setCurrentProduct(_product);
     var constituents = await _productService.getConstituents();
     setBusy(false);
 
