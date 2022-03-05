@@ -33,8 +33,9 @@ class ProductView extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
 
                     case ConnectionState.done:
-                      if (snapshot.data != null) {
-                        dynamic myMap = snapshot.data;
+                      Map<String, String> productDetails =
+                          snapshot.data as Map<String, String>;
+                      if (productDetails.isNotEmpty) {
                         return Column(children: <Widget>[
                           Container(
                             padding: const EdgeInsets.only(
@@ -64,7 +65,7 @@ class ProductView extends StatelessWidget {
                               children: <Widget>[
                                 Column(
                                   children: [
-                                    Text('${myMap['product_name']}',
+                                    Text('${productDetails['product_name']}',
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(
                                             color: color7,
@@ -94,14 +95,14 @@ class ProductView extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                      '${myMap['manufacturer_name']}',
+                                                      '${productDetails['manufacturer_name']}',
                                                       style: const TextStyle(
                                                           color: color7,
                                                           fontSize: 24.0,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                   Text(
-                                                      '${myMap['manufacturer_address']}',
+                                                      '${productDetails['manufacturer_address']}',
                                                       style: const TextStyle(
                                                         color: color7,
                                                         fontSize: 11.0,
@@ -127,7 +128,7 @@ class ProductView extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                      '${myMap['production_location']}',
+                                                      '${productDetails['production_location']}',
                                                       style: const TextStyle(
                                                           color: color7,
                                                           fontSize: 24.0,
@@ -154,7 +155,7 @@ class ProductView extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                      '${myMap['production_date']}',
+                                                      '${productDetails['production_date']}',
                                                       style: const TextStyle(
                                                           color: color7,
                                                           fontSize: 24.0,
@@ -216,120 +217,107 @@ class ProductView extends StatelessWidget {
                                                       CircularProgressIndicator());
 
                                             case ConnectionState.done:
-                                              if (snapshot.data != null) {
-                                                dynamic constituents =
-                                                    snapshot.data;
-                                                if (constituents.length != 0) {
-                                                  return Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .fromLTRB(
-                                                                32.0,
-                                                                8.0,
-                                                                32.0,
-                                                                0.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            const Text(
-                                                                'Constituents',
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18.0,
-                                                                    color:
-                                                                        color1)),
-                                                            Text(
-                                                                '${constituents.length} items',
-                                                                style: const TextStyle(
-                                                                    fontSize:
-                                                                        14.0,
-                                                                    color:
-                                                                        color1))
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                          child:
-                                                              ScrollConfiguration(
-                                                        behavior:
-                                                            NoGlowBehaviour(),
-                                                        child: ListView.builder(
-                                                            itemCount:
-                                                                constituents
-                                                                    .length,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              return Padding(
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    vertical:
-                                                                        2.0,
-                                                                    horizontal:
-                                                                        8.0),
-                                                                child: SizedBox(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.3,
-                                                                    child: Card(
-                                                                      shape:
-                                                                          RoundedRectangleBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(18.0),
-                                                                      ),
-                                                                      child:
-                                                                          ListTile(
-                                                                        onTap:
-                                                                            () {
-                                                                          model.navigateToProductView(
-                                                                              context,
-                                                                              constituents.keys.toList()[index]);
-                                                                        },
-                                                                        title:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Text(constituents.values.toList()[index],
-                                                                                maxLines: 1,
-                                                                                style: const TextStyle(fontSize: 20.0, color: color7)),
-                                                                            Text(constituents.keys.toList()[index],
-                                                                                maxLines: 1,
-                                                                                style: TextStyle(fontSize: 12.0, color: Colors.white.withOpacity(0.7))),
-                                                                          ],
-                                                                        ),
-                                                                      ),
+                                              Map<String, String> constituents =
+                                                  snapshot.data
+                                                      as Map<String, String>;
+                                              if (constituents.isNotEmpty) {
+                                                return Column(
+                                                  children: [
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .fromLTRB(
+                                                          32.0, 8.0, 32.0, 0.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          const Text(
+                                                              'Constituents',
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  color:
+                                                                      color1)),
+                                                          Text(
+                                                              '${constituents.length} items',
+                                                              style:
+                                                                  const TextStyle(
+                                                                      fontSize:
+                                                                          14.0,
                                                                       color:
-                                                                          color1,
-                                                                    )),
-                                                              );
-                                                            }),
-                                                      )),
-                                                    ],
-                                                  );
-                                                }
-                                                return const Center(
-                                                  child: Text(
-                                                    "This product has no constituents",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: color1),
-                                                  ),
+                                                                          color1))
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                        child:
+                                                            ScrollConfiguration(
+                                                      behavior:
+                                                          NoGlowBehaviour(),
+                                                      child: ListView.builder(
+                                                          itemCount:
+                                                              constituents
+                                                                  .length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            return Padding(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 2.0,
+                                                                  horizontal:
+                                                                      8.0),
+                                                              child: SizedBox(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.3,
+                                                                  child: Card(
+                                                                    shape:
+                                                                        RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              18.0),
+                                                                    ),
+                                                                    child:
+                                                                        ListTile(
+                                                                      onTap:
+                                                                          () {
+                                                                        model.navigateToProductView(
+                                                                            context,
+                                                                            constituents.keys.toList()[index]);
+                                                                      },
+                                                                      title:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                              constituents.values.toList()[index],
+                                                                              maxLines: 1,
+                                                                              style: const TextStyle(fontSize: 20.0, color: color7)),
+                                                                          Text(
+                                                                              constituents.keys.toList()[index],
+                                                                              maxLines: 1,
+                                                                              style: TextStyle(fontSize: 12.0, color: Colors.white.withOpacity(0.7))),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    color:
+                                                                        color1,
+                                                                  )),
+                                                            );
+                                                          }),
+                                                    )),
+                                                  ],
                                                 );
                                               }
-                                              // here your snapshot data is null so SharedPreferences has no data...
                                               return const Center(
                                                 child: Text(
                                                   "This product has no constituents",
@@ -372,13 +360,17 @@ class ProductView extends StatelessWidget {
                                 )
                               ])),
                         ]);
+                      } else {
+                        return const Center(
+                          child: Text(
+                            "No such product",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: color1),
+                          ),
+                        );
                       }
-                      // here your snapshot data is null so SharedPreferences has no data...
-                      return const Text(
-                        "There are no saved products",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      );
                   }
                 })));
   }
