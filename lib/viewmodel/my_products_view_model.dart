@@ -9,8 +9,8 @@ class MyProductsViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
   final AuthService _authService = serviceLocator<AuthService>();
 
-  final List<String> _userProducts = [];
-  List<String> get userProducts => _userProducts;
+  final Map<String, String> _userProducts = {};
+  Map<String, String> get userProducts => _userProducts;
 
   Future<void> navigateToProductView(
           BuildContext context, String product) async =>
@@ -23,7 +23,12 @@ class MyProductsViewModel extends BaseModel {
     setBusy(true);
     List<String> constituents = await _productService
         .getUserProducts(_authService.userAddress.toString());
-    _userProducts.addAll(constituents);
+
+    for (String constituent in constituents) {
+      await _productService.setCurrentProduct(constituent);
+      _userProducts[constituent] = await _productService.getName();
+      _productService.clearCurrentProduct();
+    }
     setBusy(false);
     notifyListeners();
   }

@@ -40,9 +40,13 @@ class MyProductsView extends StatelessWidget {
                                     child: ListTile(
                                       onTap: () {
                                         model.navigateToProductView(
-                                            context, model.userProducts[index]);
+                                            context,
+                                            model.userProducts.keys
+                                                .toList()[index]);
                                       },
-                                      title: Text(model.userProducts[index],
+                                      title: Text(
+                                          model.userProducts.values
+                                              .toList()[index],
                                           style:
                                               const TextStyle(fontSize: 24.0)),
                                     ),
