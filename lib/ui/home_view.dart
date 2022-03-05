@@ -16,6 +16,7 @@ class HomeView extends StatelessWidget {
             appBar: AppBar(
               elevation: 0,
               leading: AuthButton(),
+              leadingWidth: MediaQuery.of(context).size.width,
               backgroundColor: color1,
             ),
             body: Column(
@@ -156,18 +157,32 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
   @override
   Widget build(BuildContext context, HomeViewModel viewModel) {
     return viewModel.isUserLogged
-        ? IconButton(
-            icon: const Icon(Icons.logout_rounded),
+        ? TextButton.icon(
+            icon: const Icon(
+              Icons.logout_rounded,
+              size: 32,
+            ),
+            label: const Text('Logout'),
             onPressed: () {
               viewModel.logOut();
             },
-            color: color7,
-            iconSize: 36.0,
+            style: TextButton.styleFrom(
+              alignment: Alignment.centerLeft,
+              primary: color7,
+              textStyle: const TextStyle(fontSize: 18),
+            ),
           )
-        : IconButton(
-            icon: const Icon(Icons.login_rounded),
-            color: color7,
-            iconSize: 36.0,
+        : TextButton.icon(
+            icon: const Icon(
+              Icons.login_rounded,
+              size: 32,
+            ),
+            label: const Text('Login'),
+            style: TextButton.styleFrom(
+              alignment: Alignment.centerLeft,
+              primary: color7,
+              textStyle: const TextStyle(fontSize: 18),
+            ),
             onPressed: () {
               showGeneralDialog(
                 context: context,
@@ -261,7 +276,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                       parent: animation,
                       curve: Curves.easeOut,
                     ).drive(Tween<Offset>(
-                      begin: Offset(0, -1.0),
+                      begin: const Offset(0, -1.0),
                       end: Offset.zero,
                     )),
                     child: child,
