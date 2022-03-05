@@ -300,15 +300,6 @@ class ProductView extends StatelessWidget {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceEvenly,
                                                                           children: [
-                                                                            const CircleAvatar(
-                                                                              radius: 16.0,
-                                                                              backgroundColor: color7,
-                                                                              child: Icon(
-                                                                                Icons.bookmark_border_rounded,
-                                                                                color: color1,
-                                                                                size: 20.0,
-                                                                              ),
-                                                                            ),
                                                                             Text(constituents[index],
                                                                                 maxLines: 3,
                                                                                 style: const TextStyle(fontSize: 16.0, color: color7)),

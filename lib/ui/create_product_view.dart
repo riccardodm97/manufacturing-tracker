@@ -269,17 +269,6 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                             MainAxisAlignment
                                                                 .spaceEvenly,
                                                         children: [
-                                                          const CircleAvatar(
-                                                            radius: 16.0,
-                                                            backgroundColor:
-                                                                color7,
-                                                            child: Icon(
-                                                              Icons
-                                                                  .bookmark_border_rounded,
-                                                              color: color1,
-                                                              size: 20.0,
-                                                            ),
-                                                          ),
                                                           Text(
                                                               model.selectedComponents[
                                                                   index],

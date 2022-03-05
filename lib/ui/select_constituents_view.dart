@@ -42,22 +42,20 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
                           borderRadius: BorderRadius.circular(24.0),
                         ),
                         child: ListTile(
-                            onTap: () {
-                              model.addToConstituentsList(
+                          onTap: () {
+                            model.addToConstituentsList(
+                                model.possibleConstituents[index]);
+                          },
+                          onLongPress: () {
+                            if (model.selectedConstituents
+                                .contains(model.possibleConstituents[index])) {
+                              model.removeFromConstituentsList(
                                   model.possibleConstituents[index]);
-                            },
-                            onLongPress: () {
-                              if (model.selectedConstituents.contains(
-                                  model.possibleConstituents[index])) {
-                                model.removeFromConstituentsList(
-                                    model.possibleConstituents[index]);
-                              }
-                            },
-                            title: Text(model.possibleConstituents[index],
-                                style: const TextStyle(fontSize: 24.0)),
-                            leading: const CircleAvatar(
-                                backgroundColor: color1,
-                                child: Icon(Icons.bookmark_border_outlined))),
+                            }
+                          },
+                          title: Text(model.possibleConstituents[index],
+                              style: const TextStyle(fontSize: 24.0)),
+                        ),
                         color: model.selectedConstituents
                                 .contains(model.possibleConstituents[index])
                             ? color4

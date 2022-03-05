@@ -37,16 +37,13 @@ class MyProductsView extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(24.0),
                                 ),
                                 child: ListTile(
-                                    onTap: () {
-                                      model.navigateToProductView(
-                                          context, model.userProducts[index]);
-                                    },
-                                    title: Text(model.userProducts[index],
-                                        style: const TextStyle(fontSize: 24.0)),
-                                    leading: const CircleAvatar(
-                                        backgroundColor: color1,
-                                        child: Icon(
-                                            Icons.bookmark_border_outlined))),
+                                  onTap: () {
+                                    model.navigateToProductView(
+                                        context, model.userProducts[index]);
+                                  },
+                                  title: Text(model.userProducts[index],
+                                      style: const TextStyle(fontSize: 24.0)),
+                                ),
                                 color: color7),
                           );
                         }),
