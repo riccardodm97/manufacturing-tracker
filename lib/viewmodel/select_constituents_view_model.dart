@@ -35,13 +35,9 @@ class SelectConstituentsViewModel extends BaseModel {
     _possibleConstituents.clear();
 
     setBusy(true);
-    try {
-      List<String> constituents = await _productService
-          .getUserProducts(_authService.userAddress.toString());
-      _possibleConstituents.addAll(constituents);
-    } catch (e) {
-      showTextDialog(context, 'Warning', e.toString());
-    }
+    List<String> constituents = await _productService
+        .getUserProducts(_authService.userAddress.toString());
+    _possibleConstituents.addAll(constituents);
     setBusy(false);
   }
 

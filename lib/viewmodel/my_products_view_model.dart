@@ -21,13 +21,9 @@ class MyProductsViewModel extends BaseModel {
     _userProducts.clear();
 
     setBusy(true);
-    try {
-      List<String> constituents = await _productService
-          .getUserProducts(_authService.userAddress.toString());
-      _userProducts.addAll(constituents);
-    } catch (e) {
-      showTextDialog(context, 'Warning', e.toString());
-    }
+    List<String> constituents = await _productService
+        .getUserProducts(_authService.userAddress.toString());
+    _userProducts.addAll(constituents);
     setBusy(false);
     notifyListeners();
   }

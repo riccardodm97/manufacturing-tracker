@@ -13,8 +13,8 @@ class HomeViewModel extends BaseModel {
     setBusy(false);
 
     if (!success) {
-      showTextDialog(
-          context, 'Error', 'Something went wrong with your key. Try again');
+      showTextDialog(context, true, 'Error',
+          'Something went wrong with your key. Try again', null);
     } else {
       Navigator.pop(context);
     }
@@ -34,8 +34,8 @@ class HomeViewModel extends BaseModel {
     if (isUserLogged) {
       await Navigator.pushNamed(context, '/createProduct');
     } else {
-      showTextDialog(context, 'You are not logged in',
-          'To create a product you need to logIn first');
+      showTextDialog(context, true, 'You are not logged in',
+          'To create a product you need to logIn first', null);
     }
   }
 
@@ -47,8 +47,8 @@ class HomeViewModel extends BaseModel {
     if (isUserLogged) {
       await Navigator.pushNamed(context, '/myProducts');
     } else {
-      showTextDialog(context, 'You are not logged in',
-          'To see your products you need to logIn first');
+      showTextDialog(context, true, 'You are not logged in',
+          'To see your products you need to logIn first', null);
     }
   }
 }

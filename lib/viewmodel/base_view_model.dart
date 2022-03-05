@@ -16,13 +16,16 @@ class BaseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showTextDialog(BuildContext context, String title, String content) {
+  void showTextDialog(BuildContext context, bool isDismissible, String title,
+      String content, List<Widget>? buttonList) {
     showDialog(
+        barrierDismissible: isDismissible,
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text(title),
             content: Text(content),
+            actions: buttonList,
           );
         });
   }

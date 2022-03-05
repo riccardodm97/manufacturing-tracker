@@ -34,7 +34,7 @@ class ProductService {
   }
 
   Future<String> createProduct(String name, String manufacturerName,
-      String productionLocation, BigInt productionDate) async {
+      String productionLocation, String productionDate) async {
     return await _web3service.submitTransaction(_factoryP!, 'createProduct',
         [name, manufacturerName, productionLocation, productionDate]);
   }
@@ -121,7 +121,7 @@ class ProductService {
 
       return products.map<String>((item) => item.toString()).toList();
     } else {
-      throw ('No products to show');
+      return [];
     }
   }
 }

@@ -163,13 +163,13 @@ class _CreateProductViewState extends State<CreateProductView> {
                                       style: TextStyle(
                                           fontSize: 16.0, color: color1)),
                                   Text(
-                                      '${model.selectedComponents.length} items',
+                                      '${model.selectedConstituents.length} items',
                                       style: const TextStyle(
                                           fontSize: 12.0, color: color1))
                                 ],
                               ),
                             ),
-                            model.selectedComponents.isEmpty
+                            model.selectedConstituents.isEmpty
                                 ? Expanded(
                                     child: Center(
                                     child: Padding(
@@ -188,7 +188,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                                             child: ListTile(
                                               onTap: () {
                                                 model
-                                                    .navigateToSelectComponentsView(
+                                                    .navigateToSelectConstituentsView(
                                                         context);
                                               },
                                               title: const Center(
@@ -207,10 +207,12 @@ class _CreateProductViewState extends State<CreateProductView> {
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
                                         itemCount:
-                                            model.selectedComponents.length + 1,
+                                            model.selectedConstituents.length +
+                                                1,
                                         itemBuilder: (context, index) {
                                           if (index ==
-                                              model.selectedComponents.length) {
+                                              model.selectedConstituents
+                                                  .length) {
                                             return Padding(
                                               padding:
                                                   const EdgeInsets.symmetric(
@@ -231,7 +233,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                     child: ListTile(
                                                       onTap: () {
                                                         model
-                                                            .navigateToSelectComponentsView(
+                                                            .navigateToSelectConstituentsView(
                                                                 context);
                                                       },
                                                       title: const Center(
@@ -270,7 +272,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                                 .spaceEvenly,
                                                         children: [
                                                           Text(
-                                                              model.selectedComponents[
+                                                              model.selectedConstituents[
                                                                   index],
                                                               maxLines: 3,
                                                               style: const TextStyle(

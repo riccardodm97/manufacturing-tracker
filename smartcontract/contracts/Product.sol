@@ -8,7 +8,7 @@ contract Product {
     address private manufacturer_address;
     string private manufacturer_name; 
     string private production_location;
-    uint256 private production_date;
+    string private production_date;
     address[] private constituens;
 
     bool private isCostituent = false;
@@ -50,7 +50,7 @@ contract Product {
     }
 
 
-    function init(address _owner, string calldata _name, string calldata _manufacturer_name, string calldata _prod_location, uint256 _prod_date) external notInitd {
+    function init(address _owner, string calldata _name, string calldata _manufacturer_name, string calldata _prod_location, string calldata _prod_date) external notInitd {
         name = _name;
         manufacturer_name = _manufacturer_name;
         manufacturer_address = _owner;
@@ -82,7 +82,7 @@ contract Product {
     
     // getters 
 
-    function getProductDetails() external view returns(string memory, address, string memory, string memory, uint256){
+    function getProductDetails() external view returns(string memory, address, string memory, string memory, string memory){
         return (name,manufacturer_address,manufacturer_name,production_location,production_date);
     }
 
@@ -98,7 +98,7 @@ contract Product {
         return production_location;
     }
 
-    function getProductionDate() external view returns(uint256){
+    function getProductionDate() external view returns(string memory){
         return production_date;
     }
 
