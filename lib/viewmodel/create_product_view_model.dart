@@ -6,6 +6,7 @@ import '../service/product_service.dart';
 import '../service/auth_service.dart';
 import '../setup/locator.dart';
 import '../viewmodel/base_view_model.dart';
+import '../ui/colors.dart';
 
 class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
@@ -71,13 +72,23 @@ class CreateProductViewModel extends BaseModel {
       _productService.clearCurrentProduct();
       setBusy(false);
 
-      showTextDialog(context, false, 'Testo1', 'Testo2', [
+      showTextDialog(context, false, 'Success!',
+          'Your product was added to the blockchain', [
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   '/', (Route<dynamic> route) => false);
             },
-            child: const Text('OK'))
+            style: ElevatedButton.styleFrom(
+              elevation: 0,
+              primary: color1,
+              onPrimary: color7,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            ),
+            child: const Text('OK', style: TextStyle(color: color7)))
       ]);
     }
   }
