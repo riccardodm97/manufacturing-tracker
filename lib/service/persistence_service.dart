@@ -36,7 +36,7 @@ class PersistenceService {
         .set(data, SetOptions(merge: true));
   }
 
-  Future<void> deleteElementFromDocumentList(String collection, String doc,
+  Future<void> deleteElementsFromDocumentList(String collection, String doc,
       String listName, List<String> elements) async {
     Map<String, dynamic> data = {listName: FieldValue.arrayRemove(elements)};
     return await firestore

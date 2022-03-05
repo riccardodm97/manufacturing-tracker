@@ -56,12 +56,20 @@ class ProductViewModel extends BaseModel {
     return detailsMap;
   }
 
-  Future<List<String>> getProductConstituents() async {
+  Future<Map<String, String>> getProductConstituents() async {
+    Map<String, String> productMap = {};
+
     setBusy(true);
     await _productService.setCurrentProduct(_product);
     var constituents = await _productService.getConstituents();
+
+    for (String constituent in constituents) {
+      await _productService.setCurrentProduct(constituent);
+      productMap[constituent] = await _productService.getName();
+      _productService.clearCurrentProduct();
+    }
     setBusy(false);
 
-    return constituents;
+    return productMap;
   }
 }

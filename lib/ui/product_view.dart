@@ -202,7 +202,7 @@ class ProductView extends StatelessWidget {
                                           switch (snapshot.connectionState) {
                                             case ConnectionState.none:
                                               return const Text(
-                                                "There is no connection",
+                                                "Check your connection",
                                                 style: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight:
