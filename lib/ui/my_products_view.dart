@@ -25,28 +25,35 @@ class MyProductsView extends StatelessWidget {
               body: Center(
                 child: model.busy
                     ? const CircularProgressIndicator()
-                    : ListView.builder(
-                        itemCount: model.userProducts.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 24.0),
-                            child: Card(
-                                elevation: 10,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(24.0),
-                                ),
-                                child: ListTile(
-                                  onTap: () {
-                                    model.navigateToProductView(
-                                        context, model.userProducts[index]);
-                                  },
-                                  title: Text(model.userProducts[index],
-                                      style: const TextStyle(fontSize: 24.0)),
-                                ),
-                                color: color7),
-                          );
-                        }),
+                    : model.userProducts.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: model.userProducts.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 24.0),
+                                child: Card(
+                                    elevation: 10,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(24.0),
+                                    ),
+                                    child: ListTile(
+                                      onTap: () {
+                                        model.navigateToProductView(
+                                            context, model.userProducts[index]);
+                                      },
+                                      title: Text(model.userProducts[index],
+                                          style:
+                                              const TextStyle(fontSize: 24.0)),
+                                    ),
+                                    color: color7),
+                              );
+                            })
+                        : const Center(
+                            child: Text('No products to show',
+                                style:
+                                    TextStyle(fontSize: 24.0, color: color7)),
+                          ),
               ),
             ));
   }

@@ -122,7 +122,12 @@ class HomeView extends StatelessWidget {
                         onPressed: () {
                           model.navigateMyProductsView(context);
                         },
-                        icon: const Icon(Icons.shopping_cart_rounded),
+                        icon: const Image(
+                            width: 24,
+                            height: 24,
+                            color: color1,
+                            image: AssetImage(
+                                'assets/images/scatola-piena-64.png')),
                         label: const Text(
                           'My Products',
                           style: TextStyle(
@@ -160,7 +165,7 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
         ? TextButton.icon(
             icon: const Icon(
               Icons.logout_rounded,
-              size: 32,
+              size: 36,
             ),
             label: const Text('Logout'),
             onPressed: () {
@@ -169,19 +174,19 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
             style: TextButton.styleFrom(
               alignment: Alignment.centerLeft,
               primary: color7,
-              textStyle: const TextStyle(fontSize: 18),
+              textStyle: const TextStyle(fontSize: 20),
             ),
           )
         : TextButton.icon(
             icon: const Icon(
               Icons.login_rounded,
-              size: 32,
+              size: 36,
             ),
             label: const Text('Login'),
             style: TextButton.styleFrom(
               alignment: Alignment.centerLeft,
               primary: color7,
-              textStyle: const TextStyle(fontSize: 18),
+              textStyle: const TextStyle(fontSize: 20),
             ),
             onPressed: () {
               showGeneralDialog(

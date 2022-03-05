@@ -30,39 +30,44 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
         body: Center(
           child: model.busy
               ? const CircularProgressIndicator()
-              : ListView.builder(
-                  itemCount: model.possibleConstituents.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 24.0),
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24.0),
-                        ),
-                        child: ListTile(
-                          onTap: () {
-                            model.addToConstituentsList(
-                                model.possibleConstituents[index]);
-                          },
-                          onLongPress: () {
-                            if (model.selectedConstituents
-                                .contains(model.possibleConstituents[index])) {
-                              model.removeFromConstituentsList(
-                                  model.possibleConstituents[index]);
-                            }
-                          },
-                          title: Text(model.possibleConstituents[index],
-                              style: const TextStyle(fontSize: 24.0)),
-                        ),
-                        color: model.selectedConstituents
-                                .contains(model.possibleConstituents[index])
-                            ? color4
-                            : color7,
-                      ),
-                    );
-                  }),
+              : model.possibleConstituents.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: model.possibleConstituents.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 24.0),
+                          child: Card(
+                            elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            child: ListTile(
+                              onTap: () {
+                                model.addToConstituentsList(
+                                    model.possibleConstituents[index]);
+                              },
+                              onLongPress: () {
+                                if (model.selectedConstituents.contains(
+                                    model.possibleConstituents[index])) {
+                                  model.removeFromConstituentsList(
+                                      model.possibleConstituents[index]);
+                                }
+                              },
+                              title: Text(model.possibleConstituents[index],
+                                  style: const TextStyle(fontSize: 24.0)),
+                            ),
+                            color: model.selectedConstituents
+                                    .contains(model.possibleConstituents[index])
+                                ? color4
+                                : color7,
+                          ),
+                        );
+                      })
+                  : const Center(
+                      child: Text('No products to show',
+                          style: TextStyle(fontSize: 24.0, color: color7)),
+                    ),
         ),
         floatingActionButton: model.selectedConstituents.isEmpty
             ? null
