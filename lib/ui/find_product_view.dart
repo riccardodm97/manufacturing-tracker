@@ -251,7 +251,7 @@ class _QRViewScannerState extends State<QRViewScanner> {
                 await controller?.toggleFlash();
                 setState(() {});
               },
-              backgroundColor: Colors.blue[400],
+              backgroundColor: color1,
               icon: const Icon(Icons.flash_on),
               label: FutureBuilder(
                 future: controller?.getFlashStatus(),
@@ -288,7 +288,7 @@ class _QRViewScannerState extends State<QRViewScanner> {
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.blue,
+          borderColor: color1,
           borderRadius: 10,
           borderLength: 30,
           borderWidth: 10,
