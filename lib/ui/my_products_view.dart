@@ -47,8 +47,16 @@ class MyProductsView extends StatelessWidget {
                                       title: Text(
                                           model.userProducts.values
                                               .toList()[index],
-                                          style:
-                                              const TextStyle(fontSize: 24.0)),
+                                          style: const TextStyle(
+                                              fontSize: 24.0, color: color1)),
+                                      subtitle: Text(
+                                          model.userProducts.keys
+                                              .toList()[index],
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            color:
+                                                Colors.black.withOpacity(0.7),
+                                          )),
                                     ),
                                     color: color7),
                               );

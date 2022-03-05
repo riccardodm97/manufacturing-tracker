@@ -179,9 +179,9 @@ class ProductView extends StatelessWidget {
                                   children: [
                                 Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.5,
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
                                     decoration: BoxDecoration(
                                       color: color7,
                                       borderRadius: const BorderRadius.all(
@@ -242,14 +242,14 @@ class ProductView extends StatelessWidget {
                                                                 'Constituents',
                                                                 style: TextStyle(
                                                                     fontSize:
-                                                                        16.0,
+                                                                        18.0,
                                                                     color:
                                                                         color1)),
                                                             Text(
                                                                 '${constituents.length} items',
                                                                 style: const TextStyle(
                                                                     fontSize:
-                                                                        12.0,
+                                                                        14.0,
                                                                     color:
                                                                         color1))
                                                           ],
@@ -261,8 +261,6 @@ class ProductView extends StatelessWidget {
                                                         behavior:
                                                             NoGlowBehaviour(),
                                                         child: ListView.builder(
-                                                            scrollDirection:
-                                                                Axis.horizontal,
                                                             itemCount:
                                                                 constituents
                                                                     .length,
@@ -273,7 +271,7 @@ class ProductView extends StatelessWidget {
                                                                 padding: const EdgeInsets
                                                                         .symmetric(
                                                                     vertical:
-                                                                        16.0,
+                                                                        2.0,
                                                                     horizontal:
                                                                         8.0),
                                                                 child: SizedBox(
@@ -285,7 +283,7 @@ class ProductView extends StatelessWidget {
                                                                       shape:
                                                                           RoundedRectangleBorder(
                                                                         borderRadius:
-                                                                            BorderRadius.circular(24.0),
+                                                                            BorderRadius.circular(18.0),
                                                                       ),
                                                                       child:
                                                                           ListTile(
@@ -293,16 +291,21 @@ class ProductView extends StatelessWidget {
                                                                             () {
                                                                           model.navigateToProductView(
                                                                               context,
-                                                                              constituents[index]);
+                                                                              constituents.keys.toList()[index]);
                                                                         },
                                                                         title:
                                                                             Column(
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceEvenly,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
                                                                           children: [
-                                                                            Text(constituents[index],
-                                                                                maxLines: 3,
-                                                                                style: const TextStyle(fontSize: 16.0, color: color7)),
+                                                                            Text(constituents.values.toList()[index],
+                                                                                maxLines: 1,
+                                                                                style: const TextStyle(fontSize: 20.0, color: color7)),
+                                                                            Text(constituents.keys.toList()[index],
+                                                                                maxLines: 1,
+                                                                                style: TextStyle(fontSize: 12.0, color: Colors.white.withOpacity(0.7))),
                                                                           ],
                                                                         ),
                                                                       ),

@@ -133,9 +133,15 @@ class _CreateProductViewState extends State<CreateProductView> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                    const Text('Constituents',
+                        style: TextStyle(
+                            fontSize: 20.0,
+                            color: color1,
+                            fontWeight: FontWeight.bold)),
                     Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.width * 0.5,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 16.0),
                         decoration: BoxDecoration(
                           color: color7,
                           borderRadius:
@@ -152,145 +158,77 @@ class _CreateProductViewState extends State<CreateProductView> {
                         ),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(
-                                  32.0, 8.0, 32.0, 0.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text('Constituents',
-                                      style: TextStyle(
-                                          fontSize: 16.0, color: color1)),
-                                  Text(
-                                      '${model.selectedConstituents.length} items',
-                                      style: const TextStyle(
-                                          fontSize: 12.0, color: color1))
-                                ],
-                              ),
-                            ),
-                            model.selectedConstituents.isEmpty
-                                ? Expanded(
-                                    child: Center(
-                                    child: Padding(
+                            Expanded(
+                                child: ScrollConfiguration(
+                              behavior: NoGlowBehaviour(),
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: model.selectedConstituents.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 16.0, horizontal: 8.0),
+                                          vertical: 16.0, horizontal: 2.0),
                                       child: SizedBox(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                              0.3,
+                                              0.32,
                                           child: Card(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(24.0),
+                                                  BorderRadius.circular(18.0),
                                             ),
                                             child: ListTile(
-                                              onTap: () {
-                                                model
-                                                    .navigateToSelectConstituentsView(
-                                                        context);
-                                              },
-                                              title: const Center(
-                                                child: Icon(Icons.add_rounded,
-                                                    color: color7, size: 36.0),
-                                              ),
+                                              onTap: () {},
+                                              title: Text(
+                                                  model.selectedConstituents
+                                                      .values
+                                                      .toList()[index],
+                                                  maxLines: 3,
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                      fontSize: 17.0,
+                                                      color: color7)),
                                             ),
                                             color: color1,
                                           )),
+                                    );
+                                  }),
+                            )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      32.0, 8.0, 32.0, 0.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                          '${model.selectedConstituents.length} items',
+                                          style: const TextStyle(
+                                              fontSize: 20.0, color: color1))
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.fromLTRB(
+                                      32.0, 8.0, 32.0, 0.0),
+                                  child: CircleAvatar(
+                                    backgroundColor: color1,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        model.navigateToSelectConstituentsView(
+                                            context);
+                                      },
+                                      icon: const Icon(Icons.add),
+                                      color: color7,
                                     ),
-                                  ))
-                                : Expanded(
-                                    child: ScrollConfiguration(
-                                    behavior: NoGlowBehaviour(),
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount:
-                                            model.selectedConstituents.length +
-                                                1,
-                                        itemBuilder: (context, index) {
-                                          if (index ==
-                                              model.selectedConstituents
-                                                  .length) {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 16.0,
-                                                      horizontal: 8.0),
-                                              child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.3,
-                                                  child: Card(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24.0),
-                                                    ),
-                                                    child: ListTile(
-                                                      onTap: () {
-                                                        model
-                                                            .navigateToSelectConstituentsView(
-                                                                context);
-                                                      },
-                                                      title: const Center(
-                                                        child: Icon(
-                                                            Icons.add_rounded,
-                                                            color: color7,
-                                                            size: 36.0),
-                                                      ),
-                                                    ),
-                                                    color: color1,
-                                                  )),
-                                            );
-                                          } else {
-                                            return Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 16.0,
-                                                      horizontal: 8.0),
-                                              child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.3,
-                                                  child: Card(
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              24.0),
-                                                    ),
-                                                    child: ListTile(
-                                                      onTap: () {},
-                                                      title: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Text(
-                                                              model.selectedConstituents
-                                                                      .values
-                                                                      .toList()[
-                                                                  index],
-                                                              maxLines: 3,
-                                                              style: const TextStyle(
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  color:
-                                                                      color7)),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    color: color1,
-                                                  )),
-                                            );
-                                          }
-                                        }),
-                                  )),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         )),
                     model.busy

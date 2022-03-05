@@ -58,7 +58,7 @@ class _FindProductViewState extends State<FindProductView> {
                 Column(
                   children: const [
                     Image(
-                        image: AssetImage('assets/images/qrcodescan.png'),
+                        image: AssetImage('assets/images/find-product-64.png'),
                         width: 80.0,
                         height: 80.0,
                         color: color7),
@@ -98,7 +98,7 @@ class _FindProductViewState extends State<FindProductView> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: TextField(
                                 controller: productAddressController,
                                 decoration: InputDecoration(
@@ -116,17 +116,37 @@ class _FindProductViewState extends State<FindProductView> {
                                 ),
                                 style: const TextStyle(color: color1)),
                           ),
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: color1,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(24)),
-                            ),
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            height: 1.5,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  color: color1,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(24)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.28,
+                                height: 1.5,
+                              ),
+                              const Text('OR',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: color1,
+                                    fontSize: 16.0,
+                                  )),
+                              Container(
+                                decoration: const BoxDecoration(
+                                  color: color1,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(24)),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.28,
+                                height: 1.5,
+                              ),
+                            ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: ElevatedButton.icon(
                                 onPressed: () async {
                                   // barcode variable contains the QR scanned ('null' if nothing was scanned)
