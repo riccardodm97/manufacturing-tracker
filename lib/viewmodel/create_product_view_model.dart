@@ -31,7 +31,7 @@ class CreateProductViewModel extends BaseModel {
       BuildContext context) async {
     if (name == "" || manName == "" || location == "") {
       showTextDialog(
-          context, true, 'Alert', 'One of the text fields are empty', null);
+          context, true, 'Alert', 'One of the text fields is empty', null);
     } else {
       setBusy(true);
       _productService.clearCurrentProduct();
