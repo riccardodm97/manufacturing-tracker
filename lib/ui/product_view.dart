@@ -104,7 +104,7 @@ class ProductView extends StatelessWidget {
                                                       '${myMap['manufacturer_address']}',
                                                       style: const TextStyle(
                                                         color: color7,
-                                                        fontSize: 10.0,
+                                                        fontSize: 11.0,
                                                       )),
                                                 ],
                                               ),

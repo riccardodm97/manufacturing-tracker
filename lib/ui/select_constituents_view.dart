@@ -23,6 +23,10 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
             'Select constituents',
             style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => model.navigateBack(context),
+          ),
           centerTitle: true,
           elevation: 10,
           backgroundColor: color1,
@@ -44,21 +48,22 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
                             ),
                             child: ListTile(
                               onTap: () {
-                                model.addToConstituentsList(
-                                    model.possibleConstituents[index]);
+                                model.addToConstituentsMap(
+                                    model.possibleConstituentsAddress[index]);
                               },
                               onLongPress: () {
-                                if (model.selectedConstituents.contains(
-                                    model.possibleConstituents[index])) {
-                                  model.removeFromConstituentsList(
-                                      model.possibleConstituents[index]);
+                                if (model.selectedConstituentsAddress.contains(
+                                    model.possibleConstituentsAddress[index])) {
+                                  model.removeFromConstituentsMap(
+                                      model.possibleConstituentsAddress[index]);
                                 }
                               },
-                              title: Text(model.possibleConstituents[index],
+                              title: Text(
+                                  model.possibleConstituentsNames[index],
                                   style: const TextStyle(fontSize: 24.0)),
                             ),
-                            color: model.selectedConstituents
-                                    .contains(model.possibleConstituents[index])
+                            color: model.selectedConstituentsAddress.contains(
+                                    model.possibleConstituentsAddress[index])
                                 ? color4
                                 : color7,
                           ),
@@ -66,7 +71,7 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
                       })
                   : const Center(
                       child: Text('No products to show',
-                          style: TextStyle(fontSize: 24.0, color: color7)),
+                          style: TextStyle(fontSize: 24.0, color: color1)),
                     ),
         ),
         floatingActionButton: model.selectedConstituents.isEmpty

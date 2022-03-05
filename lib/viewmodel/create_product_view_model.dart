@@ -70,7 +70,8 @@ class CreateProductViewModel extends BaseModel {
     showTextDialog(context, false, 'Testo1', 'Testo2', [
       ElevatedButton(
           onPressed: () {
-            navigateBack(context);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
           },
           child: const Text('OK'))
     ]);

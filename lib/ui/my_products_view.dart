@@ -52,7 +52,7 @@ class MyProductsView extends StatelessWidget {
                         : const Center(
                             child: Text('No products to show',
                                 style:
-                                    TextStyle(fontSize: 24.0, color: color7)),
+                                    TextStyle(fontSize: 24.0, color: color1)),
                           ),
               ),
             ));

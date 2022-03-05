@@ -272,7 +272,9 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                                 .spaceEvenly,
                                                         children: [
                                                           Text(
-                                                              model.selectedConstituents[
+                                                              model.selectedConstituents
+                                                                      .values
+                                                                      .toList()[
                                                                   index],
                                                               maxLines: 3,
                                                               style: const TextStyle(
@@ -301,6 +303,7 @@ class _CreateProductViewState extends State<CreateProductView> {
                                 productionLocationController.text,
                                 context,
                               );
+                              setState(() {});
                             },
                             icon: const Icon(Icons.save),
                             label: const Text(
