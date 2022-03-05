@@ -6,7 +6,6 @@ import '../service/product_service.dart';
 import '../service/auth_service.dart';
 import '../setup/locator.dart';
 import '../viewmodel/base_view_model.dart';
-import 'package:dapp/ui/colors.dart';
 
 class CreateProductViewModel extends BaseModel {
   final ProductService _productService = serviceLocator<ProductService>();
@@ -30,61 +29,56 @@ class CreateProductViewModel extends BaseModel {
 
   Future<void> saveNewProduct(String name, String manName, String location,
       BuildContext context) async {
-    setBusy(true);
-    _productService.clearCurrentProduct();
-
-    //create the product with given fields
-    var hash = await _productService.createProduct(
-        name, manName, location, DateFormat.yMMMd().format(DateTime.now()));
-
-    //get its new address
-    String addr = await _productService.getNewProductAddress(hash);
-
-    //add this product to the current user
-    await _productService.addProductToUser(
-        _authService.userAddress.toString(), addr);
-
-    //remove all its constituents from the current user
-    await _productService.removeProductFromUser(
-        _authService.userAddress.toString(),
-        selectedConstituents.keys.toList());
-
-    //for each constituent, mark it as used
-    for (String c in selectedConstituents.keys) {
-      await _productService.setCurrentProduct(c);
-      await _productService.markAsUsed();
+    if (name == "" || manName == "" || location == "") {
+      showTextDialog(
+          context, true, 'Alert', 'One of the text fields are empty', null);
+    } else {
+      setBusy(true);
       _productService.clearCurrentProduct();
+
+      //create the product with given fields
+      var hash = await _productService.createProduct(
+          name, manName, location, DateFormat.yMMMd().format(DateTime.now()));
+
+      //get its new address
+      String addr = await _productService.getNewProductAddress(hash);
+
+      //add this product to the current user
+      await _productService.addProductToUser(
+          _authService.userAddress.toString(), addr);
+
+      //remove all its constituents from the current user
+      await _productService.removeProductFromUser(
+          _authService.userAddress.toString(),
+          selectedConstituents.keys.toList());
+
+      //for each constituent, mark it as used
+      for (String c in selectedConstituents.keys) {
+        await _productService.setCurrentProduct(c);
+        await _productService.markAsUsed();
+        _productService.clearCurrentProduct();
+      }
+
+      await _productService.setCurrentProduct(addr);
+
+      // add every constitutent to the product
+      for (String c in selectedConstituents.keys) {
+        await _productService.addConstituent(c);
+      }
+
+      //mark the product as finished
+      await _productService.markAsFinished();
+      _productService.clearCurrentProduct();
+      setBusy(false);
+
+      showTextDialog(context, false, 'Testo1', 'Testo2', [
+        ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/', (Route<dynamic> route) => false);
+            },
+            child: const Text('OK'))
+      ]);
     }
-
-    await _productService.setCurrentProduct(addr);
-
-    // add every constitutent to the product
-    for (String c in selectedConstituents.keys) {
-      await _productService.addConstituent(c);
-    }
-
-    //mark the product as finished
-    await _productService.markAsFinished();
-    _productService.clearCurrentProduct();
-    setBusy(false);
-
-    showTextDialog(context, false, 'Success!',
-        'Your product was added to the blockchain', [
-      ElevatedButton(
-          onPressed: () {
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-          },
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            primary: color1,
-            onPrimary: color7,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-          ),
-          child: const Text('OK', style: TextStyle(color: color7)))
-    ]);
   }
 }
