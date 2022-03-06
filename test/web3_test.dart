@@ -5,10 +5,10 @@ import 'package:test/test.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:dapp/setup/config.dart';
-import 'package:dapp/setup/locator.dart';
-import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/persistence_service.dart';
+import 'package:product_checker/setup/config.dart';
+import 'package:product_checker/setup/locator.dart';
+import 'package:product_checker/service/auth_service.dart';
+import 'package:product_checker/service/persistence_service.dart';
 import 'data.dart' as data;
 
 void main() {

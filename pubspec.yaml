@@ -1,5 +1,5 @@
-name: dapp
-description: A new Flutter project.
+name: product_checker
+description: Discover what's really inside your products!
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -88,4 +88,4 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/app_icon.png"

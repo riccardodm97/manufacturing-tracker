@@ -182,28 +182,34 @@ class _FindProductViewState extends State<FindProductView> {
                         ])),
                 Padding(
                   padding: const EdgeInsets.all(24.0),
-                  child: ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/product',
-                            arguments: [productAddressController.text, true]);
-                        productAddressController.clear();
-                      },
-                      icon: const Icon(Icons.cloud_download_rounded),
-                      label: const Text(
-                        'View',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 10,
-                        primary: color7,
-                        onPrimary: color1,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24.0),
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/product',
+                              arguments: [productAddressController.text, true]);
+                          productAddressController.clear();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back_ios_rounded,
+                          size: 24,
                         ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 15),
-                      )),
+                        label: const Text(
+                          'View',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 10,
+                          primary: color7,
+                          onPrimary: color1,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                          ),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 15),
+                        )),
+                  ),
                 ),
               ],
             ),

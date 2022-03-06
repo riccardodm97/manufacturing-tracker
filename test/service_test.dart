@@ -1,12 +1,12 @@
-import 'package:dapp/service/product_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:test/test.dart';
 
-import 'package:dapp/setup/locator.dart';
-import 'package:dapp/service/auth_service.dart';
-import 'package:dapp/service/persistence_service.dart';
-import 'package:dapp/service/web3_service.dart';
+import 'package:product_checker/setup/locator.dart';
+import 'package:product_checker/service/product_service.dart';
+import 'package:product_checker/service/auth_service.dart';
+import 'package:product_checker/service/persistence_service.dart';
+import 'package:product_checker/service/web3_service.dart';
 import 'package:web3dart/web3dart.dart';
 import 'data.dart' as data;
 
