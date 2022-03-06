@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:dapp/ui/colors.dart';
 
 class FindProductView extends StatefulWidget {
@@ -14,7 +15,7 @@ class FindProductView extends StatefulWidget {
 
 class _FindProductViewState extends State<FindProductView> {
   final productAddressController = TextEditingController();
-  dynamic barcode;
+  late final String? code;
 
   @override
   Widget build(BuildContext context) {
@@ -152,15 +153,14 @@ class _FindProductViewState extends State<FindProductView> {
                             child: ElevatedButton.icon(
                                 onPressed: () async {
                                   // barcode variable contains the QR scanned ('null' if nothing was scanned)
-                                  barcode = await Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const QRViewScanner(),
-                                    ),
-                                  );
+                                  code = await Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BarcodeScannerWithoutController(),
+                                  ));
                                   setState(() {
                                     productAddressController.text =
-                                        barcode ?? 'No QR score scanned';
+                                        code ?? 'No QR score scanned';
                                   });
                                 },
                                 icon: const Icon(Icons.qr_code),
@@ -188,6 +188,7 @@ class _FindProductViewState extends State<FindProductView> {
                       onPressed: () {
                         Navigator.pushNamed(context, '/product',
                             arguments: [productAddressController.text, true]);
+                        productAddressController.clear();
                       },
                       icon: const Icon(Icons.cloud_download_rounded),
                       label: const Text(
@@ -213,119 +214,69 @@ class _FindProductViewState extends State<FindProductView> {
   }
 }
 
-class QRViewScanner extends StatefulWidget {
-  const QRViewScanner({Key? key}) : super(key: key);
+class BarcodeScannerWithoutController extends StatefulWidget {
+  const BarcodeScannerWithoutController({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewScannerState();
+  _BarcodeScannerWithoutControllerState createState() =>
+      _BarcodeScannerWithoutControllerState();
 }
 
-class _QRViewScannerState extends State<QRViewScanner> {
-  Barcode? barcode;
-  QRViewController? controller;
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    }
-    controller!.resumeCamera();
-  }
+class _BarcodeScannerWithoutControllerState
+    extends State<BarcodeScannerWithoutController>
+    with SingleTickerProviderStateMixin {
+  String? barcode;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: Stack(
-      alignment: Alignment.center,
-      children: <Widget>[
-        _buildQrView(context),
-        Positioned(
-          top: 20,
-          child: Container(
-            margin: const EdgeInsets.all(8),
-            child: FloatingActionButton.extended(
-              onPressed: () async {
-                await controller?.toggleFlash();
-                setState(() {});
-              },
-              backgroundColor: color1,
-              icon: const Icon(Icons.flash_on),
-              label: FutureBuilder(
-                future: controller?.getFlashStatus(),
-                builder: (context, snapshot) {
-                  return Text('Flash: ${snapshot.data}');
-                },
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Builder(builder: (context) {
+        return Stack(
+          children: [
+            MobileScanner(
+                fit: BoxFit.contain,
+                onDetect: (barcode, args) {
+                  if (this.barcode != barcode.rawValue) {
+                    setState(() {
+                      this.barcode = barcode.rawValue;
+                      Navigator.pop(context, this.barcode);
+                    });
+                  }
+                }),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                height: 100,
+                color: Colors.black.withOpacity(0.4),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width - 120,
+                        height: 50,
+                        child: FittedBox(
+                          child: Text(
+                            'Scan something!',
+                            overflow: TextOverflow.fade,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline4!
+                                .copyWith(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
-        Positioned(
-            bottom: 20,
-            child: Text(
-              (() {
-                if (barcode != null) {
-                  return 'Barcode Type: ${describeEnum(barcode!.format)}   Data: ${barcode!.code}';
-                }
-                return 'Scan a code!';
-              })(),
-              style: const TextStyle(
-                color: Colors.white54,
-                fontSize: 18.0,
-              ),
-            )),
-      ],
-    )));
-  }
-
-  Widget _buildQrView(BuildContext context) {
-    // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
-    // To ensure the Scanner view is properly sizes after rotation
-    // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
-      key: qrKey,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-          borderColor: color1,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: (MediaQuery.of(context).size.width < 400 ||
-                  MediaQuery.of(context).size.height < 400)
-              ? 150.0
-              : 300.0),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+          ],
+        );
+      }),
     );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        barcode = scanData;
-        Navigator.pop(context, barcode);
-      });
-    });
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
   }
 }
