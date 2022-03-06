@@ -260,12 +260,12 @@ class _BarcodeScannerWithoutControllerState
                         height: 50,
                         child: FittedBox(
                           child: Text(
-                            'Scan something!',
+                            'Scan QR code!',
                             overflow: TextOverflow.fade,
                             style: Theme.of(context)
                                 .textTheme
                                 .headline4!
-                                .copyWith(color: Colors.white),
+                                .copyWith(color: color6),
                           ),
                         ),
                       ),
