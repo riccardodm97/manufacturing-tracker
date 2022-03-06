@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/select_constituents_view_model.dart';
-import 'package:dapp/ui/colors.dart';
+import 'colors.dart';
 
 class SelectConstituentsView extends StatefulWidget {
   const SelectConstituentsView({Key? key}) : super(key: key);

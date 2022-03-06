@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/create_product_view_model.dart';
-import 'package:dapp/ui/colors.dart';
+import 'colors.dart';
 
 class CreateProductView extends StatefulWidget {
   const CreateProductView({Key? key}) : super(key: key);

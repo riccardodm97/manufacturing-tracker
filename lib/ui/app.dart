@@ -1,4 +1,3 @@
-import 'package:dapp/ui/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +10,7 @@ import 'my_products_view.dart';
 import 'select_constituents_view.dart';
 import 'find_product_view.dart';
 import 'colors.dart';
+import 'product_view.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

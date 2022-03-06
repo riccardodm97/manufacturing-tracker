@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/my_products_view_model.dart';
-import 'package:dapp/ui/colors.dart';
+import 'colors.dart';
 
 class MyProductsView extends StatelessWidget {
   const MyProductsView({Key? key}) : super(key: key);

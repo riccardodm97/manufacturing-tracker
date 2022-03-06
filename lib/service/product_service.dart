@@ -1,7 +1,7 @@
-import 'package:dapp/service/persistence_service.dart';
 import 'package:web3dart/web3dart.dart';
 
 import 'web3_service.dart';
+import 'persistence_service.dart';
 import '../setup/locator.dart';
 
 class ProductService {

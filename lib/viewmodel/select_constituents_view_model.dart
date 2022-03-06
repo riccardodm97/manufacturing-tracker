@@ -1,7 +1,7 @@
-import 'package:dapp/service/auth_service.dart';
 import 'package:flutter/material.dart';
 
 import '../service/product_service.dart';
+import '../service/auth_service.dart';
 import '../setup/locator.dart';
 import '../viewmodel/base_view_model.dart';
 

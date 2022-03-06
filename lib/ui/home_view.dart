@@ -1,8 +1,8 @@
-import 'package:dapp/ui/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 import '../viewmodel/home_view_model.dart';
+import 'colors.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
