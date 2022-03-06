@@ -56,19 +56,19 @@ class _FindProductViewState extends State<FindProductView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Column(
-                  children: const [
-                    Image(
+                  children: [
+                    const Image(
                         image: AssetImage('assets/images/find-product-64.png'),
                         width: 80.0,
                         height: 80.0,
                         color: color7),
-                    SizedBox(height: 10.0),
+                    const SizedBox(height: 10.0),
                     Text(
                         'Enter product address or scan QR code\nto obtain product information',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: color7,
-                          fontSize: 16.0,
+                          fontSize: MediaQuery.of(context).size.width * 0.03,
                         ))
                   ],
                 ),
@@ -81,7 +81,7 @@ class _FindProductViewState extends State<FindProductView> {
               children: [
                 Container(
                     width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.width * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: color7,
                       borderRadius: BorderRadius.all(Radius.circular(24)),
@@ -128,11 +128,13 @@ class _FindProductViewState extends State<FindProductView> {
                                 width: MediaQuery.of(context).size.width * 0.28,
                                 height: 1.5,
                               ),
-                              const Text('OR',
+                              Text('OR',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     color: color1,
-                                    fontSize: 16.0,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.04,
                                   )),
                               Container(
                                 decoration: const BoxDecoration(

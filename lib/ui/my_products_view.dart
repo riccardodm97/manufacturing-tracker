@@ -47,13 +47,20 @@ class MyProductsView extends StatelessWidget {
                                       title: Text(
                                           model.userProducts.values
                                               .toList()[index],
-                                          style: const TextStyle(
-                                              fontSize: 24.0, color: color1)),
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.06,
+                                              color: color1)),
                                       subtitle: Text(
                                           model.userProducts.keys
                                               .toList()[index],
                                           style: TextStyle(
-                                            fontSize: 16.0,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.04,
                                             color:
                                                 Colors.black.withOpacity(0.7),
                                           )),

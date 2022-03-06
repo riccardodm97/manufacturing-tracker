@@ -35,7 +35,7 @@ class HomeViewModel extends BaseModel {
       await Navigator.pushNamed(context, '/createProduct');
     } else {
       showTextDialog(context, true, 'You are not logged in',
-          'To create a product you need to logIn first', null);
+          'To create a product you need to log in first', null);
     }
   }
 
@@ -48,7 +48,7 @@ class HomeViewModel extends BaseModel {
       await Navigator.pushNamed(context, '/myProducts');
     } else {
       showTextDialog(context, true, 'You are not logged in',
-          'To see your products you need to logIn first', null);
+          'To see your products you need to log in first', null);
     }
   }
 }

@@ -49,27 +49,28 @@ class HomeView extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
+                        children: [
                           Text(
                             'Product Checker',
                             style: TextStyle(
                                 color: color7,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 32.0),
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.07),
                           ),
                           Image(
-                            image: AssetImage('assets/images/logo.png'),
-                            width: 60.0,
-                            height: 60.0,
+                            image: const AssetImage('assets/images/logo.png'),
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
                           )
                         ],
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02),
-                      const Text("Discover what's really inside your products!",
+                      Text("Discover what's really inside your products!",
                           style: TextStyle(
                             color: color7,
-                            fontSize: 16.0,
+                            fontSize: MediaQuery.of(context).size.width * 0.035,
                           ))
                     ],
                   ),
@@ -174,7 +175,8 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
             style: TextButton.styleFrom(
               alignment: Alignment.centerLeft,
               primary: color7,
-              textStyle: const TextStyle(fontSize: 20),
+              textStyle:
+                  TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
             ),
           )
         : TextButton.icon(
@@ -186,7 +188,8 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
             style: TextButton.styleFrom(
               alignment: Alignment.centerLeft,
               primary: color7,
-              textStyle: const TextStyle(fontSize: 20),
+              textStyle:
+                  TextStyle(fontSize: MediaQuery.of(context).size.width * 0.04),
             ),
             onPressed: () {
               showGeneralDialog(
@@ -216,10 +219,12 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
-                                const DefaultTextStyle(
+                                DefaultTextStyle(
                                   style: TextStyle(
                                     color: color7,
-                                    fontSize: 20.0,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.04,
                                   ),
                                   child:
                                       Text('Enter your private key to login'),

@@ -28,8 +28,12 @@ class BaseModel extends ChangeNotifier {
             ),
             title: Text(title,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 26.0)),
-            content: Text(content, style: const TextStyle(fontSize: 20.0)),
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontWeight: FontWeight.bold)),
+            content: Text(content,
+                style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.04)),
             actions: buttonList,
           );
         });

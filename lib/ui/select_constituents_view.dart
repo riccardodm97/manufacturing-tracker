@@ -60,7 +60,10 @@ class _SelectConstituentsViewState extends State<SelectConstituentsView> {
                               },
                               title: Text(
                                   model.possibleConstituentsNames[index],
-                                  style: const TextStyle(fontSize: 24.0)),
+                                  style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.width *
+                                              0.06)),
                             ),
                             color: model.selectedConstituentsAddress.contains(
                                     model.possibleConstituentsAddress[index])

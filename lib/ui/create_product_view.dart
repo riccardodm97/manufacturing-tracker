@@ -133,9 +133,9 @@ class _CreateProductViewState extends State<CreateProductView> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                    const Text('Constituents',
+                    Text('Constituents',
                         style: TextStyle(
-                            fontSize: 20.0,
+                            fontSize: MediaQuery.of(context).size.width * 0.05,
                             color: color1,
                             fontWeight: FontWeight.bold)),
                     Container(
@@ -185,10 +185,14 @@ class _CreateProductViewState extends State<CreateProductView> {
                                                   model.selectedConstituents
                                                       .values
                                                       .toList()[index],
-                                                  maxLines: 3,
+                                                  maxLines: 2,
                                                   textAlign: TextAlign.center,
-                                                  style: const TextStyle(
-                                                      fontSize: 17.0,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.035,
                                                       color: color7)),
                                             ),
                                             color: color1,
@@ -207,8 +211,12 @@ class _CreateProductViewState extends State<CreateProductView> {
                                     children: [
                                       Text(
                                           '${model.selectedConstituents.length} items',
-                                          style: const TextStyle(
-                                              fontSize: 20.0, color: color1))
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.05,
+                                              color: color1))
                                     ],
                                   ),
                                 ),

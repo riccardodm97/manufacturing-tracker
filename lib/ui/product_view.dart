@@ -67,9 +67,12 @@ class ProductView extends StatelessWidget {
                                   children: [
                                     Text('${productDetails['product_name']}',
                                         textAlign: TextAlign.center,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: color7,
-                                            fontSize: 42.0,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
                                             fontWeight: FontWeight.bold)),
                                     Expanded(
                                       child: Column(
@@ -93,19 +96,29 @@ class ProductView extends StatelessWidget {
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                       '${productDetails['manufacturer_name']}',
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: color7,
-                                                          fontSize: 24.0,
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.07,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                   Text(
                                                       '${productDetails['manufacturer_address']}',
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                         color: color7,
-                                                        fontSize: 11.0,
+                                                        fontSize: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.02,
                                                       )),
                                                 ],
                                               ),
@@ -129,9 +142,13 @@ class ProductView extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                       '${productDetails['production_location']}',
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: color7,
-                                                          fontSize: 24.0,
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.07,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                 ],
@@ -156,9 +173,13 @@ class ProductView extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                       '${productDetails['production_date']}',
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: color7,
-                                                          fontSize: 24.0,
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.07,
                                                           fontWeight:
                                                               FontWeight.bold)),
                                                 ],
@@ -301,11 +322,11 @@ class ProductView extends StatelessWidget {
                                                                           Text(
                                                                               constituents.values.toList()[index],
                                                                               maxLines: 1,
-                                                                              style: const TextStyle(fontSize: 20.0, color: color7)),
+                                                                              style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.05, color: color7)),
                                                                           Text(
                                                                               constituents.keys.toList()[index],
                                                                               maxLines: 1,
-                                                                              style: TextStyle(fontSize: 12.0, color: Colors.white.withOpacity(0.7))),
+                                                                              style: TextStyle(fontSize: MediaQuery.of(context).size.width * 0.03, color: Colors.white.withOpacity(0.7))),
                                                                         ],
                                                                       ),
                                                                     ),
@@ -318,11 +339,15 @@ class ProductView extends StatelessWidget {
                                                   ],
                                                 );
                                               }
-                                              return const Center(
+                                              return Center(
                                                 child: Text(
                                                   "This product has no constituents",
                                                   style: TextStyle(
-                                                      fontSize: 18,
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.04,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       color: color1),
@@ -361,11 +386,12 @@ class ProductView extends StatelessWidget {
                               ])),
                         ]);
                       } else {
-                        return const Center(
+                        return Center(
                           child: Text(
                             "No such product",
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize:
+                                    MediaQuery.of(context).size.width * 0.04,
                                 fontWeight: FontWeight.bold,
                                 color: color1),
                           ),
