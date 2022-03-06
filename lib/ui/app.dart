@@ -35,12 +35,12 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.openSans().fontFamily,
       ),
       routes: {
-        '/': (context) => HomeView(),
-        '/createProduct': (context) => CreateProductView(),
-        '/selectConstituents': (context) => SelectConstituentsView(),
-        '/findProduct': (context) => FindProductView(),
-        '/product': (context) => ProductView(),
-        '/myProducts': (context) => MyProductsView(),
+        '/': (context) => const HomeView(),
+        '/createProduct': (context) => const CreateProductView(),
+        '/selectConstituents': (context) => const SelectConstituentsView(),
+        '/findProduct': (context) => const FindProductView(),
+        '/product': (context) => const ProductView(),
+        '/myProducts': (context) => const MyProductsView(),
       },
     );
   }

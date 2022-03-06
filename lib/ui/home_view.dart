@@ -226,8 +226,8 @@ class AuthButton extends ViewModelWidget<HomeViewModel> {
                                         MediaQuery.of(context).size.width *
                                             0.04,
                                   ),
-                                  child:
-                                      Text('Enter your private key to login'),
+                                  child: const Text(
+                                      'Enter your private key to login'),
                                 ),
                                 Material(
                                   color: color7.withOpacity(0),

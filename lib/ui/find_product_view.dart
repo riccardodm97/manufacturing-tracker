@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:developer';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-// import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:dapp/ui/colors.dart';
+
+import 'colors.dart';
 
 class FindProductView extends StatefulWidget {
   const FindProductView({Key? key}) : super(key: key);
@@ -49,7 +46,7 @@ class _FindProductViewState extends State<FindProductView> {
                   color: Colors.black.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 1), // changes position of shadow
+                  offset: const Offset(0, 1), // changes position of shadow
                 ),
               ],
             ),
@@ -85,13 +82,14 @@ class _FindProductViewState extends State<FindProductView> {
                     height: MediaQuery.of(context).size.height * 0.3,
                     decoration: BoxDecoration(
                       color: color7,
-                      borderRadius: BorderRadius.all(Radius.circular(24)),
+                      borderRadius: const BorderRadius.all(Radius.circular(24)),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.3),
                           spreadRadius: 5,
                           blurRadius: 7,
-                          offset: Offset(0, 5), // changes position of shadow
+                          offset:
+                              const Offset(0, 5), // changes position of shadow
                         ),
                       ],
                     ),
