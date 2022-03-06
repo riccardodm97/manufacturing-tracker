@@ -360,8 +360,74 @@ class ProductView extends StatelessWidget {
                                       model.isUserLogged,
                                   maintainSize: false,
                                   child: ElevatedButton.icon(
-                                      onPressed: () {
-                                        model.buyProduct();
+                                      onPressed: () async {
+                                        bool status = await model.buyProduct();
+                                        showDialog(
+                                            barrierDismissible: false,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            18.0),
+                                                  ),
+                                                  title: Text(
+                                                      status
+                                                          ? 'Success!'
+                                                          : 'Error',
+                                                      textAlign: TextAlign
+                                                          .center,
+                                                      style: TextStyle(
+                                                          fontSize: MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.05,
+                                                          fontWeight:
+                                                              FontWeight.bold)),
+                                                  content: Text(
+                                                      status
+                                                          ? 'This product has been added to your products'
+                                                          : 'Something went wrong. Try again!',
+                                                      style: TextStyle(
+                                                          fontSize:
+                                                              MediaQuery.of(context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.04)),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                          elevation: 0,
+                                                          primary: color1,
+                                                          onPrimary: color7,
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        24.0),
+                                                          ),
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      30,
+                                                                  vertical: 15),
+                                                        ),
+                                                        child: const Text('OK',
+                                                            style: TextStyle(
+                                                                color:
+                                                                    color7))),
+                                                  ]);
+                                            });
                                       },
                                       icon: const Icon(
                                           Icons.add_shopping_cart_rounded),
