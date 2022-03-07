@@ -10,6 +10,8 @@ import 'package:product_checker/service/web3_service.dart';
 import 'package:web3dart/web3dart.dart';
 import 'data.dart' as data;
 
+// before running any test uncomment line 25 and comment lines 27-28 of web3_service.dart
+
 void main() {
   late final PersistenceService perService;
   late final AuthService authService;

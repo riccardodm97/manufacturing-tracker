@@ -60,6 +60,7 @@ class ProductViewModel extends BaseModel {
 
   Future<Map<String, String>> getProductDetails() async {
     Map<String, String> detailsMap;
+
     setBusy(true);
     try {
       await _productService.setCurrentProduct(_productAddress);
@@ -67,7 +68,9 @@ class ProductViewModel extends BaseModel {
     } catch (e) {
       detailsMap = {};
     }
+    _productService.clearCurrentProduct();
     setBusy(false);
+
     return detailsMap;
   }
 
