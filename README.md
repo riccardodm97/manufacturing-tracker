@@ -1,4 +1,13 @@
 # Manufacturing Tracker 
+<p align="center">
+
+<img src="https://img.shields.io/badge/-Flutter-blue" />
+<img src="" />
+<img src="" />
+<img src="" />
+<img src="" />
+
+<br/>
 
 <div align="center">
     <img src="assets/images/app_icon.png" width="150px" alt="Blockchain Logo"/>
