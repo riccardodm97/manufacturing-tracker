@@ -22,7 +22,7 @@ void main() {
     await serviceLocator.allReady();
     client = Web3Client(Config.rpcURL, http.Client());
     authService = serviceLocator<AuthService>();
-    authService.logIn(data.PrivateKeyOne);
+    authService.logIn(data.privateKeyOne);
   });
 
   tearDownAll(() async {
@@ -66,7 +66,7 @@ void main() {
 
     DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(abi, 'Product'),
-        EthereumAddress.fromHex(data.CreatedProductOne));
+        EthereumAddress.fromHex(data.createdProductOne));
     ContractFunction function = contract.function('getName');
 
     List<dynamic> params = await client
@@ -84,7 +84,7 @@ void main() {
 
     DeployedContract contract = DeployedContract(
         ContractAbi.fromJson(abi, 'Product'),
-        EthereumAddress.fromHex(data.CreatedProductOne));
+        EthereumAddress.fromHex(data.createdProductOne));
     ContractFunction function = contract.function('getProductDetails');
 
     List<dynamic> params = await client

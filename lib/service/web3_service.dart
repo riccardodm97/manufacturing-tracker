@@ -87,6 +87,4 @@ class Web3Service {
   Future<void> dispose() async {
     return await web3Client.dispose();
   }
-
-  // TODO handle all the null cases (!)
 }

@@ -22,7 +22,7 @@ void main() {
     authService = serviceLocator<AuthService>();
     web3service = serviceLocator<Web3Service>();
     prodService = serviceLocator<ProductService>();
-    await authService.logIn(data.PrivateKeyOne);
+    await authService.logIn(data.privateKeyOne);
   });
 
   tearDownAll(() async {
@@ -31,7 +31,7 @@ void main() {
 
   test('credentials', () async {
     bool res1 = await authService.logOut();
-    bool res2 = await authService.logIn(data.PrivateKeyOne);
+    bool res2 = await authService.logIn(data.privateKeyOne);
 
     debugPrint('login:' + res1.toString() + ' logout:' + res2.toString());
     debugPrint(authService.userAddress.toString());
@@ -56,7 +56,7 @@ void main() {
   });
 
   test('mark as finished', () async {
-    prodService.setCurrentProduct(data.CreatedProductTwo);
+    prodService.setCurrentProduct(data.createdProductTwo);
     var hash = await prodService.markAsFinished();
 
     bool status = await web3service.getTransactionStatus(hash);
@@ -66,9 +66,9 @@ void main() {
 
   test('add costituent', () async {
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.CreatedProductOne);
+    prodService.setCurrentProduct(data.createdProductOne);
 
-    var hash = await prodService.addConstituent(data.CreatedProductTwo);
+    var hash = await prodService.addConstituent(data.createdProductTwo);
 
     bool status = await web3service.getTransactionStatus(hash);
 
@@ -77,7 +77,7 @@ void main() {
 
   test('get costituents', () async {
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.CreatedProductOne);
+    prodService.setCurrentProduct(data.createdProductOne);
 
     List<String> constituents = await prodService.getConstituents();
 
@@ -92,7 +92,7 @@ void main() {
 
   test('get details', () async {
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.CreatedProductOne);
+    prodService.setCurrentProduct(data.createdProductOne);
 
     Map<String, String> details = await prodService.getProductDetails();
 
@@ -101,7 +101,7 @@ void main() {
 
   test('mark used', () async {
     prodService.clearCurrentProduct();
-    prodService.setCurrentProduct(data.CreatedProductOne);
+    prodService.setCurrentProduct(data.createdProductOne);
 
     var hash1 = await prodService.markAsFinished();
     bool status1 = await web3service.getTransactionStatus(hash1);
@@ -129,7 +129,7 @@ void main() {
     bool status1 = await web3service.getTransactionStatus(hash1);
 
     await authService.logOut();
-    await authService.logIn(data.PrivateKeyTwo);
+    await authService.logIn(data.privateKeyTwo);
 
     prodService.setCurrentProduct(addr);
 
