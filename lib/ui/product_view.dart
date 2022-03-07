@@ -361,7 +361,18 @@ class ProductView extends StatelessWidget {
                                   maintainSize: false,
                                   child: ElevatedButton.icon(
                                       onPressed: () async {
-                                        bool status = await model.buyProduct();
+                                        String response =
+                                            await model.buyProduct();
+                                        late String title;
+                                        if (response ==
+                                            "You have bought this product") {
+                                          title = 'Success!';
+                                        } else if (response ==
+                                                "Something went wrong. Try again!" ||
+                                            response ==
+                                                "You can't buy this product") {
+                                          title = 'Error!';
+                                        }
                                         showDialog(
                                             barrierDismissible: false,
                                             context: context,
@@ -372,29 +383,24 @@ class ProductView extends StatelessWidget {
                                                         BorderRadius.circular(
                                                             18.0),
                                                   ),
-                                                  title: Text(
-                                                      status
-                                                          ? 'Success!'
-                                                          : 'Error',
-                                                      textAlign: TextAlign
-                                                          .center,
+                                                  title: Text(title,
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: TextStyle(
-                                                          fontSize: MediaQuery.of(context)
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
                                                                   .size
                                                                   .width *
                                                               0.05,
                                                           fontWeight:
                                                               FontWeight.bold)),
-                                                  content: Text(
-                                                      status
-                                                          ? 'This product has been added to your products'
-                                                          : 'Something went wrong. Try again!',
+                                                  content: Text(response,
                                                       style: TextStyle(
-                                                          fontSize:
-                                                              MediaQuery.of(context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.04)),
+                                                          fontSize: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.04)),
                                                   actions: [
                                                     ElevatedButton(
                                                         onPressed: () {

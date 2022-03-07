@@ -23,29 +23,39 @@ class ProductViewModel extends BaseModel {
       await Navigator.pushNamed(context, '/product',
           arguments: [product, false]);
 
-  Future<bool> buyProduct() async {
+  Future<String> buyProduct() async {
+    String response = "Something went wrong. Try again!";
     setBusy(true);
 
     _productService.clearCurrentProduct();
     await _productService.setCurrentProduct(_productAddress);
 
-    var transactionHash = await _productService.transferOwnership();
-    bool status = await _web3Service.getTransactionStatus(transactionHash);
+    try {
+      var transactionHash = await _productService.transferOwnership();
+      bool status = await _web3Service.getTransactionStatus(transactionHash);
 
-    if (status) {
-      Map<String, String> map =
-          await _productService.getOldAndNewProductOwner(transactionHash);
+      if (status) {
+        Map<String, String> map =
+            await _productService.getOldAndNewProductOwner(transactionHash);
 
-      await _productService
-          .removeProductFromUser(map["oldOwner"]!, [_productAddress]);
-      await _productService.addProductToUser(
-          _authService.userAddress.toString(), _productAddress);
+        await _productService
+            .removeProductFromUser(map["oldOwner"]!, [_productAddress]);
+        await _productService.addProductToUser(
+            _authService.userAddress.toString(), _productAddress);
+
+        response = "You have bought this product";
+      } else {
+        response = "Something went wrong. Try again!";
+      }
+    } catch (e) {
+      response = "You can't buy this product";
     }
+
     _productService.clearCurrentProduct();
 
     setBusy(false);
 
-    return status;
+    return response;
   }
 
   Future<Map<String, String>> getProductDetails() async {
