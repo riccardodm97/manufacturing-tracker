@@ -40,9 +40,8 @@ class DefaultFirebaseOptions {
     );
   }
 
-  //fill all the fields below, before running the app
-  //all the info can be found in "Project settings" of your firebase project console at https://console.firebase.google.com/
-  //to access the specific details of each platform, android or ios, download the google-services.json or GoogleService-Info.plist respectively
+  //before running the app all the fields below should be filled
+  //to configure flutterfire follow the instruction at this link https://firebase.flutter.dev/docs/cli
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'YOUR-API-KEY',
