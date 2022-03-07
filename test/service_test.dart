@@ -5,7 +5,6 @@ import 'package:test/test.dart';
 import 'package:supply_chain_tracker/setup/locator.dart';
 import 'package:supply_chain_tracker/service/product_service.dart';
 import 'package:supply_chain_tracker/service/auth_service.dart';
-import 'package:supply_chain_tracker/service/persistence_service.dart';
 import 'package:supply_chain_tracker/service/web3_service.dart';
 import 'package:web3dart/web3dart.dart';
 import 'data.dart' as data;
@@ -13,7 +12,6 @@ import 'data.dart' as data;
 // before running any test uncomment line 25 and comment lines 27-28 of web3_service.dart
 
 void main() {
-  late final PersistenceService perService;
   late final AuthService authService;
   late final Web3Service web3service;
   late final ProductService prodService;
@@ -21,7 +19,6 @@ void main() {
   setUpAll(() async {
     setupLocator();
     await serviceLocator.allReady();
-    perService = serviceLocator<PersistenceService>();
     authService = serviceLocator<AuthService>();
     web3service = serviceLocator<Web3Service>();
     prodService = serviceLocator<ProductService>();
