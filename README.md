@@ -56,3 +56,7 @@ Each tracked item (smart contract) has an id (eth address) associated to it whic
 ## Run the application
 - connect a device or open the emulator in Android Studio / Xcode
 - start the flutter app : `flutter run`
+
+## Authors 
+- [Riccardo de Matteo](https://github.com/riccardodm97) 
+- [Giacomo Berselli](https://github.com/JackBerselli)
