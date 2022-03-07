@@ -19,4 +19,18 @@ Each tracked item (smart contract) , has an id (eth address) associated to it wh
 - Frontend
   - [Flutter](https://github.com/flutter/flutter) for UI components.
   - [Web3dart](https://github.com/xclud/web3dart) to connect and interact with the Ethereum blockchain. 
+ 
+## Demo 
+
+## Set up the development environment 
+- Necessary programs and plugins 
+    - Clone this repo
+    - Install Flutter: https://docs.flutter.dev/get-started/install
+    - Install Node.js and Npm: https://nodejs.org/en/
+    - Install Truffle: `npm install -g truffle`
+    - Download Ganache from: https://www.trufflesuite.com/ganache
+    - Install FlutterFire CLI following this guide: https://firebase.flutter.dev/docs/cli
+- Set up the project 
+
+## Run the application
 
