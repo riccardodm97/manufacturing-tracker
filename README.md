@@ -31,7 +31,7 @@ Each tracked item (smart contract) has an id (eth address) associated to it whic
  
 ## Demo 
 <p align="center">
-<img src="res/demo.gif" alt="" data-canonical-src="res/presentation.gif" width="37.5%" height="37.5%" />
+<img src="res/demo.gif" alt="" data-canonical-src="res/presentation.gif" width="25%" height="25%" />
 </p>
 
 ## Set up the development environment 
