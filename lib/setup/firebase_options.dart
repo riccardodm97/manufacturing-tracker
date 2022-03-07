@@ -40,21 +40,25 @@ class DefaultFirebaseOptions {
     );
   }
 
+  //fill all the fields below, before running the app
+  //all the info can be found in "Project settings" of your firebase project console at https://console.firebase.google.com/
+  //to access the specific details of each platform, android or ios, download the google-services.json or GoogleService-Info.plist respectively
+
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZfL-oWUsLDhK7qi3SnMz0I5Mq_0Z8qdI',
-    appId: '1:1072736664922:android:5c0eb5be0a2fac95204763',
-    messagingSenderId: '1072736664922',
-    projectId: 'food-traceability-dapp',
-    storageBucket: 'food-traceability-dapp.appspot.com',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'APP-ID',
+    messagingSenderId: 'SENDER-ID',
+    projectId: 'PROJECT-ID',
+    storageBucket: 'STORAGE-BUCKET',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBnGO1HfztlulZT56jdacQd2xzz4aRQSG0',
-    appId: '1:1072736664922:ios:e2e9dd0dee74a6ae204763',
-    messagingSenderId: '1072736664922',
-    projectId: 'food-traceability-dapp',
-    storageBucket: 'food-traceability-dapp.appspot.com',
-    iosClientId: '1072736664922-j5mk442d4e4fb7cvlo9hjtvhmnekg60n.apps.googleusercontent.com',
-    iosBundleId: 'com.example.dapp',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'APP-ID',
+    messagingSenderId: 'SENDER-ID',
+    projectId: 'PROJECT-ID',
+    storageBucket: 'STORAGE-BUCKET',
+    iosClientId: 'CLIENT-ID',
+    iosBundleId: 'BUNDLE-ID',
   );
 }

@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            'Product Checker',
+                            'Supply Chain Tracker',
                             style: TextStyle(
                                 color: color7,
                                 fontWeight: FontWeight.bold,
