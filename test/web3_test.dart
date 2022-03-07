@@ -5,9 +5,9 @@ import 'package:test/test.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:supply_chain_tracker/setup/config.dart';
-import 'package:supply_chain_tracker/setup/locator.dart';
-import 'package:supply_chain_tracker/service/auth_service.dart';
+import 'package:manufacturing_tracker/setup/config.dart';
+import 'package:manufacturing_tracker/setup/locator.dart';
+import 'package:manufacturing_tracker/service/auth_service.dart';
 import 'data.dart' as data;
 
 // before running any test uncomment line 25 and comment lines 27-28 of web3_service.dart

@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            'Supply Chain Tracker',
+                            'Manufacturing Tracker',
                             style: TextStyle(
                                 color: color7,
                                 fontWeight: FontWeight.bold,
@@ -60,8 +60,8 @@ class HomeView extends StatelessWidget {
                           ),
                           Image(
                             image: const AssetImage('assets/images/logo.png'),
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            height: MediaQuery.of(context).size.width * 0.15,
+                            width: MediaQuery.of(context).size.width * 0.12,
+                            height: MediaQuery.of(context).size.width * 0.12,
                           )
                         ],
                       ),

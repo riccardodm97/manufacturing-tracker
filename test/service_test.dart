@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:test/test.dart';
 
-import 'package:supply_chain_tracker/setup/locator.dart';
-import 'package:supply_chain_tracker/service/product_service.dart';
-import 'package:supply_chain_tracker/service/auth_service.dart';
-import 'package:supply_chain_tracker/service/web3_service.dart';
+import 'package:manufacturing_tracker/setup/locator.dart';
+import 'package:manufacturing_tracker/service/product_service.dart';
+import 'package:manufacturing_tracker/service/auth_service.dart';
+import 'package:manufacturing_tracker/service/web3_service.dart';
 import 'package:web3dart/web3dart.dart';
 import 'data.dart' as data;
 
