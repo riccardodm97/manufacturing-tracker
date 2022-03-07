@@ -33,8 +33,13 @@ Each tracked item (smart contract) , has an id (eth address) associated to it wh
     - Install the flutter extension for VsCode (or the IDE of your choice)
 - Set up the project 
     - run `flutter pub get` 
-    - 
-    - set the Http JSON-RPC API endpoint URL in the [config.dart file]("lib/setup/config.dart")
+    - set the desired Http JSON-RPC API endpoint URL in the [config.dart file](lib/setup/config.dart)
+    - generate a new firebase_options.dart file [like this](lib/setup/firebase_options.dart) 
+      <br> to do so run `flutterfire configure -o "lib/setup/firebase_options.dart"` 
+      <br> or follow this guide https://firebase.flutter.dev/docs/overview/
+    - open Ganache , create a testnet and run it locally on port `7545`
+    - enter the [smartcontracts folder](smartcontract) on the terminal and run `truffle migrate` 
 
 ## Run the application
-
+- connect a device or open the emulator in android studio / Xcode
+- start the flutter app : `flutter run`
