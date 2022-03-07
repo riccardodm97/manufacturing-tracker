@@ -1,11 +1,12 @@
-# Manufacturing Tracker 
+<h1 align="center">Manufacturing Tracker </h1>
 <p align="center">
 
-<img src="https://img.shields.io/badge/-Flutter-blue" />
-<img src="" />
-<img src="" />
-<img src="" />
-<img src="" />
+<img src="https://img.shields.io/badge/-flutter-blue" />
+<img src="https://img.shields.io/badge/web3dart-2.3.5-green" />
+<img src="https://img.shields.io/badge/solidity-0.8.11-red" />
+<img src="https://img.shields.io/badge/-firebase-yellow" />
+<img src="https://img.shields.io/badge/-truffle-yellowgreen" />
+
 
 <br/>
 
@@ -55,3 +56,7 @@ Each tracked item (smart contract) has an id (eth address) associated to it whic
 ## Run the application
 - connect a device or open the emulator in Android Studio / Xcode
 - start the flutter app : `flutter run`
+
+## Authors 
+- [Riccardo de Matteo](https://github.com/riccardodm97) 
+- [Giacomo Berselli](https://github.com/JackBerselli)
