@@ -41,5 +41,5 @@ Each tracked item (smart contract) has an id (eth address) associated to it whic
     - enter the [smartcontracts folder](smartcontract) on the terminal and run `truffle migrate` 
 
 ## Run the application
-- connect a device or open the emulator in android studio / Xcode
+- connect a device or open the emulator in Android Studio / Xcode
 - start the flutter app : `flutter run`
