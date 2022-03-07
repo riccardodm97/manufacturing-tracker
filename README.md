@@ -30,6 +30,9 @@ Each tracked item (smart contract) has an id (eth address) associated to it whic
   - [Web3dart](https://github.com/xclud/web3dart) to connect and interact with the Ethereum blockchain. 
  
 ## Demo 
+<p align="center">
+<img src="res/demo.gif" alt="" data-canonical-src="res/presentation.gif" width="25%" height="25%" />
+</p>
 
 ## Set up the development environment 
 - Necessary programs and plugins 
