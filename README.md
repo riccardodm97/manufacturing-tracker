@@ -30,7 +30,11 @@ Each tracked item (smart contract) , has an id (eth address) associated to it wh
     - Install Truffle: `npm install -g truffle`
     - Download Ganache from: https://www.trufflesuite.com/ganache
     - Install FlutterFire CLI following this guide: https://firebase.flutter.dev/docs/cli
+    - Install the flutter extension for VsCode (or the IDE of your choice)
 - Set up the project 
+    - run `flutter pub get` 
+    - 
+    - set the Http JSON-RPC API endpoint URL in the [config.dart file]("lib/setup/config.dart")
 
 ## Run the application
 
