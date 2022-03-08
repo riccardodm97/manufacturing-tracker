@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
 
   static Future<MyApp> init() async {
     await serviceLocator<AuthService>().tryLoadUserData();
-
     await serviceLocator<ProductService>().setProductFactory();
 
     return const MyApp();
