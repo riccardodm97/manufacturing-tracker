@@ -23,12 +23,13 @@ Each tracked item (smart contract) has an id (eth address) associated to it, whi
 
 ## Technology stack 
 - Backend
-  - Solidity for writing smart contracts.
-  - Truffle for deploying contracts to the blockchain .
-  - Ganache as testnet. 
+  - [Solidity](https://docs.soliditylang.org/en/v0.8.15) for writing smart contracts.
+  - [Truffle](https://trufflesuite.com) for deploying contracts to the blockchain .
+  - [Ganache](https://trufflesuite.com/ganache) as testnet. 
+  - [Web3dart](https://github.com/xclud/web3dart) to connect and interact with the Ethereum blockchain.
 - Frontend
   - [Flutter](https://github.com/flutter/flutter) for UI components.
-  - [Web3dart](https://github.com/xclud/web3dart) to connect and interact with the Ethereum blockchain. 
+   
  
 ## Demo 
 <p align="center">
